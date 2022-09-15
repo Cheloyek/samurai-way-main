@@ -1,20 +1,21 @@
 import React from "react";
 import s from './MyPosts.module.css'
-import Post from "./Post/Posts";
+import Post from "./Post/Post";
 
-const MyPosts = () => {
+const MyPosts = (props: any) => {
     return (
         <div>
-        <textarea></textarea>
-        <button>Add post</button>
-        <button>Remove</button>
-        <div>
-            New post
+            <textarea></textarea>
+            <button>Add post</button>
+            <button>Remove</button>
+            <div>
+                New post
+            </div>
+            <div className={s.posts}>
+                <Post message='abc' likesCount='0'/>
+                <Post message='defg' likesCount='26'/>
+            </div>
         </div>
-        <Post/>
-        <Post/>
-        <Post/>
-    </div>
     )
 }
 
