@@ -9,3 +9,9 @@
   grid-template-rows: 60px 1fr; /*settings rows*/
   grid-template-columns: 2fr 10fr/*settings columns*/
 }
+
+.app-wrapper-content {
+  grid-area: c;
+  background-color: #FFA200;
+  color: blue;
+}
