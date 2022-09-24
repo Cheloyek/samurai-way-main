@@ -6,8 +6,8 @@ const MyPosts = (props: any) => {
     return (
         <div>
             <textarea></textarea>
-            <button>Add post</button>
-            <button>Remove</button>
+            <button className={s.button}>Add post</button>
+            <button className={s.button}>Remove</button>
             <div>
                 New post
             </div>

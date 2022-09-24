@@ -1,13 +1,19 @@
 .nav {
     grid-area: n;
-    background-color: #006957;
-    color: white;
+    background-color: #27a9e0;
+    padding: 20px;
+    font-family: 'Lato', sans-serif;
+    line-height: 20px;
+    color: #6d6e71;
+    font-size: 15px;
 }
 
-.item {
+.item a {
     color: white;
+    text-decoration: none;
 }
 
-.item.active {
-    color: pink;
+.item a.activeLink {
+    color: #0ff1fe;
+    font-size: large;
 }

@@ -1,1 +1,37 @@
+/*2 columns - dialogs and messages*/
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
 
+.dialogsItems {
+    padding: 10px;
+    font-family: 'Lato', sans-serif;
+    line-height: 26px;
+    color: #6d6e71;
+    font-size: 13px;
+}
+
+.dialogsItems .active {
+    color: #44a5cf;
+
+}
+
+
+.messages {
+    padding: 10px;
+    display: inline-block;
+    font-family: "Ionicons";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+.messages .message {
+
+}
