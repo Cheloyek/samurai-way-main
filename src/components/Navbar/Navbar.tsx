@@ -2,6 +2,7 @@ import React from "react";
 import s from './Navbar.module.css'
 
 //check className in browser
+//добавили ссылки на страницы при нажатии на кнопку
 const Navbar = () => {
     return <nav className={s.nav}>
         <div className={s.nav}>
