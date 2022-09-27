@@ -17,7 +17,7 @@ export let messages = [
     {id: 2, message: 'Ho'},
     {id: 3, message: 'Yo'},
 ]
-
+let a;
 ReactDOM.render(
     <App />,
   document.getElementById('root')
