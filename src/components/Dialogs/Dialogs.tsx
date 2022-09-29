@@ -21,7 +21,7 @@ const Dialogs = (props: any) => {
     //     {id: 3, message: 'Yo'},
     // ]
 
-    let dialogsElements = props.dialogs.map((d: { name: any; id: any; }) => <DialogItem name={d.name} id={d.id}/>)
+    let dialogsElements = props.state.dialogs.map((d: { name: any; id: any; }) => <DialogItem name={d.name} id={d.id}/>)
         // [
         // <DialogItem name={dialogs[0].name} id={dialogs[0].id}/>,
         //     <DialogItem name={dialogs[1].name} id={dialogs[1].id}/>,
@@ -32,7 +32,7 @@ const Dialogs = (props: any) => {
         // ]
         // создает массив
 
-    let messagesElements = props.messages.map((m: { message: any; }) => <Message message={m.message}/>)
+    let messagesElements = props.state.messages.map((m: { message: any; }) => <Message message={m.message}/>)
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>

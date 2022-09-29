@@ -9,7 +9,7 @@ import News from "./components/News/News"; //react-router-dom -save (добав�
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 
-function App(props: { posts: any; dialogs:any; messages: any}) {
+function App(props: { state: { dialogsPage: any; profilePage: any; }; }) {
     //вынесли в index
     // let posts = [
     //     {id: 1, message: 'abc', likesCount: '0'},
@@ -23,9 +23,9 @@ function App(props: { posts: any; dialogs:any; messages: any}) {
               <Navbar/>
               <div className='app-wrapper-content'>
                   {/*<Route path='/dialogs' component={Dialogs}/>*/}
-                  <Route path='/dialogs' render={() => <Dialogs dialogs={props.dialogs} messages={props.messages}/>} />
+                  <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}/>} />
                   {/*<Route path='/profile' component={Profile}/>*/}
-                  <Route path='/profile' render={() => <Profile posts={props.posts}/>}/>
+                  <Route path='/profile' render={() => <Profile state={props.state.profilePage}/>}/>
                   {/*<Route path='/news' component={News}/>*/}
                   <Route path='/news' render={() => <News/>}/>
                   {/*<Route path='/music' component={Music}/>*/}
