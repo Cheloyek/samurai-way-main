@@ -18,6 +18,7 @@ function App(props: { state: { dialogsPage: any; profilePage: any; }; }) {
     //<Profile posts={posts}/>}/> - передали через props в Profile
   return (
       <BrowserRouter>
+
           <div className='app-wrapper'>
               <Header/>
               <Navbar/>
