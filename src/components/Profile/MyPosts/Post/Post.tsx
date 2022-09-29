@@ -2,7 +2,11 @@ import React from "react";
 import s from './Post.module.css'
 
 const Post = (props: any) => {
-
+    //вынесли в profile, из profile вынесли в app
+    // let posts = [
+    //     {id: 1, message: 'abc', likesCount: '0'},
+    //     {id: 2, message: 'defg', likesCount: '26'},
+    // ]
 
     return (
         <div className={s.item}>

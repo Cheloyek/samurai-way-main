@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-export let dialogs = [
+let dialogs = [
     {id: 1, name: 'Dimych'},
     {id: 2, name: 'User 2'},
     {id: 3, name: 'User 3'},
@@ -12,13 +12,18 @@ export let dialogs = [
     {id: 6, name: 'User 6'},
 ]
 
-export let messages = [
+let messages = [
     {id: 1, message: 'Hi'},
     {id: 2, message: 'Ho'},
     {id: 3, message: 'Yo'},
 ]
-let a;
+// передаются в <App posts={posts}/> -> app -> Profile -> MyPosts
+let posts = [
+    {id: 1, message: 'abc', likesCount: '0'},
+    {id: 2, message: 'defg', likesCount: '26'},
+]
+
 ReactDOM.render(
-    <App />,
+    <App posts={posts} messages={messages} dialogs={dialogs}/>,
   document.getElementById('root')
 );

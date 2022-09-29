@@ -2,8 +2,6 @@ import React from "react";
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {dialogs} from "../../index"
-import {messages} from "../../index"
 
 const Dialogs = (props: any) => {
 
@@ -23,7 +21,7 @@ const Dialogs = (props: any) => {
     //     {id: 3, message: 'Yo'},
     // ]
 
-    let dialogsElements = dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
+    let dialogsElements = props.dialogs.map((d: { name: any; id: any; }) => <DialogItem name={d.name} id={d.id}/>)
         // [
         // <DialogItem name={dialogs[0].name} id={dialogs[0].id}/>,
         //     <DialogItem name={dialogs[1].name} id={dialogs[1].id}/>,
@@ -34,7 +32,7 @@ const Dialogs = (props: any) => {
         // ]
         // создает массив
 
-    let messagesElements = messages.map(m => <Message message={m.message}/>)
+    let messagesElements = props.messages.map((m: { message: any; }) => <Message message={m.message}/>)
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>

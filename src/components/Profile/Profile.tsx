@@ -3,11 +3,16 @@ import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-const Profile = () => {
+const Profile = (props: { posts: any; }) => {
+    //вынесли в app, получили из app через props, передали через props.posts в MyPosts
+// let posts = [
+//     {id: 1, message: 'abc', likesCount: '0'},
+//     {id: 2, message: 'defg', likesCount: '26'},
+// ]
     return (
         <div>
                 <ProfileInfo/>
-                <MyPosts/>
+                <MyPosts posts={props.posts}/>
         </div>
     )
 }

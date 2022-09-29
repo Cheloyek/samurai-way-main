@@ -2,14 +2,9 @@ import React from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 
-let posts = [
-    {id: 1, message: 'abc', likesCount: '0'},
-    {id: 2, message: 'defg', likesCount: '26'},
-]
-
-let postsElements = posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
-
-const MyPosts = (props: any) => {
+// props из app -> profile передается в MyPosts
+const MyPosts = (props:any) => {
+    let postsElements = props.posts.map((p: { message: string; likesCount: any; }) => <Post message={p.message} likesCount={p.likesCount}/>)
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
