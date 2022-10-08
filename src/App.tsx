@@ -8,8 +8,9 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
+import {addPost} from "./redux/state";
 
-function App(props: { state: { dialogsPage: any; profilePage: any; }; }) {
+function App(props: any) {
     //вынесли в index
     // let posts = [
     //     {id: 1, message: 'abc', likesCount: '0'},
@@ -26,7 +27,10 @@ function App(props: { state: { dialogsPage: any; profilePage: any; }; }) {
                   {/*<Route path='/dialogs' component={Dialogs}/>*/}
                   <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}/>} />
                   {/*<Route path='/profile' component={Profile}/>*/}
-                  <Route path='/profile' render={() => <Profile state={props.state.profilePage}/>}/>
+                  <Route path='/profile'
+                         render={() => <Profile
+                             state={props.state.profilePage}
+                             addPost={props.addPost} />}/>
                   {/*<Route path='/news' component={News}/>*/}
                   <Route path='/news' render={() => <News/>}/>
                   {/*<Route path='/music' component={Music}/>*/}

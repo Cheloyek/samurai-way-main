@@ -3,7 +3,7 @@ import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-const Profile = (props: {state:{ posts: any; }}) => {
+const Profile = (props: any) => {
     //вынесли в app, получили из app через props, передали через props.posts в MyPosts
 // let posts = [
 //     {id: 1, message: 'abc', likesCount: '0'},
@@ -12,7 +12,7 @@ const Profile = (props: {state:{ posts: any; }}) => {
     return (
         <div>
                 <ProfileInfo/>
-                <MyPosts posts={props.state.posts}/>
+                <MyPosts posts={props.state.posts} addPost={props.addPost}/>
         </div>
     )
 }

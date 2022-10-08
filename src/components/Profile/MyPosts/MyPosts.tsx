@@ -6,9 +6,14 @@ import Post from "./Post/Post";
 const MyPosts = (props:any) => {
     let postsElements = props.posts.map((p: { message: string; likesCount: any; }) => <Post message={p.message} likesCount={p.likesCount}/>)
 
-    //callback функция при нажатии на кнопку Add post
+    //React.createRef() - создается ссылка на элемент textarea
+    let newPostElement: any = React.createRef()
+
+    //callback функция при нажатии на кнопку Add post, обращается к newPostElement считывает current.value
     const addPost = () => {
-        alert('g')
+        debugger
+        let text = newPostElement.current.value
+        props.addPost(text)
     }
 
     return (
@@ -16,7 +21,7 @@ const MyPosts = (props:any) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
                     <button className={s.button} onClick={addPost}>Add post</button>

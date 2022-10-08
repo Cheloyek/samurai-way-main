@@ -1,5 +1,6 @@
 import * as url from "url";
 import React from "react";
+import {rerenderEntireTree} from "../render";
 
 let state = {
     profilePage: {
@@ -30,6 +31,26 @@ let state = {
             {id:3, nameFriend: 'friend3'},
         ]
     }
+}
+
+type PostMessageType = {
+    id: number,
+    message: string,
+    likesCount: string
+}
+
+export let addPost = (postMessage: any) => {
+    debugger
+    let newPost = {
+        id: 5,
+        message: postMessage,
+        likesCount: '0'
+    }
+    //добавляет в state новый post
+    state.profilePage.posts.push(newPost)
+
+    //функция перерисовывает страницу при добавлении newPost
+    rerenderEntireTree()
 }
 
 export default state

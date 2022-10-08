@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import state from './redux/state'
+import state, {addPost} from './redux/state'
+import {rerenderEntireTree} from "./render";
 
 //переместили в state
 // let dialogs = [
@@ -24,7 +25,10 @@ import state from './redux/state'
 //     {id: 2, message: 'defg', likesCount: '26'},
 // ]
 
-ReactDOM.render(
-    <App state={state}/>,
-  document.getElementById('root')
-);
+
+// ReactDOM.render(
+//     <App state={state} addPost={addPost}/>,
+//   document.getElementById('root')
+// );
+
+rerenderEntireTree()

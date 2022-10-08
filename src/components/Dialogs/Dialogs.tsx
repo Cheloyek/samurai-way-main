@@ -5,6 +5,15 @@ import Message from "./Message/Message";
 
 const Dialogs = (props: any) => {
 
+    //создание ссылки на элемент textarea
+    let newMessageElement: any = React.createRef()
+
+    //функция при нажатии на кнопку send message
+    const addMessage = () => {
+        let text = newMessageElement.current.value
+        alert(text)
+    }
+
     // вынесли в index
     // let dialogs = [
     //     {id: 1, name: 'Dimych'},
@@ -40,11 +49,18 @@ const Dialogs = (props: any) => {
 
             </div>
             <div className={s.messages}>
+
                 {/*<Message message={messages[0].message}/>*/}
                 {/*<Message message={messages[1].message}/>*/}
                 {/*<Message message={messages[2].message}/>*/}
+
                 {messagesElements}
+                <textarea ref={newMessageElement}></textarea>
+                <div>
+                    <button onClick={addMessage}>Send message</button>
+                </div>
             </div>
+
         </div>
     )
 }
