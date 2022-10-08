@@ -5,6 +5,12 @@ import Post from "./Post/Post";
 // props из app -> profile передается в MyPosts
 const MyPosts = (props:any) => {
     let postsElements = props.posts.map((p: { message: string; likesCount: any; }) => <Post message={p.message} likesCount={p.likesCount}/>)
+
+    //callback функция при нажатии на кнопку Add post
+    const addPost = () => {
+        alert('g')
+    }
+
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
@@ -13,7 +19,7 @@ const MyPosts = (props:any) => {
                     <textarea></textarea>
                 </div>
                 <div>
-                    <button className={s.button} onClick={() => {alert('g')}}>Add post</button>
+                    <button className={s.button} onClick={addPost}>Add post</button>
                 </div>
                 <div>
                     New post
