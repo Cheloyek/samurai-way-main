@@ -31,7 +31,8 @@ function App(props: { state: { dialogsPage: any; profilePage: any; }; }) {
                   <Route path='/news' render={() => <News/>}/>
                   {/*<Route path='/music' component={Music}/>*/}
                   <Route path='/music' render={() => <Music/>}/>
-                  <Route path='/settings' component={Settings}/>
+                  {/*<Route path='/settings' component={Settings}/>*/}
+                  <Route path='/settings' render={() => <Settings/>}/>
                   <Route path='/settings' render={() => <Settings/>}/>
               </div>
           </div>

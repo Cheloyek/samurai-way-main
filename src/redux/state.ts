@@ -1,3 +1,6 @@
+import * as url from "url";
+import React from "react";
+
 let state = {
     profilePage: {
         posts: [
@@ -12,7 +15,7 @@ let state = {
             {id: 3, message: 'Yo'},
         ],
         dialogs: [
-            {id: 1, name: 'Dimych'},
+            {id: 1, name: 'Dimych', url: 'https://media.istockphoto.com/photos/abstract-curved-shapes-picture-id1340367001?b=1&k=20&m=1340367001&s=170667a&w=0&h=rEDszAkp7zRWyHBRPcIwFecc0QlbZNhc0sM62rjAa3U'},
             {id: 2, name: 'User 2'},
             {id: 3, name: 'User 3'},
             {id: 4, name: 'User 4'},
@@ -20,6 +23,13 @@ let state = {
             {id: 6, name: 'User 6'},
         ],
     },
+    sidebar: {
+        fiends: [
+            {id:1, nameFriend: 'friend1'},
+            {id:2, nameFriend: 'friend2'},
+            {id:3, nameFriend: 'friend3'},
+        ]
+    }
 }
 
 export default state
