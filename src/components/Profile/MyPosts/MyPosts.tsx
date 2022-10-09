@@ -11,9 +11,11 @@ const MyPosts = (props:any) => {
 
     //callback функция при нажатии на кнопку Add post, обращается к newPostElement считывает current.value
     const addPost = () => {
-        debugger
         let text = newPostElement.current.value
         props.addPost(text)
+
+        //очищает textarea после добавления post (после нажатия кнопки Add post)
+        newPostElement.current.value = ''
     }
 
     return (

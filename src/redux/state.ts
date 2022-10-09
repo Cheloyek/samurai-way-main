@@ -49,8 +49,8 @@ export let addPost = (postMessage: any) => {
     //добавляет в state новый post
     state.profilePage.posts.push(newPost)
 
-    //функция перерисовывает страницу при добавлении newPost
-    rerenderEntireTree()
+    //функция перерисовывает страницу при добавлении newPost, в функцию передали state для index и render
+    rerenderEntireTree(state)
 }
 
 export default state
