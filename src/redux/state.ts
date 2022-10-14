@@ -2,7 +2,49 @@ import * as url from "url";
 import React from "react";
 import {rerenderEntireTree} from "../render";
 
-let state = {
+type PostType = {
+    id: number
+    message: string
+    likesCount: string
+}
+
+type ProfilePageType = {
+    posts: Array<PostType>
+}
+
+export type MessageType = {
+    id: number
+    message: string
+}
+
+export type DialogsType = {
+    id: number,
+    name: string,
+    url?: string
+}
+
+export type DialogPageType = {
+    messages: Array<MessageType>
+    dialogs: Array<DialogsType>
+}
+
+type FriendType = {
+    id: number
+    nameFriend: string
+}
+
+type SidebarType = {
+    fiends: Array<FriendType>
+}
+
+export type RootStateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogPageType
+    sidebar: SidebarType
+}
+
+
+let state: RootStateType = {
     profilePage: {
         posts: [
             {id: 1, message: 'abc', likesCount: '0'},
@@ -33,15 +75,9 @@ let state = {
     }
 }
 
-type PostMessageType = {
-    id: number,
-    message: string,
-    likesCount: string
-}
-
-export let addPost = (postMessage: any) => {
+export let addPost = (postMessage: string) => {
     debugger
-    let newPost = {
+    const newPost: PostType = {
         id: 5,
         message: postMessage,
         likesCount: '0'

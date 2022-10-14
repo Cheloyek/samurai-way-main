@@ -2,15 +2,21 @@ import React from "react";
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
+import {DialogPageType} from "../../redux/state";
 
-const Dialogs = (props: any) => {
+type DialogsPropsType = {
+    state: DialogPageType
+}
 
-    //создание ссылки на элемент textarea
-    let newMessageElement: any = React.createRef()
+const Dialogs = (props: DialogsPropsType) => {
 
+    //Ref - ссылка на любой элемент, в данном случае создание ссылки на элемент textarea
+    let newMessageElement = React.createRef<HTMLTextAreaElement>()
     //функция при нажатии на кнопку send message
     const addMessage = () => {
-        let text = newMessageElement.current.value
+        // если ссылки еще нет, то она ссылается ни на что, current? - если ссылка null,
+        // то зафиксирует null или undefined и не будет пытаться искать значение value
+        let text = newMessageElement.current?.value
         alert(text)
     }
 
@@ -30,7 +36,7 @@ const Dialogs = (props: any) => {
     //     {id: 3, message: 'Yo'},
     // ]
 
-    let dialogsElements = props.state.dialogs.map((d: { name: any; id: any; }) => <DialogItem name={d.name} id={d.id}/>)
+    let dialogsElements = props.state.dialogs.map((d) => <DialogItem name={d.name} id={d.id}/>)
         // [
         // <DialogItem name={dialogs[0].name} id={dialogs[0].id}/>,
         //     <DialogItem name={dialogs[1].name} id={dialogs[1].id}/>,
@@ -41,7 +47,7 @@ const Dialogs = (props: any) => {
         // ]
         // создает массив
 
-    let messagesElements = props.state.messages.map((m: { message: any; }) => <Message message={m.message}/>)
+    let messagesElements = props.state.messages.map((m) => <Message message={m.message}/>)
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>

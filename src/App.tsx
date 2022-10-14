@@ -8,9 +8,17 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {addPost} from "./redux/state";
+import state, {addPost, RootStateType} from "./redux/state";
 
-function App(props: any) {
+
+type ProfilePropsType = {
+    state: RootStateType
+    addPost: (message: string) => void
+}
+
+// props: any
+
+function App(props: ProfilePropsType) {
     //вынесли в index
     // let posts = [
     //     {id: 1, message: 'abc', likesCount: '0'},
