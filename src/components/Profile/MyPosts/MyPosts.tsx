@@ -20,7 +20,6 @@ const MyPosts = (props:any) => {
         // state.newPostText
 
         props.addPost()
-
         //очищает textarea после добавления post (после нажатия кнопки Add post)
         // newPostElement.current.value = ''
     }

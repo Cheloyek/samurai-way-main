@@ -28,6 +28,7 @@ export type DialogsType = {
 export type DialogPageType = {
     messages: Array<MessageType>
     dialogs: Array<DialogsType>
+    newMessageText: string
 }
 
 type FriendType = {
@@ -68,6 +69,7 @@ let state: RootStateType = {
             {id: 5, name: 'User 5'},
             {id: 6, name: 'User 6'},
         ],
+        newMessageText: 'New Message'
     },
     sidebar: {
         fiends: [
@@ -91,10 +93,25 @@ export let addPost = () => {
 
 }
 
+export let addMessage = () => {
+    const newMessage: MessageType = {
+        id: 4,
+        message: state.dialogsPage.newMessageText,
+    }
+    state.dialogsPage.messages.push(newMessage)   // добавляет newMessage в messages
+    state.dialogsPage.newMessageText = ''         // очищает input по нажатию send message
+    rerenderEntireTree(state)                     // перерисовывает дерево
+}
+
 // updateNewPostText - перерисовка при добавлении текста в textarea (без нажатия кнопки)
 export let updateNewPostText = (newText: any) => {
-    state.profilePage.newPostText = newText          // добавляет newText который ввели в textarea
-    rerenderEntireTree(state)                        // перерисовывает дерево
+    state.profilePage.newPostText = newText        // добавляет newText который ввели в textarea
+    rerenderEntireTree(state)                      // перерисовывает дерево
+}
+
+export let updateNewMessageText = (newMessage: any) => {
+    state.dialogsPage.newMessageText = newMessage  // добавляет newMessage который ввели в textarea
+    rerenderEntireTree(state)                      // перерисовывает дерево
 }
 
 export default state

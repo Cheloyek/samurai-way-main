@@ -15,6 +15,8 @@ type ProfilePropsType = {
     state: RootStateType
     addPost: (postMessage: string) => void
     updateNewPostText: (newText: any) => void
+    updateNewMessageText: (newMessage: string) => void
+    addMessage: (newMessageText: string) => void
 }
 
 // props: any
@@ -34,7 +36,11 @@ function App(props: ProfilePropsType) {
               <Navbar/>
               <div className='app-wrapper-content'>
                   {/*<Route path='/dialogs' component={Dialogs}/>*/}
-                  <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}/>} />
+                  <Route path='/dialogs' render={() => <Dialogs
+                      state={props.state.dialogsPage}
+                      updateNewMessageText={props.updateNewMessageText}
+                      addMessage={props.addMessage}/>}
+                  />
                   {/*<Route path='/profile' component={Profile}/>*/}
                   <Route path='/profile'
                          render={() => <Profile

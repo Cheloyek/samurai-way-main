@@ -5,7 +5,14 @@ import App from "./App";
 //убрали из-за цикличности между render и state, state передан через props
 //import state from "./redux/state";
 
-import state, {addPost, PostType, RootStateType, updateNewPostText} from "./redux/state";
+import state, {
+    addMessage,
+    addPost,
+    PostType,
+    RootStateType,
+    updateNewMessageText,
+    updateNewPostText
+} from "./redux/state";
 
 // type renderPropsType = {
 //     state: RootStateType
@@ -20,7 +27,10 @@ export const rerenderEntireTree = (state: RootStateType) => {
         <App state={state}
              addPost={addPost}
              updateNewPostText={updateNewPostText}
+             updateNewMessageText={updateNewMessageText}
+             addMessage={addMessage}
         />,
         document.getElementById('root')
     );
 }
+//перенесли в index
