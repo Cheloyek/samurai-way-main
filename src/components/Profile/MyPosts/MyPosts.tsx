@@ -16,17 +16,20 @@ const MyPosts = (props:any) => {
 
     //callback функция при нажатии на кнопку Add post, обращается к newPostElement считывает current.value
     const addPost = () => {
-        let text = newPostElement.current.value
-        props.addPost(text)
+        // let text = newPostElement.current.value - отправляет значение при нажатии, но тк это значение уже есть в
+        // state.newPostText
+
+        props.addPost()
 
         //очищает textarea после добавления post (после нажатия кнопки Add post)
-        newPostElement.current.value = ''
+        // newPostElement.current.value = ''
     }
 
     // срабатывает когда пытаемся изменить textarea
     let onPostChange = () => {
-        let text = newPostElement.current.value
-        console.log(text)
+        let text = newPostElement.current.value     // текст который вводится в textarea
+        // console.log(text)
+        props.updateNewPostText(text)
     }
 
     return (

@@ -11,6 +11,7 @@ export type PostType = {
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
+    // updateNewPostText?: (newText: string) => void
 }
 
 export type MessageType = {
@@ -77,19 +78,23 @@ let state: RootStateType = {
     }
 }
 
-export let addPost = (postMessage: string) => {
-    debugger
+// addPost - перерисовка при добавлении newPost, в функцию передали state для index и render
+export let addPost = () => {
     const newPost: PostType = {
         id: 5,
-        message: postMessage,
+        message: state.profilePage.newPostText,   // добавляет newPost при нажатии add post
         likesCount: '0'
     }
-    //добавляет в state новый post
-    state.profilePage.posts.push(newPost)
+    state.profilePage.posts.push(newPost)         // добавляет в state новый post
+    state.profilePage.newPostText = ''            // очищает input по нажатию add post
+    rerenderEntireTree(state)                     // перерисовывает дерево
 
-    //функция перерисовывает страницу при добавлении newPost, в функцию передали state для index и render
-    rerenderEntireTree(state)
+}
 
+// updateNewPostText - перерисовка при добавлении текста в textarea (без нажатия кнопки)
+export let updateNewPostText = (newText: any) => {
+    state.profilePage.newPostText = newText          // добавляет newText который ввели в textarea
+    rerenderEntireTree(state)                        // перерисовывает дерево
 }
 
 export default state

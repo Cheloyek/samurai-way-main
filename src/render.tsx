@@ -5,17 +5,22 @@ import App from "./App";
 //убрали из-за цикличности между render и state, state передан через props
 //import state from "./redux/state";
 
-import state, {addPost, PostType, RootStateType} from "./redux/state";
+import state, {addPost, PostType, RootStateType, updateNewPostText} from "./redux/state";
 
-type renderPropsType = {
-    state: RootStateType
-    addPost: object
-}
+// type renderPropsType = {
+//     state: RootStateType
+//     addPost: object
+//     updateNewPostText: (postMessage: any)=> void
+// }
 
 //функция перерисовывает страницу при изменении. Через props передается state
 export const rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
-        <App state={state} addPost={addPost}/>,      // в app передается state и addPost из state.ts
+        // в app передается state, addPost и updateNewPostText из state.ts
+        <App state={state}
+             addPost={addPost}
+             updateNewPostText={updateNewPostText}
+        />,
         document.getElementById('root')
     );
 }
