@@ -2,14 +2,15 @@ import * as url from "url";
 import React from "react";
 import {rerenderEntireTree} from "../render";
 
-type PostType = {
+export type PostType = {
     id: number
     message: string
     likesCount: string
 }
 
-type ProfilePageType = {
+export type ProfilePageType = {
     posts: Array<PostType>
+    newPostText: string
 }
 
 export type MessageType = {
@@ -50,6 +51,7 @@ let state: RootStateType = {
             {id: 1, message: 'abc', likesCount: '0'},
             {id: 2, message: 'defg', likesCount: '26'},
         ],
+        newPostText: 'sdsd'
     },
     dialogsPage: {
         messages: [
@@ -87,6 +89,7 @@ export let addPost = (postMessage: string) => {
 
     //функция перерисовывает страницу при добавлении newPost, в функцию передали state для index и render
     rerenderEntireTree(state)
+
 }
 
 export default state

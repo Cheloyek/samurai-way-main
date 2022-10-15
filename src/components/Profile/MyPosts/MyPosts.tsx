@@ -1,10 +1,15 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
+import {PostType} from "../../../redux/state";
+
+type MyPostType = {
+
+}
 
 // props из app -> profile передается в MyPosts
 const MyPosts = (props:any) => {
-    let postsElements = props.posts.map((p: { message: string; likesCount: any; }) => <Post message={p.message} likesCount={p.likesCount}/>)
+    let postsElements = props.posts.map((p: PostType) => <Post message={p.message} likesCount={p.likesCount}/>)
 
     //React.createRef() - создается ссылка на элемент textarea
     let newPostElement: any = React.createRef()
@@ -18,12 +23,18 @@ const MyPosts = (props:any) => {
         newPostElement.current.value = ''
     }
 
+    // срабатывает когда пытаемся изменить textarea
+    let onPostChange = () => {
+        let text = newPostElement.current.value
+        console.log(text)
+    }
+
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/> {/*value получает значение newPostText*/}
                 </div>
                 <div>
                     <button className={s.button} onClick={addPost}>Add post</button>

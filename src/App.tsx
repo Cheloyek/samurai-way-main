@@ -8,12 +8,12 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import state, {addPost, RootStateType} from "./redux/state";
+import state, {addPost, PostType, RootStateType} from "./redux/state";
 
 
 type ProfilePropsType = {
     state: RootStateType
-    addPost: (message: string) => void
+    addPost: (postMessage: string)=> void
 }
 
 // props: any
@@ -37,8 +37,9 @@ function App(props: ProfilePropsType) {
                   {/*<Route path='/profile' component={Profile}/>*/}
                   <Route path='/profile'
                          render={() => <Profile
-                             state={props.state.profilePage}
-                             addPost={props.addPost} />}/>
+                             profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
+                             addPost={props.addPost} />}           // передается из state.ts -> render.tsx -> app.tsx -> Profile.tsx
+                  />
                   {/*<Route path='/news' component={News}/>*/}
                   <Route path='/news' render={() => <News/>}/>
                   {/*<Route path='/music' component={Music}/>*/}
