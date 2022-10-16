@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.css';
-import state from "./redux/state";
-import {rerenderEntireTree} from "./render";
+import state, {subscribe} from "./redux/state";
 
 //переместили в state
 // let dialogs = [
@@ -31,32 +30,41 @@ import {rerenderEntireTree} from "./render";
 // );
 
 // возвратили из render
-// import React from "react";
-// import ReactDOM from "react-dom";
-// import App from "./App";
-//
-// //убрали из-за цикличности между render и state, state передан через props
-// //import state from "./redux/state";
-//
-// import state, {addPost, PostType, RootStateType, updateNewPostText} from "./redux/state";
-//
-// // type renderPropsType = {
-// //     state: RootStateType
-// //     addPost: object
-// //     updateNewPostText: (postMessage: any)=> void
-// // }
-//
-// //функция перерисовывает страницу при изменении. Через props передается state
-// export const rerenderEntireTree = (state: RootStateType) => {
-//     ReactDOM.render(
-//         // в app передается state, addPost и updateNewPostText из state.ts
-//         <App state={state}
-//              addPost={addPost}
-//              updateNewPostText={updateNewPostText}
-//         />,
-//         document.getElementById('root')
-//     );
+import ReactDOM from "react-dom";
+import App from "./App";
+
+//убрали из-за цикличности между render и state, state передан через props
+//import state from "./redux/state";
+
+import {
+    addMessage,
+    addPost,
+    PostType,
+    RootStateType,
+    updateNewMessageText,
+    updateNewPostText
+} from "./redux/state";
+
+// type renderPropsType = {
+//     state: RootStateType
+//     addPost: object
+//     updateNewPostText: (postMessage: any)=> void
 // }
-//
+
+//функция перерисовывает страницу при изменении. Через props передается state
+const rerenderEntireTree = (state: RootStateType) => {
+    ReactDOM.render(
+        // в app передается state, addPost и updateNewPostText из state.ts
+        <App state={state}
+             addPost={addPost}
+             updateNewPostText={updateNewPostText}
+             updateNewMessageText={updateNewMessageText}
+             addMessage={addMessage}
+        />,
+        document.getElementById('root')
+    );
+}
+
+subscribe(rerenderEntireTree) // через эту функцию передали в state
 
 rerenderEntireTree(state)

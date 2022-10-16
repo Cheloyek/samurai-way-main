@@ -1,6 +1,8 @@
 import * as url from "url";
 import React from "react";
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {
+    console.log('State changed') // будет заменено на subscribe при срабатывании замыкания
+}
 
 export type PostType = {
     id: number
@@ -81,7 +83,7 @@ let state: RootStateType = {
 }
 
 // addPost - перерисовка при добавлении newPost, в функцию передали state для index и render
-export let addPost = () => {
+export const addPost = () => {
     const newPost: PostType = {
         id: 5,
         message: state.profilePage.newPostText,   // добавляет newPost при нажатии add post
@@ -93,7 +95,7 @@ export let addPost = () => {
 
 }
 
-export let addMessage = () => {
+export const addMessage = () => {
     const newMessage: MessageType = {
         id: 4,
         message: state.dialogsPage.newMessageText,
@@ -104,14 +106,20 @@ export let addMessage = () => {
 }
 
 // updateNewPostText - перерисовка при добавлении текста в textarea (без нажатия кнопки)
-export let updateNewPostText = (newText: any) => {
+export const updateNewPostText = (newText: any) => {
     state.profilePage.newPostText = newText        // добавляет newText который ввели в textarea
     rerenderEntireTree(state)                      // перерисовывает дерево
 }
 
-export let updateNewMessageText = (newMessage: any) => {
+export const updateNewMessageText = (newMessage: any) => {
     state.dialogsPage.newMessageText = newMessage  // добавляет newMessage который ввели в textarea
     rerenderEntireTree(state)                      // перерисовывает дерево
 }
+
+export const subscribe = (observer) => {
+    rerenderEntireTree = observer  // паттерн будет искать объявление rerenderEntireTree, не найдет, выйдет наружу и обнаружит
+        // let rerenderEntireTree - которой присвоит значение observer
+}
+
 
 export default state
