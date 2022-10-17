@@ -1,5 +1,3 @@
-import * as url from "url";
-import React from "react";
 let rerenderEntireTree = () => {
     console.log('State changed') // будет заменено на subscribe при срабатывании замыкания
 }
@@ -116,7 +114,7 @@ export const updateNewMessageText = (newMessage: any) => {
     rerenderEntireTree(state)                      // перерисовывает дерево
 }
 
-export const subscribe = (observer) => {
+export const subscribe = (observer: () => void) => {
     rerenderEntireTree = observer  // паттерн будет искать объявление rerenderEntireTree, не найдет, выйдет наружу и обнаружит
         // let rerenderEntireTree - которой присвоит значение observer
 }
