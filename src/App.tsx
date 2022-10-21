@@ -8,7 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import state, {addPost, PostType, RootStateType, updateNewPostText} from "./redux/state";
+import state, {PostType, RootStateType} from "./redux/state";
 
 
 type ProfilePropsType = {

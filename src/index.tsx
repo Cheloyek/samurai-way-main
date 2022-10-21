@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import state, {subscribe} from "./redux/state";
+import store from "./redux/state";
 
 //переместили в state
 // let dialogs = [
@@ -37,12 +37,8 @@ import App from "./App";
 //import state from "./redux/state";
 
 import {
-    addMessage,
-    addPost,
     PostType,
     RootStateType,
-    updateNewMessageText,
-    updateNewPostText
 } from "./redux/state";
 
 // type renderPropsType = {
@@ -52,19 +48,20 @@ import {
 // }
 
 //функция перерисовывает страницу при изменении. Через props передается state
-const rerenderEntireTree = (state: RootStateType) => {
+// const rerenderEntireTree = (state: RootStateType) => {
+const rerenderEntireTree = (state: any) => {
     ReactDOM.render(
         // в app передается state, addPost и updateNewPostText из state.ts
-        <App state={state}
-             addPost={addPost}
-             updateNewPostText={updateNewPostText}
-             updateNewMessageText={updateNewMessageText}
-             addMessage={addMessage}
+        <App state={store.getState()}
+             addPost={store.addPost.bind(store)}
+             updateNewPostText={store.updateNewPostText.bind(store)}
+             updateNewMessageText={store.updateNewMessageText.bind(store)}
+             addMessage={store.addMessage.bind(store)}
         />,
         document.getElementById('root')
     );
 }
 
-subscribe(rerenderEntireTree) // через эту функцию передали в state
+store.subscribe(rerenderEntireTree) // через эту функцию передали в state
 
-rerenderEntireTree(state)
+rerenderEntireTree(store.getState())
