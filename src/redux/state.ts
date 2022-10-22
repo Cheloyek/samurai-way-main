@@ -2,6 +2,9 @@
 // let rerenderEntireTree = () => {
 //     console.log('State changed') // будет заменено на subscribe при срабатывании замыкания
 // }
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
 
 export type PostType = {
     id: number
@@ -123,7 +126,7 @@ let store: StoreType = {
     updateNewMessageText (newMessage) {
         this._state.dialogsPage.newMessageText = newMessage  // добавляет newMessage который ввели в textarea
         this._callSubscriber(this._state)                      // перерисовывает дерево
-    },
+    },//////////////////////1
     addMessage () {
         const newMessage: MessageType = {
             id: 4,
@@ -132,8 +135,8 @@ let store: StoreType = {
         this._state.dialogsPage.messages.push(newMessage)   // добавляет newMessage в messages
         this._state.dialogsPage.newMessageText = ''         // очищает input по нажатию send message
         this._callSubscriber(this._state)                     // перерисовывает дерево
-    },
-    dispatch (action: any) {
+    },///////////////////////2
+    dispatch (action: any) { //action - объект, у которого обязательно есть свойство type
         if (action.type === 'ADD-POST') {
             const newPost = {
                 id: 5,
@@ -149,6 +152,10 @@ let store: StoreType = {
         }
     }
 }
+
+export const addPostActionCreator = () => ({type: ADD_POST})
+
+export const updateNewPostTextActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
 
 // переместили в store
 // let state: RootStateType = {

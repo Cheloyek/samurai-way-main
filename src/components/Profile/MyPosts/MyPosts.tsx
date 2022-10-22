@@ -1,11 +1,8 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {PostType} from "../../../redux/state";
+import {addPostActionCreator, PostType, updateNewPostTextActionCreator} from "../../../redux/state";
 
-type MyPostType = {
-
-}
 
 // props из app -> profile передается в MyPosts
 const MyPosts = (props:any) => {
@@ -19,7 +16,7 @@ const MyPosts = (props:any) => {
         // let text = newPostElement.current.value - отправляет значение при нажатии, но тк это значение уже есть в
         // state.newPostText
 
-        props.dispatch({type: 'ADD-POST'})
+        props.dispatch(addPostActionCreator())
 
         //props.addPost() - заменили на dispatch
         //очищает textarea после добавления post (после нажатия кнопки Add post)
@@ -31,7 +28,7 @@ const MyPosts = (props:any) => {
         let text = newPostElement.current.value     // текст который вводится в textarea
         // console.log(text)
         //props.updateNewPostText(text)
-        let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text}
+        let action = (updateNewPostTextActionCreator(text))
         props.dispatch(action)
     }
 
