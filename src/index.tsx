@@ -53,15 +53,15 @@ const rerenderEntireTree = (state: any) => {
     ReactDOM.render(
         // в app передается state, addPost и updateNewPostText из state.ts
         <App state={store.getState()}
-             addPost={store.addPost.bind(store)}
-             updateNewPostText={store.updateNewPostText.bind(store)}
+             dispatch={store.dispatch.bind(store)}//*{store.addPost.bind(store)}
+             //updateNewPostText={store.updateNewPostText.bind(store)} - заменили на dispatch
              updateNewMessageText={store.updateNewMessageText.bind(store)}
              addMessage={store.addMessage.bind(store)}
         />,
         document.getElementById('root')
     );
 }
-
-store.subscribe(rerenderEntireTree) // через эту функцию передали в state
-
 rerenderEntireTree(store.getState())
+
+//store.subscribe(rerenderEntireTree) // через эту функцию передали в state
+store.subscribe(rerenderEntireTree) // через эту функцию передали в state

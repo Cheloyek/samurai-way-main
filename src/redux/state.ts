@@ -47,18 +47,20 @@ export type RootStateType = {
     sidebar: SidebarType
 }
 
-type storeType = {
+export type StoreType = {
     _state: RootStateType
-    getState: any
-    _callSubscriber: any // ?
-    addPost: any
-    updateNewPostText: any
-    subscribe: any
-    updateNewMessageText: any
-    addMessage: any
+    getState: () => RootStateType
+    _callSubscriber: (_state: RootStateType) => void // ничего не принимает ничего не возвращает
+    // addPost: () => void
+    // updateNewPostText: (newText: string) => void
+    // subscribe: (observer: () => void) => void
+    subscribe: (observer: (state: any) => void) => void
+    updateNewMessageText: (newMessage: string) => void
+    addMessage: () => void
+    dispatch: any
 }
 
-let store: storeType = {
+let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -91,31 +93,34 @@ let store: storeType = {
             ]
         }
     },
-    getState () {
-        return this._state
-    },
     _callSubscriber () {
         console.log('State changed') // будет заменено на subscribe при срабатывании замыкания
     },
-    addPost () {
-        const newPost: PostType = {
-            id: 5,
-            message: this._state.profilePage.newPostText,   // добавляет newPost при нажатии add post
-            likesCount: '0'
-        }
-        this._state.profilePage.posts.push(newPost)         // добавляет в state новый post
-        this._state.profilePage.newPostText = ''            // очищает input по нажатию add post
-        this._callSubscriber(this._state)                     // перерисовывает дерево
+
+    getState () {
+        return this._state
     },
-    updateNewPostText (newText: any) {
-        this._state.profilePage.newPostText = newText        // добавляет newText который ввели в textarea
-        this._callSubscriber(this._state)                      // перерисовывает дерево
-    },
-    subscribe (observer: () => void) {
+    subscribe (observer) {
         this._callSubscriber = observer  // паттерн будет искать объявление rerenderEntireTree, не найдет, выйдет наружу и обнаружит
         // let rerenderEntireTree - которой присвоит значение observer
     },
-    updateNewMessageText (newMessage: any) {
+
+    // переместили в dispatch
+    // addPost () {
+    //     const newPost = {
+    //         id: 5,
+    //         message: this._state.profilePage.newPostText,   // добавляет newPost при нажатии add post
+    //         likesCount: '0'
+    //     }
+    //     this._state.profilePage.posts.push(newPost)         // добавляет в state новый post
+    //     this._state.profilePage.newPostText = ''            // очищает input по нажатию add post
+    //     this._callSubscriber(this._state)                     // перерисовывает дерево
+    // },
+    // updateNewPostText (newText) {
+    //     this._state.profilePage.newPostText = newText        // добавляет newText который ввели в textarea
+    //     this._callSubscriber(this._state)                      // перерисовывает дерево
+    // },
+    updateNewMessageText (newMessage) {
         this._state.dialogsPage.newMessageText = newMessage  // добавляет newMessage который ввели в textarea
         this._callSubscriber(this._state)                      // перерисовывает дерево
     },
@@ -127,6 +132,21 @@ let store: storeType = {
         this._state.dialogsPage.messages.push(newMessage)   // добавляет newMessage в messages
         this._state.dialogsPage.newMessageText = ''         // очищает input по нажатию send message
         this._callSubscriber(this._state)                     // перерисовывает дерево
+    },
+    dispatch (action: any) {
+        if (action.type === 'ADD-POST') {
+            const newPost = {
+                id: 5,
+                message: this._state.profilePage.newPostText,   // добавляет newPost при нажатии add post
+                likesCount: '0'
+            }
+            this._state.profilePage.posts.push(newPost)         // добавляет в state новый post
+            this._state.profilePage.newPostText = ''            // очищает input по нажатию add post
+            this._callSubscriber(this._state)                     // перерисовывает дерево
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText        // добавляет newText который ввели в textarea
+            this._callSubscriber(this._state)                      // перерисовывает дерево
+        }
     }
 }
 

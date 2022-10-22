@@ -8,13 +8,14 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import state, {PostType, RootStateType} from "./redux/state";
+import { RootStateType} from "./redux/state";
 
 
 type ProfilePropsType = {
     state: RootStateType
-    addPost: (postMessage: string) => void
-    updateNewPostText: (newText: any) => void
+    // addPost: (postMessage: string) => void
+    dispatch: () => void
+    //updateNewPostText: (newText: any) => void
     updateNewMessageText: (newMessage: string) => void
     addMessage: (newMessageText: string) => void
 }
@@ -45,8 +46,11 @@ function App(props: ProfilePropsType) {
                   <Route path='/profile'
                          render={() => <Profile
                              profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
-                             addPost={props.addPost}               // передается из state.ts -> render.tsx -> app.tsx -> Profile.tsx
-                             updateNewPostText={props.updateNewPostText} />}
+                             dispatch={props.dispatch}
+                             //заменили на dispatch
+                             //addPost={props.addPost}               // передается из state.ts -> render.tsx -> app.tsx -> Profile.tsx
+                             //updateNewPostText={props.updateNewPostText}
+                             />}
                   />
                   {/*<Route path='/news' component={News}/>*/}
                   <Route path='/news' render={() => <News/>}/>

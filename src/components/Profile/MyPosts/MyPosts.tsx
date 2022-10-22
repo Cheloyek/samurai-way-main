@@ -19,7 +19,9 @@ const MyPosts = (props:any) => {
         // let text = newPostElement.current.value - отправляет значение при нажатии, но тк это значение уже есть в
         // state.newPostText
 
-        props.addPost()
+        props.dispatch({type: 'ADD-POST'})
+
+        //props.addPost() - заменили на dispatch
         //очищает textarea после добавления post (после нажатия кнопки Add post)
         // newPostElement.current.value = ''
     }
@@ -28,7 +30,9 @@ const MyPosts = (props:any) => {
     let onPostChange = () => {
         let text = newPostElement.current.value     // текст который вводится в textarea
         // console.log(text)
-        props.updateNewPostText(text)
+        //props.updateNewPostText(text)
+        let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text}
+        props.dispatch(action)
     }
 
     return (
