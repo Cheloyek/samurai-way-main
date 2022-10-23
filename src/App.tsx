@@ -8,7 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import { RootStateType} from "./redux/state";
+import {RootStateType, StoreType} from "./redux/state";
 
 
 type ProfilePropsType = {
@@ -18,17 +18,11 @@ type ProfilePropsType = {
     //updateNewPostText: (newText: any) => void
     updateNewMessageText: (newMessage: string) => void
     addMessage: (newMessageText: string) => void
+    store: StoreType
 }
 
-// props: any
 
-function App(props: ProfilePropsType) {
-    //вынесли в index
-    // let posts = [
-    //     {id: 1, message: 'abc', likesCount: '0'},
-    //     {id: 2, message: 'defg', likesCount: '26'},
-    // ]
-    //<Profile posts={posts}/>}/> - передали через props в Profile
+function App(props: any) {
   return (
       <BrowserRouter>
 
@@ -38,19 +32,21 @@ function App(props: ProfilePropsType) {
               <div className='app-wrapper-content'>
                   {/*<Route path='/dialogs' component={Dialogs}/>*/}
                   <Route path='/dialogs' render={() => <Dialogs
-                      state={props.state.dialogsPage}
-                      updateNewMessageText={props.updateNewMessageText}
-                      addMessage={props.addMessage}/>}
+                      // state={props.state.dialogsPage}
+                      store={props.store}
+                      // updateNewMessageText={props.updateNewMessageText}
+                      // addMessage={props.addMessage}
+                  />}
                   />
-                  {/*<Route path='/profile' component={Profile}/>*/}
-                  <Route path='/profile'
+
+                  <Route path='/profile'            //Route - реагирует на изменение url, если /profile то выполнит код
                          render={() => <Profile
                              profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
                              dispatch={props.dispatch}
                              //заменили на dispatch
-                             //addPost={props.addPost}               // передается из state.ts -> render.tsx -> app.tsx -> Profile.tsx
+                             //addPost={props.addPost}             // передается из state.ts -> render.tsx -> app.tsx -> Profile.tsx
                              //updateNewPostText={props.updateNewPostText}
-                             />}
+                         />}
                   />
                   {/*<Route path='/news' component={News}/>*/}
                   <Route path='/news' render={() => <News/>}/>

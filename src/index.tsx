@@ -47,21 +47,21 @@ import {
 //     updateNewPostText: (postMessage: any)=> void
 // }
 
-//функция перерисовывает страницу при изменении. Через props передается state
+// функция перерисовывает дерево компонентов (страницу) при изменении.
 // const rerenderEntireTree = (state: RootStateType) => {
 const rerenderEntireTree = (state: any) => {
     ReactDOM.render(
         // в app передается state, addPost и updateNewPostText из state.ts
         <App state={store.getState()}
-             dispatch={store.dispatch.bind(store)}//*{store.addPost.bind(store)}
+             dispatch={store.dispatch.bind(store)}                      //*{store.addPost.bind(store)}
+             store={store}
              //updateNewPostText={store.updateNewPostText.bind(store)} - заменили на dispatch
-             updateNewMessageText={store.updateNewMessageText.bind(store)}
-             addMessage={store.addMessage.bind(store)}
+             // updateNewMessageText={store.updateNewMessageText.bind(store)}
+             // addMessage={store.addMessage.bind(store)}
         />,
         document.getElementById('root')
     );
 }
 rerenderEntireTree(store.getState())
 
-//store.subscribe(rerenderEntireTree) // через эту функцию передали в state
 store.subscribe(rerenderEntireTree) // через эту функцию передали в state

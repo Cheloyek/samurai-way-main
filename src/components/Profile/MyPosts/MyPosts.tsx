@@ -1,7 +1,8 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {addPostActionCreator, PostType, updateNewPostTextActionCreator} from "../../../redux/state";
+import {PostType} from "../../../redux/state";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
 
 // props из app -> profile передается в MyPosts

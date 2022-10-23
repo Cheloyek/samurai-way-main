@@ -11,11 +11,13 @@ import {NavLink} from "react-router-dom";
 // </div>
 
 
-// переход на вкладки без обновления страницы - SPA
-// activeClassName={s.activeLink} - при нажатии задает класс, чтобы можно былоназначить css
+// SPA Single Page Application позволяет выполнять перерисовку страницы, переход на вкладки без полного обновления
 const Navbar = () => {
     return <nav className={s.nav}>
         <div className={s.item}>
+
+            {/*NavLink - используется для смены url без перезагрузки страницы, меняет url в браузере*/}
+            {/*activeClassName={s.activeLink} - при нажатии задает класс, чтобы можно было назначить css*/}
             <NavLink to='/profile' activeClassName={s.activeLink}>Profile</NavLink>  {/*routing переход на страницу profile*/}
         </div>
         <div className={`${s.item} ${s.active}`}>
