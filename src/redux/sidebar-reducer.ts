@@ -1,7 +1,13 @@
+import {FriendType} from "./store";
 
 
-const sidebarReducer = (state: any, action: any) => {
-    
+export type StateSidebarType = {
+    fiends: Array<FriendType>
+}
+
+let initialState = {}
+
+const sidebarReducer = (state: any = initialState, action: any) => {
     return state
 }
 

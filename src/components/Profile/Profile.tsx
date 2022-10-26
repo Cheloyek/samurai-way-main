@@ -1,12 +1,13 @@
-import React from "react";
+import React, {Dispatch} from "react";
 import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ProfilePageType} from "../../redux/state";
+import {ProfilePageType} from "../../redux/store";
+import {AnyAction} from "redux";
 
 type ProfilePropsType = {
     profilePage: ProfilePageType
-    dispatch: () => void
+    dispatch: Dispatch<AnyAction>
     // addPost:  (postMessage: string) => void
     // updateNewPostText: (newText: any) => void
 }

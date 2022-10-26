@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Dispatch} from 'react';
 import './App.css';
 import Dialogs from './components/Dialogs/Dialogs';
 import Header from "./components/Header/Header";
@@ -8,8 +8,15 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {RootStateType, StoreType} from "./redux/state";
+import {DialogPageType, ProfilePageType, RootStateType, StoreType} from "./redux/store";
+import {AnyAction, CombinedState} from "redux";
 
+
+type AppPropsType = {
+    store: any
+    dispatch: Dispatch<AnyAction>
+    state: RootStateType
+}
 
 type ProfilePropsType = {
     state: RootStateType
@@ -22,7 +29,7 @@ type ProfilePropsType = {
 }
 
 
-function App(props: any) {
+function App(props: AppPropsType) {
   return (
       <BrowserRouter>
 
@@ -44,7 +51,7 @@ function App(props: any) {
                              profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
                              dispatch={props.dispatch}
                              //заменили на dispatch
-                             //addPost={props.addPost}             // передается из state.ts -> render.tsx -> app.tsx -> Profile.tsx
+                             //addPost={props.addPost}             // передается из store.ts -> render.tsx -> app.tsx -> Profile.tsx
                              //updateNewPostText={props.updateNewPostText}
                          />}
                   />

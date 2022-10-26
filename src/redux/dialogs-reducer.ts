@@ -1,7 +1,41 @@
+import {DialogPageType, MessageType} from "./store";
+
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
-const dialogsReducer = (state: any, action: any) => {
+let initialState = {
+    messages: [
+        {id: 1, message: 'Hi'},
+        {id: 2, message: 'Ho'},
+        {id: 3, message: 'Yo'},
+    ],
+    dialogs: [
+        {
+            id: 1,
+            name: 'Dimych',
+            url: 'https://media.istockphoto.com/photos/abstract-curved-shapes-picture-id1340367001?b=1&k=20&m=1340367001&s=170667a&w=0&h=rEDszAkp7zRWyHBRPcIwFecc0QlbZNhc0sM62rjAa3U'
+        },
+        {id: 2, name: 'User 2'},
+        {id: 3, name: 'User 3'},
+        {id: 4, name: 'User 4'},
+        {id: 5, name: 'User 5'},
+        {id: 6, name: 'User 6'},
+    ],
+    newMessageBody: '' //текст в textarea
+}
+
+// export type StatePropsType = {
+//     newMessageBody: string
+//     messages: Array<MessageType>
+//     dialogs: any
+// }
+
+export type ActionDialogsReducerPropsType = {
+    type: string
+    body: string
+}
+
+const dialogsReducer = (state: DialogPageType = initialState, action: ActionDialogsReducerPropsType) => {
 
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:

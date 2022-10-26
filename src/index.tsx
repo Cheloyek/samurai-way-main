@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import store from "./redux/state";
+import store from "./redux/redux-store";
 
 //переместили в state
 // let dialogs = [
@@ -39,7 +39,7 @@ import App from "./App";
 import {
     PostType,
     RootStateType,
-} from "./redux/state";
+} from "./redux/store";
 
 // type renderPropsType = {
 //     state: RootStateType
@@ -51,7 +51,7 @@ import {
 // const rerenderEntireTree = (state: RootStateType) => {
 const rerenderEntireTree = (state: any) => {
     ReactDOM.render(
-        // в app передается state, addPost и updateNewPostText из state.ts
+        // в app передается state, addPost и updateNewPostText из store.ts
         <App state={store.getState()}
              dispatch={store.dispatch.bind(store)}                      //*{store.addPost.bind(store)}
              store={store}
@@ -64,4 +64,7 @@ const rerenderEntireTree = (state: any) => {
 }
 rerenderEntireTree(store.getState())
 
-store.subscribe(rerenderEntireTree) // через эту функцию передали в state
+store.subscribe(() => {
+    let state = store.getState()
+    rerenderEntireTree(state)
+}) // через эту функцию передали в state

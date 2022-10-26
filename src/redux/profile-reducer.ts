@@ -1,9 +1,23 @@
+import {ProfilePageType} from "./store";
 
+export type ActionProfileReducerPropsType = {
+    type: string
+    newText: string
+}
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-const profileReducer = (state: any, action: any) => {
+//значение по умолчанию
+let initialState = {
+    posts: [
+        {id: 1, message: 'abc', likesCount: '0'},
+        {id: 2, message: 'defg', likesCount: '26'},
+    ],
+    newPostText: '' //текст в textarea
+}
+
+const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileReducerPropsType) => {
     switch (action.type) {
         case ADD_POST:
             const newPost = {

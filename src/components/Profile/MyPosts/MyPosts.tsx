@@ -1,12 +1,18 @@
 import React from "react";
 import s from './MyPosts.module.css'
-import Post from "./Post/Post";
-import {PostType} from "../../../redux/state";
+import Post, {PostPropsType} from "./Post/Post";
+import {PostType} from "../../../redux/store";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
+//4
+export type MyPostsPropsType = {
+    posts: Array<PostType>
+    newPostText: string
+    dispatch: (action: {type: string}) => void
+}
 
 // props из app -> profile передается в MyPosts
-const MyPosts = (props:any) => {
+const MyPosts = (props: MyPostsPropsType) => {
     let postsElements = props.posts.map((p: PostType) => <Post message={p.message} likesCount={p.likesCount}/>)
 
     //React.createRef() - создается ссылка на элемент textarea

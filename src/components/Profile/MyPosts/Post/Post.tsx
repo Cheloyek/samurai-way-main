@@ -1,7 +1,14 @@
 import React from "react";
 import s from './Post.module.css'
+import {PostType} from "../../../../redux/store";
 
-const Post = (props: any) => {
+export type PostPropsType = {
+    message: string
+    likesCount: string
+}
+
+//3
+const Post = (props: PostPropsType) => {
     //вынесли в profile, из profile вынесли в app
     // let posts = [
     //     {id: 1, message: 'abc', likesCount: '0'},

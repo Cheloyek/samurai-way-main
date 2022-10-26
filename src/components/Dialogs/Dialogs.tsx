@@ -2,17 +2,18 @@ import React from "react";
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {DialogPageType, StoreType} from "../../redux/state";
+import {DialogPageType, DialogsType, MessageType, StoreType} from "../../redux/store";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
-    state: DialogPageType
-    updateNewMessageText: (newMessage: any) => void
-    addMessage: (newMessageText:string) => void
-    dispatch: any
+    store: StoreType
+    // state: DialogPageType
+    // updateNewMessageText: (newMessage: any) => void
+    // addMessage: (newMessageText:string) => void
+    // dispatch: any
 }
-
-const Dialogs = (props: any) => {
+//2
+const Dialogs = (props: DialogsPropsType) => {
 
     let state = props.store.getState().dialogsPage
 
@@ -28,7 +29,7 @@ const Dialogs = (props: any) => {
 
     }
 
-    let dialogsElements = state.dialogs.map((d:any) => <DialogItem name={d.name} id={d.id}/>)
+    let dialogsElements = state.dialogs.map((d:DialogsType) => <DialogItem name={d.name} id={d.id}/>)
         // [
         // <DialogItem name={dialogs[0].name} id={dialogs[0].id}/>,
         //     <DialogItem name={dialogs[1].name} id={dialogs[1].id}/>,
@@ -39,7 +40,7 @@ const Dialogs = (props: any) => {
         // ]
         // создает массив
 
-    let messagesElements = state.messages.map((m:any) => <Message message={m.message}/>)
+    let messagesElements = state.messages.map((m:MessageType) => <Message message={m.message}/>)
     let newMessageBody = state.newMessageBody
 
     let onNewMessageChange = (e:any) => {

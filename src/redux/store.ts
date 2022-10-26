@@ -2,7 +2,7 @@
 // let rerenderEntireTree = () => {
 //     console.log('State changed') // будет заменено на subscribe при срабатывании замыкания
 // }
-import profileReducer from "./profile-reducer";
+import profileReducer, {ActionProfileReducerPropsType} from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
@@ -23,6 +23,12 @@ export type ProfilePageType = {
     // updateNewPostText?: (newText: string) => void
 }
 
+export type ActionDispatchPropsType = {
+    type: string
+    body: string
+    newText: string
+}
+
 export type MessageType = {
     id: number
     message: string
@@ -40,7 +46,7 @@ export type DialogPageType = {
     newMessageBody: string
 }
 
-type FriendType = {
+export type FriendType = {
     id: number
     nameFriend: string
 }
@@ -145,8 +151,9 @@ let store: StoreType = {
     //     this._state.dialogsPage.newMessageBody = ''         // очищает input по нажатию send message
     //     this._callSubscriber(this._state)                     // перерисовывает дерево
     // },///////////////////////del2
+
     // dispatch - функция отправки, диспатчить можно только объект (action)
-    dispatch(action: any) { //action - объект, у которого обязательно есть свойство type
+    dispatch(action: ActionDispatchPropsType) { //action - объект, у которого обязательно есть свойство type
 
         //заменили на reducer
         // if (action.type === ADD_POST) {
