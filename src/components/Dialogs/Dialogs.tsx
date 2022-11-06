@@ -18,12 +18,12 @@ const Dialogs = (props: any) => {
     // let state = props.dialogsPage
     let state = props.dialogsPage
 
-    let dialogsElements = state.dialogs.map((d:any) => <DialogItem name={d.name} id={d.id}/>)
+    let dialogsElements = state.dialogs.map((d:any) => <DialogItem name={d.name} key={d.id} id={d.id}/>)
     // [
     // <DialogItem name={dialogs[0].name} id={dialogs[0].id}/>,
     // ]
     // создает массив
-    let messagesElements = state.messages.map((m:MessageType) => <Message message={m.message}/>)
+    let messagesElements = state.messages.map((m:MessageType) => <Message message={m.message} key={m.id}/>)
     let newMessageBody = state.newMessageBody
 
     //Ref - ссылка на любой элемент, в данном случае создание ссылки на элемент textarea

@@ -8,7 +8,6 @@ import {Provider} from "react-redux";
 
 // функция перерисовывает дерево компонентов (страницу) при изменении.
 // const rerenderEntireTree = (state: RootStateType) => {
-const rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
@@ -16,10 +15,9 @@ const rerenderEntireTree = () => {
             </Provider>
         </BrowserRouter>,
     document.getElementById('root'));
-}
-rerenderEntireTree()
+// rerenderEntireTree()
 
-store.subscribe(() => {
+// store.subscribe(() => {
     // let state = store.getState()
-    rerenderEntireTree()
-}) // через эту функцию передали в state
+    // rerenderEntireTree()
+// }) через эту функцию передали в state

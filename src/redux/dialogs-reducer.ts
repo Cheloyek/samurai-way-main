@@ -36,18 +36,20 @@ export type ActionDialogsReducerPropsType = {
 }
 
 const dialogsReducer = (state: DialogPageType = initialState, action: ActionDialogsReducerPropsType) => {
-
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.body   //add4 добавляет newMessage который ввели в textarea
-            return state;
-
-        case SEND_MESSAGE:
+        case UPDATE_NEW_MESSAGE_BODY: {
+            return {
+                ...state,
+                newMessageBody: action.body}       // добавляет newMessage который ввели в textarea
+        }
+        case SEND_MESSAGE: {
             let body = state.newMessageBody
-            state.newMessageBody = ''            // очищает input по нажатию send message
-            state.messages.push({id: 4, message: body})
-            return state;
-
+            return {
+                ...state,
+                newMessageBody: '',              // очищает input по нажатию send message
+                messages: [...state.messages, {id: 4, message: body}] // stateCopy.messages.push({id: 4, message: body})
+            }
+        }
         default:
             return state
     }

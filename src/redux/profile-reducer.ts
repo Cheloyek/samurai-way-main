@@ -19,24 +19,32 @@ let initialState = {
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileReducerPropsType) => {
     switch (action.type) {
-        case ADD_POST:
+        case ADD_POST: {
             const newPost = {
                 id: 5,
                 //message: this._state.profilePage.newPostText,   // добавляет newPost при нажатии add post
                 message: state.newPostText,   // добавляет newPost при нажатии add post
                 likesCount: '0'
             }
-            state.posts.push(newPost)         // добавляет в state новый post
-            state.newPostText = ''            // очищает input по нажатию add post
-            return state;
-
-        case UPDATE_NEW_POST_TEXT:            // updateNewPostText - перерисовка при добавлении текста в textarea (без нажатия кнопки)
-            state.newPostText = action.newText// добавляет newText который ввели в textarea
-            return state;
-
+            return {
+                ...state,
+                posts: [...state.posts, newPost], // stateCopy.posts.push(newPost)
+                newPostText: ''                   // очищает input по нажатию add post
+            }
+            // stateCopy.posts = [...state.posts]
+            // stateCopy.posts.push(newPost)// добавляет в stateCopy новый post
+            // stateCopy.newPostText = ''// очищает input по нажатию add post
+        }
+        case UPDATE_NEW_POST_TEXT: {            // updateNewPostText - перерисовка при добавлении текста в textarea (без нажатия кнопки)
+            return {
+                ...state,
+                newPostText: action.newText    // добавляет newText который ввели в textarea
+            }
+            // stateCopy.newPostText = action.newText// добавляет newText который ввели в textarea
+        }
         default:                              // если ничего не подошло под условия
             return state
-    }
+        }
     //заменили на case if else на switch case
     // if (action.type === ADD_POST) {
     //     const newPost = {

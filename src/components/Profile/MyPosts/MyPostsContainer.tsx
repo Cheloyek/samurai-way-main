@@ -36,6 +36,8 @@ export type MyPostsPropsType = {
 //         newPostText={state.profilePage.newPostText}/>)
 // }
 
+//выполняется при каждом изменении в state и сравнивается содержимое, если что-то в state изменилось, кроме указанного в функции
+//то не перерисовывает
 let mapStateToProps = (state: any) => {
     return {
         posts: state.profilePage.posts,
