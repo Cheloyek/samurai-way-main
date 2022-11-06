@@ -13,59 +13,54 @@ type DialogsPropsType = {
     // dispatch: any
 }
 //2
-const Dialogs = (props: DialogsPropsType) => {
+const Dialogs = (props: any) => {
+    // debugger
+    // let state = props.dialogsPage
+    let state = props.dialogsPage
 
-    let state = props.store.getState().dialogsPage
+    let dialogsElements = state.dialogs.map((d:any) => <DialogItem name={d.name} id={d.id}/>)
+    // [
+    // <DialogItem name={dialogs[0].name} id={dialogs[0].id}/>,
+    // ]
+    // создает массив
+    let messagesElements = state.messages.map((m:MessageType) => <Message message={m.message}/>)
+    let newMessageBody = state.newMessageBody
 
     //Ref - ссылка на любой элемент, в данном случае создание ссылки на элемент textarea
-    let newMessageElement = React.createRef<HTMLTextAreaElement>()
+    // let newMessageElement = React.createRef<HTMLTextAreaElement>()
     //функция при нажатии на кнопку send message
     const onSendMessageClick = () => {
         // если ссылки еще нет, то она ссылается ни на что, current? - если ссылка null,
         // то зафиксирует null или undefined и не будет пытаться искать значение value
         // let text = newMessageElement.current?.value
         // props.addMessage('')
-        props.store.dispatch(sendMessageCreator())
+        props.sendMessage()
 
     }
-
-    let dialogsElements = state.dialogs.map((d:DialogsType) => <DialogItem name={d.name} id={d.id}/>)
-        // [
-        // <DialogItem name={dialogs[0].name} id={dialogs[0].id}/>,
-        //     <DialogItem name={dialogs[1].name} id={dialogs[1].id}/>,
-        //     <DialogItem name={dialogs[2].name} id={dialogs[2].id}/>,
-        //     <DialogItem name={dialogs[3].name} id={dialogs[3].id}/>,
-        //     <DialogItem name={dialogs[4].name} id={dialogs[4].id}/>,
-        //     <DialogItem name={dialogs[5].name} id={dialogs[5].id}/>,
-        // ]
-        // создает массив
-
-    let messagesElements = state.messages.map((m:MessageType) => <Message message={m.message}/>)
-    let newMessageBody = state.newMessageBody
 
     let onNewMessageChange = (e:any) => {
         // let textMessage = newMessageElement.current?.value      // текст сообщения который вводится в textarea
         let body = e.target.value
         // props.updateNewMessageText(textMessage)
         // @ts-ignore
-        props.store.dispatch(updateNewMessageBodyCreator(body))
+        props.updateNewMessageBody(body)
     }
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
                 {dialogsElements}
-
             </div>
             <div className={s.messages}>
-
                 {/*<Message message={messages[0].message}/>*/}
                 {/*<Message message={messages[1].message}/>*/}
                 {/*<Message message={messages[2].message}/>*/}
-
                 <div>{messagesElements}</div>
                 <div>
-                    <textarea onChange={onNewMessageChange} ref={newMessageElement} value={newMessageBody}/>
+                    <textarea onChange={onNewMessageChange}
+                              placeholder='Enter your message'
+                              // ref={newMessageElement}
+                              value={newMessageBody}></textarea>
                 </div>
                 <div>
                     <button onClick={onSendMessageClick}>Send message</button>

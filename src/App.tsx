@@ -10,6 +10,7 @@ import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import {DialogPageType, ProfilePageType, RootStateType, StoreType} from "./redux/store";
 import {AnyAction, CombinedState} from "redux";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 type AppPropsType = {
@@ -29,7 +30,7 @@ type ProfilePropsType = {
 }
 
 
-function App(props: AppPropsType) {
+function App(props: any) {
   return (
       <BrowserRouter>
 
@@ -38,18 +39,16 @@ function App(props: AppPropsType) {
               <Navbar/>
               <div className='app-wrapper-content'>
                   {/*<Route path='/dialogs' component={Dialogs}/>*/}
-                  <Route path='/dialogs' render={() => <Dialogs
-                      // state={props.state.dialogsPage}
-                      store={props.store}
-                      // updateNewMessageText={props.updateNewMessageText}
-                      // addMessage={props.addMessage}
-                  />}
+                  <Route path='/dialogs'
+                         render={() => <DialogsContainer store={props.store}
+                         />}
                   />
 
                   <Route path='/profile'            //Route - реагирует на изменение url, если /profile то выполнит код
                          render={() => <Profile
-                             profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
-                             dispatch={props.dispatch}
+                             // profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
+                             // dispatch={props.dispatch}
+                             store={props.store}
                              //заменили на dispatch
                              //addPost={props.addPost}             // передается из store.ts -> render.tsx -> app.tsx -> Profile.tsx
                              //updateNewPostText={props.updateNewPostText}

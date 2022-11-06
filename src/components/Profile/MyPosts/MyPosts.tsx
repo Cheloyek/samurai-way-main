@@ -7,25 +7,27 @@ import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../red
 //4
 export type MyPostsPropsType = {
     posts: Array<PostType>
-    newPostText: string
-    dispatch: (action: {type: string}) => void
+    newPostText?: string
+    // dispatch: (action: {type: string}) => void
+    addPost: any
+    updateNewPostText: (text: string) => void
 }
 
 // props из app -> profile передается в MyPosts
-const MyPosts = (props: MyPostsPropsType) => {
+const MyPosts = (props: any) => {
     let postsElements = props.posts.map((p: PostType) => <Post message={p.message} likesCount={p.likesCount}/>)
 
     //React.createRef() - создается ссылка на элемент textarea
     let newPostElement: any = React.createRef()
 
     //callback функция при нажатии на кнопку Add post, обращается к newPostElement считывает current.value
-    const addPost = () => {
+    const onAddPost = () => {
         // let text = newPostElement.current.value - отправляет значение при нажатии, но тк это значение уже есть в
         // state.newPostText
 
-        props.dispatch(addPostActionCreator())
+        // props.dispatch(addPostActionCreator())
 
-        //props.addPost() - заменили на dispatch
+        props.addPost() // заменили на dispatch
         //очищает textarea после добавления post (после нажатия кнопки Add post)
         // newPostElement.current.value = ''
     }
@@ -34,9 +36,9 @@ const MyPosts = (props: MyPostsPropsType) => {
     let onPostChange = () => {
         let text = newPostElement.current.value     // текст который вводится в textarea
         // console.log(text)
-        //props.updateNewPostText(text)
-        let action = (updateNewPostTextActionCreator(text))
-        props.dispatch(action)
+        props.updateNewPostText(text)
+        // let action = (updateNewPostTextActionCreator(text))
+        // props.dispatch(action)
     }
 
     return (
@@ -47,7 +49,7 @@ const MyPosts = (props: MyPostsPropsType) => {
                     <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/> {/*value получает значение newPostText*/}
                 </div>
                 <div>
-                    <button className={s.button} onClick={addPost}>Add post</button>
+                    <button className={s.button} onClick={onAddPost}>Add post</button>
                 </div>
                 <div>
                     New post

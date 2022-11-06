@@ -4,6 +4,7 @@ import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {ProfilePageType} from "../../redux/store";
 import {AnyAction} from "redux";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 type ProfilePropsType = {
     profilePage: ProfilePageType
@@ -12,7 +13,8 @@ type ProfilePropsType = {
     // updateNewPostText: (newText: any) => void
 }
 
-const Profile = (props: ProfilePropsType) => {
+const Profile = (props: any) => {
+    // debugger
     //вынесли в app, получили из app через props, передали через props.posts в MyPosts
 // let posts = [
 //     {id: 1, message: 'abc', likesCount: '0'},
@@ -21,14 +23,7 @@ const Profile = (props: ProfilePropsType) => {
     return (
         <div>
                 <ProfileInfo/>
-                <MyPosts  // получает props из state передает posts, newPostText, addPost, updateNewPostText в MyPost
-                    posts={props.profilePage.posts}
-                    newPostText={props.profilePage.newPostText}
-                    dispatch={props.dispatch}
-                    //заменили на dispatch
-                    // addPost={props.addPost}
-                    // updateNewPostText={props.updateNewPostText}
-                />
+                <MyPostsContainer store={props.store}/>
         </div>
     )
 }
