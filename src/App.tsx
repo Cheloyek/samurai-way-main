@@ -11,6 +11,9 @@ import Settings from './components/Settings/Settings';
 import {DialogPageType, ProfilePageType, RootStateType, StoreType} from "./redux/store";
 import {AnyAction, CombinedState} from "redux";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {Users} from "./components/Users/Users";
+import UsersContainer from "./components/Users/UsersContainer";
+
 
 
 type AppPropsType = {
@@ -54,6 +57,7 @@ function App(props: any) {
                              //updateNewPostText={props.updateNewPostText}
                          />}
                   />
+                  <Route path='/users' render={() => <UsersContainer/>}/>
                   {/*<Route path='/news' component={News}/>*/}
                   <Route path='/news' render={() => <News/>}/>
                   {/*<Route path='/music' component={Music}/>*/}
