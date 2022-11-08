@@ -2,8 +2,8 @@ import React from "react";
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {DialogPageType, DialogsType, MessageType, StoreType} from "../../redux/store";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import { StoreType} from "../../redux/store";
+import {MessageType, sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
     store: StoreType
@@ -12,6 +12,8 @@ type DialogsPropsType = {
     // addMessage: (newMessageText:string) => void
     // dispatch: any
 }
+
+
 //2
 const Dialogs = (props: any) => {
     // debugger

@@ -1,8 +1,13 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import Post, {PostPropsType} from "./Post/Post";
-import {PostType} from "../../../redux/store";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
+
+export type PostType = {
+    id: number
+    message: string
+    likesCount: string
+}
 
 //4
 export type MyPostsPropsType = {

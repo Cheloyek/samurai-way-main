@@ -1,4 +1,11 @@
-import {ProfilePageType} from "./store";
+import {PostType} from "../components/Profile/MyPosts/MyPosts";
+
+
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newPostText: string
+    // updateNewPostText?: (newText: string) => void
+}
 
 export type ActionProfileReducerPropsType = {
     type: string

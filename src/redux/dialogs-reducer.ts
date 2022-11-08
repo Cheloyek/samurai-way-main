@@ -1,7 +1,22 @@
-import {DialogPageType, MessageType} from "./store";
-
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
+
+export type MessageType = {
+    id: number
+    message: string
+}
+
+export type DialogsType = {
+    id: number,
+    name: string,
+    url?: string
+}
+
+export type DialogPageType = {
+    messages: Array<MessageType>
+    dialogs: Array<DialogsType>
+    newMessageBody: string
+}
 
 let initialState = {
     messages: [

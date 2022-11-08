@@ -2,26 +2,19 @@
 // let rerenderEntireTree = () => {
 //     console.log('State changed') // будет заменено на subscribe при срабатывании замыкания
 // }
-import profileReducer, {ActionProfileReducerPropsType} from "./profile-reducer";
+import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
+import {RootStateType} from "../App";
 
 
 
 
 
 
-export type PostType = {
-    id: number
-    message: string
-    likesCount: string
-}
 
-export type ProfilePageType = {
-    posts: Array<PostType>
-    newPostText: string
-    // updateNewPostText?: (newText: string) => void
-}
+
+
 
 export type ActionDispatchPropsType = {
     type: string
@@ -29,37 +22,7 @@ export type ActionDispatchPropsType = {
     newText: string
 }
 
-export type MessageType = {
-    id: number
-    message: string
-}
 
-export type DialogsType = {
-    id: number,
-    name: string,
-    url?: string
-}
-
-export type DialogPageType = {
-    messages: Array<MessageType>
-    dialogs: Array<DialogsType>
-    newMessageBody: string
-}
-
-export type FriendType = {
-    id: number
-    nameFriend: string
-}
-
-type SidebarType = {
-    fiends: Array<FriendType>
-}
-
-export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogPageType
-    sidebar: SidebarType
-}
 
 export type StoreType = {
     _state: RootStateType

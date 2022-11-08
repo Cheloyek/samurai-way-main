@@ -8,11 +8,14 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {DialogPageType, ProfilePageType, RootStateType, StoreType} from "./redux/store";
+import {StoreType} from "./redux/store";
 import {AnyAction, CombinedState} from "redux";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {Users} from "./components/Users/Users";
 import UsersContainer from "./components/Users/UsersContainer";
+import {ProfilePageType} from "./redux/profile-reducer";
+import {FriendType} from "./redux/sidebar-reducer";
+import {DialogPageType} from "./redux/dialogs-reducer";
 
 
 
@@ -30,6 +33,16 @@ type ProfilePropsType = {
     updateNewMessageText: (newMessage: string) => void
     addMessage: (newMessageText: string) => void
     store: StoreType
+}
+
+type SidebarType = {
+    fiends: Array<FriendType>
+}
+
+export type RootStateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogPageType
+    sidebar: SidebarType
 }
 
 

@@ -1,8 +1,13 @@
-import {FriendType} from "./store";
+
 
 
 export type StateSidebarType = {
     fiends: Array<FriendType>
+}
+
+export type FriendType = {
+    id: number
+    nameFriend: string
 }
 
 let initialState = {}

@@ -1,10 +1,9 @@
 // import {createStore} from "redux";
 // import {combineReducers, legacy_createStore as createStore, Store} from "redux";
 import {combineReducers, createStore, Store} from "redux";
-import profileReducer from "./profile-reducer";
+import profileReducer, {ProfilePageType} from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
-import {ProfilePageType} from "./store";
 import usersReducer from "./users-reducer";
 
 

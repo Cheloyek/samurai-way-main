@@ -7,6 +7,7 @@ import {Dispatch} from "redux";
 
 type MapStatePropsType = {
     usersPage: InitialStateType
+    users: Array<UserType>
 }
 
 type MapDispatchPropsType = {
@@ -17,6 +18,9 @@ type MapDispatchPropsType = {
 
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
 
+export type ActionType = {
+
+}
 // data
 let mapStateToProps = (state: AppStateType): any => {
     return {
@@ -25,7 +29,7 @@ let mapStateToProps = (state: AppStateType): any => {
 }
 
 // callbacks
-let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch, action: any): MapDispatchPropsType => {
     return {
         follow: (userId: number) => {
             dispatch(followAC(userId))
