@@ -4,16 +4,19 @@ import {PostType} from "../components/Profile/MyPosts/MyPosts";
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
+    profile?: any
     // updateNewPostText?: (newText: string) => void
 }
 
 export type ActionProfileReducerPropsType = {
     type: string
     newText: string
+    profile: any
 }
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 //значение по умолчанию
 let initialState = {
@@ -21,7 +24,8 @@ let initialState = {
         {id: 1, message: 'abc', likesCount: '0'},
         {id: 2, message: 'defg', likesCount: '26'},
     ],
-    newPostText: '' //текст в textarea
+    newPostText: '', //текст в textarea
+    profile: null
 }
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileReducerPropsType) => {
@@ -49,6 +53,11 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionPro
             }
             // stateCopy.newPostText = action.newText// добавляет newText который ввели в textarea
         }
+        case SET_USER_PROFILE: {
+            return {
+                ...state, profile: action.profile
+            }
+        }
         default:                              // если ничего не подошло под условия
             return state
         }
@@ -69,5 +78,6 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionPro
 
 export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateNewPostTextActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile})
 
 export default profileReducer;

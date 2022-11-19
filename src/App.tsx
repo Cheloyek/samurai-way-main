@@ -1,8 +1,7 @@
-import React, {Dispatch} from 'react';
+import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
 import Music from './components/Music/Music';
@@ -12,6 +11,7 @@ import UsersContainer from "./components/Users/UsersContainer";
 import {ProfilePageType} from "./redux/profile-reducer";
 import {FriendType} from "./redux/sidebar-reducer";
 import {DialogPageType} from "./redux/dialogs-reducer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 
@@ -57,7 +57,7 @@ function App(props: any) {
                   />
 
                   <Route path='/profile'            //Route - реагирует на изменение url, если /profile то выполнит код
-                         render={() => <Profile
+                         render={() => <ProfileContainer
                              // profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
                              // dispatch={props.dispatch}
                              store={props.store}

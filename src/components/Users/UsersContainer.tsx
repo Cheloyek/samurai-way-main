@@ -8,10 +8,8 @@ import {
     UserType
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
 import axios from "axios";
 import Users from "./Users";
-import preloader from "./preloader.svg"
 import Preloader from "../common/preloader/Preloader";
 
 class UsersContainer extends React.Component<UsersContainerType, any> {
@@ -49,7 +47,7 @@ class UsersContainer extends React.Component<UsersContainerType, any> {
 
 
         return <div>
-            {this.props.isFetching ? <Preloader/> : null} //loading img
+            {this.props.isFetching ? <Preloader/> : null} {/*loading img*/}
             <Users
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}

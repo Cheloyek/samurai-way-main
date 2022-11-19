@@ -20,6 +20,7 @@ export type ActionDispatchPropsType = {
     type: string
     body: string
     newText: string
+    profile: any
 }
 
 
