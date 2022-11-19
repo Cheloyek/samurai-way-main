@@ -1,53 +1,62 @@
 import React from "react";
-import styles from "./users.module.css"
-import {UsersPropsType} from "./UsersContainer";
-import axios from "axios";
-import userPhoto from './../../../src/assets/images/user.png'
+import styles from "./users.module.css";
+import userPhoto from "../../assets/images/user.png";
+import {UserType} from "../../redux/users-reducer";
 
-export let Users = (props: UsersPropsType) => {
-    let getUsers = () => {
-        if(props.users.length === 0) {
+// export type UsersPropsType = {
+//     totalUsersCount:
+//         pageSize:
+//         currentPage:
+//         users:
+//         unfollow:
+//         follow:
+// }
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response =>{
-                    props.setUsers(response.data.items)
-    }
+export type UsersPropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    users: Array<UserType>
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+    onPageChanged: (pageNumber: number) => void
+}
 
+let Users = (props: UsersPropsType) => {
 
-                // [
-                // {
-                //     id: 1,
-                //     photoUrl: "https://mykaleidoscope.ru/uploads/posts/2022-08/1659724523_66-mykaleidoscope-ru-p-domik-v-gorakh-u-ozera-dizain-krasivo-foto-68.jpg",
-                //     followed: true,
-                //     fullName: 'Dmitry',
-                //     status: 'Good',
-                //     location: {city: "Prague", country: "Czech"}
-                // },
-                // {
-                //     id: 2,
-                //     photoUrl: "https://mykaleidoscope.ru/uploads/posts/2022-08/1659724523_66-mykaleidoscope-ru-p-domik-v-gorakh-u-ozera-dizain-krasivo-foto-68.jpg",
-                //     followed: false,
-                //     fullName: 'Dmitry',
-                //     status: 'Good',
-                //     location: {city: "Moscow", country: "Russia"}
-                // },
-                // ]
-            )
-        }
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    console.log(props)
+    let pages: Array<number> = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
     return <div>
-        <button onClick={getUsers}>Get Users</button>
+        <div>
+
+            {pages.map((p: number) => {
+                // @ts-ignore
+                return <span className={props.currentPage === p && styles.selectedPage}
+                             onClick={(e) => {
+                                 props.onPageChanged(p)
+                             }}>{p}-</span>
+            })}
+        </div>
         {
             props.users.map((u: any) => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.userPhoto} alt={'userPhoto'}/>
+                        <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.userPhoto}
+                             alt={'userPhoto'}/>
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => {props.unfollow(u.id)}}>unfollow</button>
-                            : <button onClick={() => {props.follow(u.id)}}>follow</button> }
+                            ? <button onClick={() => {
+                                props.unfollow(u.id)
+                            }}>unfollow</button>
+                            : <button onClick={() => {
+                                props.follow(u.id)
+                            }}>follow</button>}
                     </div>
                 </span>
                 <span>
@@ -63,3 +72,5 @@ export let Users = (props: UsersPropsType) => {
         }
     </div>
 }
+
+export default Users

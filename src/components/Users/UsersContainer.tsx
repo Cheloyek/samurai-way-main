@@ -10,7 +10,7 @@ import {
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
-import Users from "./UsersClass";
+import UsersAPIComponent from "./UsersAPIComponent";
 
 type MapStatePropsType = {
     users: Array<UserType>
@@ -27,7 +27,7 @@ type MapDispatchPropsType = {
     setTotalUsersCount: (totalCount: number) => void
 }
 
-export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
+export type UsersContainerType = MapStatePropsType & MapDispatchPropsType
 
 export type ActionType = {
 
@@ -65,4 +65,4 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
