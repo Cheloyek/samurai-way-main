@@ -1,20 +1,29 @@
 import React from "react";
 import {connect} from "react-redux";
-import {Users} from "./Users";
-import {followAC, InitialStateType, setUsersAC, unfollowAC, UserType} from "../../redux/users-reducer";
+import {
+    followAC,
+    InitialStateType,
+    setCurrentPageAC,
+    setUsersAC,
+    unfollowAC,
+    UserType
+} from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
-import UsersC from "./UsersClass";
+import Users from "./UsersClass";
 
 type MapStatePropsType = {
-    usersPage: InitialStateType
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 type MapDispatchPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setUsers: (users: Array<UserType>) => void
+    setCurrentPage: (pageNumber: number) => void
 }
 
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
@@ -23,14 +32,17 @@ export type ActionType = {
 
 }
 // data
-let mapStateToProps = (state: AppStateType): any => {
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        users: state.usersPage.users
+        users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount,
+        currentPage: state.usersPage.currentPage,
     }
 }
 
 // callbacks
-let mapDispatchToProps = (dispatch: Dispatch, action: any): MapDispatchPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
         follow: (userId: number) => {
             dispatch(followAC(userId))
@@ -40,10 +52,13 @@ let mapDispatchToProps = (dispatch: Dispatch, action: any): MapDispatchPropsType
         },
         setUsers: (users: Array<UserType>) => {
             dispatch(setUsersAC(users))
+        },
+        setCurrentPage: (pageNumber) => {
+            dispatch(setCurrentPageAC(pageNumber))
         }
     }
 }
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersC)
+export default connect(mapStateToProps, mapDispatchToProps)(Users)

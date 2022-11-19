@@ -15,6 +15,9 @@ export type LocationType = {
 
 export type InitialStateType = {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 // export type ActionProfileReducerPropsType = {
@@ -26,18 +29,23 @@ export type ActionType = {
     type: string
     userId: any
     users: Array<UserType>
+    currentPage: number
 }
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_CURRENTS_PAGE = 'SET_CURRENTS_PAGE';
 
 //значение по умолчанию
 let initialState: InitialStateType = {
     users: [
         // {id: 1, photoUrl: "https://mykaleidoscope.ru/uploads/posts/2022-08/1659724523_66-mykaleidoscope-ru-p-domik-v-gorakh-u-ozera-dizain-krasivo-foto-68.jpg" , followed: true, fullName: 'Dmitry', status: 'Good', location: {city: "Prague", country: "Czech"}},
         // {id: 2, photoUrl: "https://mykaleidoscope.ru/uploads/posts/2022-08/1659724523_66-mykaleidoscope-ru-p-domik-v-gorakh-u-ozera-dizain-krasivo-foto-68.jpg", followed: false, fullName: 'Dmitry', status: 'Good', location: {city: "Moscow", country: "Russia"}},
-    ]
+    ],
+    pageSize: 5,
+    totalUsersCount: 20,
+    currentPage: 2,
 }
 
 const usersReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -65,7 +73,11 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionType
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users]      //добавит к users пришедшие с сервера
+                users: action.users     //добавит к users пришедшие с сервера
+            }
+        case SET_CURRENTS_PAGE:
+            return {
+                ...state, currentPage: action.currentPage
             }
 
         default:
@@ -77,5 +89,6 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionType
 export const followAC = (userId: number) => ({type: FOLLOW, userId})
 export const unfollowAC = (userId: number) => ({type: UNFOLLOW, userId})
 export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users})
+export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENTS_PAGE, currentPage})
 
 export default usersReducer;
