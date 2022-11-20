@@ -56,7 +56,7 @@ function App(props: any) {
                          />}
                   />
 
-                  <Route path='/profile'            //Route - реагирует на изменение url, если /profile то выполнит код
+                  <Route path='/profile/:userId?'            //Route - реагирует на изменение url, если /profile то выполнит код
                          render={() => <ProfileContainer
                              // profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
                              // dispatch={props.dispatch}
