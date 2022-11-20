@@ -5,7 +5,8 @@ import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import profile from "./Profile";
-import {withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {RootStateType} from "../../App";
 
 type ProfilePropsType = {
     profilePage: ProfilePageType
@@ -14,12 +15,28 @@ type ProfilePropsType = {
     // updateNewPostText: (newText: any) => void
 }
 
+type PathParamType = {
+    userId: string
+}
+
+type MapStateToPropsType = {
+    profile: number
+}
+
+type MapDispatchToPropsType = {
+    setUsers: (profile: any) => void
+}
+
+type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
+
 class ProfileContainer extends React.Component<any, any> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         //профиль по умолчанию
         if (!userId) {
-            userId = 2
+            userId = '2'
         }
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => {
@@ -34,6 +51,6 @@ class ProfileContainer extends React.Component<any, any> {
     }
 }
 
-let mapStateToProps = (state: any) => ({profile: state.profilePage.profile})
+let mapStateToProps = (state: RootStateType): MapStateToPropsType => ({profile: state.profilePage.profile})
 let WithUrlDataContainerComponent = withRouter(ProfileContainer) //withRouter добавит в ProfileContainer данные из url
 export default connect(mapStateToProps, {setUserProfile}) (WithUrlDataContainerComponent);
