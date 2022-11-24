@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
@@ -12,6 +11,7 @@ import {ProfilePageType} from "./redux/profile-reducer";
 import {FriendType} from "./redux/sidebar-reducer";
 import {DialogPageType} from "./redux/dialogs-reducer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 
@@ -47,7 +47,7 @@ function App(props: any) {
       <BrowserRouter>
 
           <div className='app-wrapper'>
-              <Header/>
+              <HeaderContainer/>
               <Navbar/>
               <div className='app-wrapper-content'>
                   {/*<Route path='/dialogs' component={Dialogs}/>*/}

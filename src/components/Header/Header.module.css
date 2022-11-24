@@ -7,3 +7,17 @@
     width: 50px;
 }
 
+.loginBlock {
+    float: right;
+    text-decoration-color: #27a9e0;
+}
+
+.loginBlock a {
+    color: #27a9e0;
+
+}
+
+.loginBlock a:hover {
+    color: #fda101;
+
+}
