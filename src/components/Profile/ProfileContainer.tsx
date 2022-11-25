@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import profile from "./Profile";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {RootStateType} from "../../App";
-import {getProfile} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 type ProfilePropsType = {
     profilePage: ProfilePageType
@@ -43,7 +43,7 @@ class ProfileContainer extends React.Component<any, any> {
         //     .then(response => {
         //         this.props.setUserProfile(response.data)
         //     })
-        getProfile(userId)
+        usersAPI.getProfile(userId)
             .then(data => {
                         this.props.setUserProfile(data)
                     })
