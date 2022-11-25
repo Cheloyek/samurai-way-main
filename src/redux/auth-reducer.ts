@@ -57,7 +57,7 @@ let initialState: InitialStateType = {
     // isFetching: false
 }
 
-const authReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+const authReducer = (state: InitialStateType = initialState, action: ActionType) => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
