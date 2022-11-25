@@ -89,7 +89,7 @@ let Users = (props: UsersPropsType) => {
                 </span>
                 <span>
                     <span>
-                        <div>{u.name}</div>
+                        <h2>{u.name}</h2>
                         <div>{u.status}</div>
                     </span>
                     <span>
