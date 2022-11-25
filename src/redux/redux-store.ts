@@ -19,7 +19,7 @@ export let rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
