@@ -111,8 +111,8 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionType
 
 }
 
-export const follow = (userId: number) => ({type: FOLLOW, userId})
-export const unfollow = (userId: number) => ({type: UNFOLLOW, userId})
+export const followSuccess = (userId: number) => ({type: FOLLOW, userId})
+export const unfollowSuccess = (userId: number) => ({type: UNFOLLOW, userId})
 export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENTS_PAGE, currentPage})
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount})
@@ -136,16 +136,30 @@ export const getUsers = (currentPage: number, pageSize: number) => {
     }
 }
 
-// export const s = (pageNumber: number, pageSize: number) => {
-//     return (dispatch: any) => {
-//         dispatch(setCurrentPage(pageNumber));
-//         dispatch(toggleIsFetching(true)) //loading img
-//         usersAPI.getUsers(pageNumber, pageSize)
-//             .then(data => {
-//                 toggleIsFetching(false) //loading img
-//                 setUsers(data.items)
-//             })
-//     }
-// }
+export const follow = (userId: number) => {
+    return (dispatch: any) => {
+        dispatch(toggleIsFollowingProgress(true, userId))
+        usersAPI.follow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(followSuccess(userId))
+                }
+                dispatch(toggleIsFollowingProgress(false, userId)) // disabled button
+            })
+    }
+}
+
+export const unfollow = (userId: number) => {
+    return (dispatch: any) => {
+        dispatch(toggleIsFollowingProgress(true, userId))
+        usersAPI.unfollow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unfollowSuccess(userId))
+                }
+                dispatch(toggleIsFollowingProgress(false, userId)) // disabled button
+            })
+    }
+}
 
 export default usersReducer;

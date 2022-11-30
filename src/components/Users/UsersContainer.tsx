@@ -1,11 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    follow,
+    followSuccess,
     setCurrentPage, toggleIsFetching,
     setUsers, setTotalUsersCount,
-    unfollow,
-    UserType, toggleIsFollowingProgress, getUsers
+    unfollowSuccess,
+    UserType, toggleIsFollowingProgress, getUsers, follow, unfollow
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import Users from "./Users";
@@ -62,7 +62,7 @@ class UsersContainer extends React.Component<any, any> {
                 users={this.props.users}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
-                toggleFollowingProgress={this.props.toggleIsFollowingProgress}
+                // toggleFollowingProgress={this.props.toggleIsFollowingProgress}
                 followingInProgress={this.props.followingInProgress} // disabled button
             />
         </div>
