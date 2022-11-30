@@ -1,3 +1,4 @@
+import {usersAPI} from "../api/api";
 
 
 export type UserType = {
@@ -97,14 +98,16 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionType
             return {...state, isFetching: action.isFetching}
         }
         case TOGGLE_IS_FOLLOWING_PROGRESS: {
-            return {...state, followingInProgress: action.isFetching
+            return {
+                ...state, followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
-                    : state.followingInProgress.filter(id => id !== action.userId)}
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
         }
 
         default:
             return state
-        }
+    }
 
 }
 
@@ -114,6 +117,35 @@ export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENTS_PAGE, currentPage})
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount})
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching})
-export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId})
+export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) => ({
+    type: TOGGLE_IS_FOLLOWING_PROGRESS,
+    isFetching,
+    userId
+})
+
+//thunk
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: any) => {
+        dispatch(toggleIsFetching(true)) //loading img
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false)) //loading img
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+
+        })
+    }
+}
+
+// export const s = (pageNumber: number, pageSize: number) => {
+//     return (dispatch: any) => {
+//         dispatch(setCurrentPage(pageNumber));
+//         dispatch(toggleIsFetching(true)) //loading img
+//         usersAPI.getUsers(pageNumber, pageSize)
+//             .then(data => {
+//                 toggleIsFetching(false) //loading img
+//                 setUsers(data.items)
+//             })
+//     }
+// }
 
 export default usersReducer;

@@ -5,40 +5,39 @@ import {
     setCurrentPage, toggleIsFetching,
     setUsers, setTotalUsersCount,
     unfollow,
-    UserType, toggleIsFollowingProgress
+    UserType, toggleIsFollowingProgress, getUsers
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
-import {usersAPI} from "../../api/api";
 
 //UsersContainerType
 class UsersContainer extends React.Component<any, any> {
     componentDidMount() {
-        this.props.toggleIsFetching(true) //loading img
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-        //     withCredentials: true,
-        // })
-            usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.toggleIsFetching(false) //loading img
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        // this.props.toggleIsFetching(true) //loading img
+        // // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+        // //     withCredentials: true,
+        // // })
+        //     usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+        //         this.props.toggleIsFetching(false) //loading img
+        //         this.props.setUsers(data.items)
+        //         this.props.setTotalUsersCount(data.totalCount)
+            // })
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true) //loading img
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-        //     withCredentials: true,
-        // })
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false) //loading img
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsers(pageNumber, this.props.pageSize)
+        // this.props.setCurrentPage(pageNumber);
+        // this.props.toggleIsFetching(true) //loading img
+        // // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+        // //     withCredentials: true,
+        // // })
+        // usersAPI.getUsers(pageNumber, this.props.pageSize)
+        //     .then(data => {
+        //         this.props.toggleIsFetching(false) //loading img
+        //         this.props.setUsers(data.items)
+        //     })
     }
 
 
@@ -130,4 +129,6 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 
 // export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
-export default connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleIsFollowingProgress})(UsersContainer)
+export default connect(mapStateToProps,
+    {follow, unfollow, setCurrentPage,
+        toggleIsFollowingProgress, getUsers})(UsersContainer)
