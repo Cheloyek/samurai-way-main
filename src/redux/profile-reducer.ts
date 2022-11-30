@@ -1,4 +1,5 @@
 import {PostType} from "../components/Profile/MyPosts/MyPosts";
+import {usersAPI} from "../api/api";
 
 
 export type ProfilePageType = {
@@ -79,5 +80,12 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionPro
 export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateNewPostTextActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
 export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile})
+export const getUserProfile = (userId: string) => (dispatch: any) => {
+    usersAPI.getProfile(userId)
+        .then(data => {
+            dispatch(setUserProfile(data))
+        })
+}
+
 
 export default profileReducer;

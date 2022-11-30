@@ -1,13 +1,10 @@
 import React, {Dispatch} from "react";
 import {AnyAction} from "redux";
-import {ProfilePageType, setUserProfile} from "../../redux/profile-reducer";
+import {getUserProfile, ProfilePageType, setUserProfile} from "../../redux/profile-reducer";
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import profile from "./Profile";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {RootStateType} from "../../App";
-import {usersAPI} from "../../api/api";
 
 type ProfilePropsType = {
     profilePage: ProfilePageType
@@ -43,10 +40,11 @@ class ProfileContainer extends React.Component<any, any> {
         //     .then(response => {
         //         this.props.setUserProfile(response.data)
         //     })
-        usersAPI.getProfile(userId)
-            .then(data => {
-                        this.props.setUserProfile(data)
-                    })
+        this.props.getUserProfile(userId)
+        // usersAPI.getProfile(userId)
+        //     .then(data => {
+        //                 this.props.setUserProfile(data)
+        //             })
     }
 
     render() {
@@ -58,4 +56,4 @@ class ProfileContainer extends React.Component<any, any> {
 
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => ({profile: state.profilePage.profile})
 let WithUrlDataContainerComponent = withRouter(ProfileContainer) //withRouter добавит в ProfileContainer данные из url
-export default connect(mapStateToProps, {setUserProfile}) (WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {getUserProfile}) (WithUrlDataContainerComponent);

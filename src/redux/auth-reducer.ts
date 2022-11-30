@@ -1,3 +1,4 @@
+import {authAPI} from "../api/api";
 
 
 export type UserType = {
@@ -71,6 +72,17 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
 
 }
 
+
 export const setAuthUserData = (id: number, login: string, email: string) => ({type: SET_USER_DATA, data: {id, login, email}})
+
+export const getAuthUserData = () => (dispatch: any) => {
+    authAPI.getMe()
+        .then(data => {
+            if (data.resultCode === 0) {
+                let {id, login, email} = data.data
+                dispatch(setAuthUserData(id, login, email))
+            }
+        })
+}
 
 export default authReducer;
