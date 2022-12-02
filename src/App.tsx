@@ -44,7 +44,6 @@ export type RootStateType = {
 
 
 function App(props: any) {
-  // @ts-ignore
     return (
       <BrowserRouter>
 
@@ -61,6 +60,7 @@ function App(props: any) {
                          render={() => <ProfileContainer
                              // profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
                              // dispatch={props.dispatch}
+                             // @ts-ignore
                              store={props.store}
                              //заменили на dispatch
                              //addPost={props.addPost}             // передается из store.ts -> render.tsx -> app.tsx -> Profile.tsx

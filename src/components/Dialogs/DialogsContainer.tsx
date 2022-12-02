@@ -3,6 +3,7 @@ import {StoreType} from "../../redux/store";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 type DialogsPropsType = {
     store: StoreType
@@ -36,16 +37,13 @@ type DialogsPropsType = {
 // возвращают объекты, которые передаются параметрами
 // data
 let mapStateToProps = (state: any) => {
-    debugger
     return {
         dialogsPage: state.dialogsPage,
-        isAuth: state.auth.data.isAuth
     }
 }
 
 // callbacks
 let mapDispatchToProps = (dispatch: any) => {
-    debugger
     return {
         updateNewMessageBody: (body: any) => {
             dispatch(updateNewMessageBodyCreator(body))
@@ -56,10 +54,13 @@ let mapDispatchToProps = (dispatch: any) => {
     }
 }
 
+let AuthRedirectComponent = WithAuthRedirect(Dialogs)
+
+
 //connect() - вызывает функцию connect, которая вернула другую функцию, которую вызываем connect()()
 //connect()(Dialogs) - вызываем контейнерную компоненту, которая передает данные в Dialogs
 //connect создает контейнерную компоненту, внутри которой рендерит презентационную и внутрь презентационной передает свойства mapStateToProps, mapDispatchToProps
 // @ts-ignore
-let DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+let DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
 export default DialogsContainer
