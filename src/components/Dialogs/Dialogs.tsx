@@ -4,6 +4,7 @@ import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
 import { StoreType} from "../../redux/store";
 import {MessageType, sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {Redirect} from "react-router-dom";
 
 type DialogsPropsType = {
     store: StoreType
@@ -16,16 +17,17 @@ type DialogsPropsType = {
 
 //2
 const Dialogs = (props: any) => {
+    debugger
     // debugger
     // let state = props.dialogsPage
     let state = props.dialogsPage
 
-    let dialogsElements = state.dialogs.map((d:any) => <DialogItem name={d.name} key={d.id} id={d.id}/>)
+    let dialogsElements = state.dialogs.map((d: any) => <DialogItem name={d.name} key={d.id} id={d.id}/>)
     // [
     // <DialogItem name={dialogs[0].name} id={dialogs[0].id}/>,
     // ]
     // создает массив
-    let messagesElements = state.messages.map((m:MessageType) => <Message message={m.message} key={m.id}/>)
+    let messagesElements = state.messages.map((m: MessageType) => <Message message={m.message} key={m.id}/>)
     let newMessageBody = state.newMessageBody
 
     //Ref - ссылка на любой элемент, в данном случае создание ссылки на элемент textarea
@@ -40,38 +42,43 @@ const Dialogs = (props: any) => {
 
     }
 
-    let onNewMessageChange = (e:any) => {
+    let onNewMessageChange = (e: any) => {
         // let textMessage = newMessageElement.current?.value      // текст сообщения который вводится в textarea
         let body = e.target.value
         // props.updateNewMessageText(textMessage)
         // @ts-ignore
         props.updateNewMessageBody(body)
     }
+    // if (props.isAuth === false) return <Redirect to={'/login'} />
+    if (!props.isAuth) {
+        return <Redirect to={'/login'} />
+    }
+    // alert(props.isAuth)
 
-    return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsItems}>
-                {dialogsElements}
-            </div>
-            <div className={s.messages}>
-                {/*<Message message={messages[0].message}/>*/}
-                {/*<Message message={messages[1].message}/>*/}
-                {/*<Message message={messages[2].message}/>*/}
-                <div>{messagesElements}</div>
-                <div>
+        return (
+            <div className={s.dialogs}>
+                <div className={s.dialogsItems}>
+                    {dialogsElements}
+                </div>
+                <div className={s.messages}>
+                    {/*<Message message={messages[0].message}/>*/}
+                    {/*<Message message={messages[1].message}/>*/}
+                    {/*<Message message={messages[2].message}/>*/}
+                    <div>{messagesElements}</div>
+                    <div>
                     <textarea onChange={onNewMessageChange}
                               placeholder='Enter your message'
-                              // ref={newMessageElement}
+                        // ref={newMessageElement}
                               value={newMessageBody}></textarea>
+                    </div>
+                    <div>
+                        <button onClick={onSendMessageClick}>Send message</button>
+                    </div>
                 </div>
-                <div>
-                    <button onClick={onSendMessageClick}>Send message</button>
-                </div>
-            </div>
 
-        </div>
-    )
-}
+            </div>
+        )
+    }
 
 export default Dialogs
 

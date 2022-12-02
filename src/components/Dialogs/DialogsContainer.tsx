@@ -36,13 +36,16 @@ type DialogsPropsType = {
 // возвращают объекты, которые передаются параметрами
 // data
 let mapStateToProps = (state: any) => {
+    debugger
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.data.isAuth
     }
 }
 
 // callbacks
 let mapDispatchToProps = (dispatch: any) => {
+    debugger
     return {
         updateNewMessageBody: (body: any) => {
             dispatch(updateNewMessageBodyCreator(body))
@@ -56,6 +59,7 @@ let mapDispatchToProps = (dispatch: any) => {
 //connect() - вызывает функцию connect, которая вернула другую функцию, которую вызываем connect()()
 //connect()(Dialogs) - вызываем контейнерную компоненту, которая передает данные в Dialogs
 //connect создает контейнерную компоненту, внутри которой рендерит презентационную и внутрь презентационной передает свойства mapStateToProps, mapDispatchToProps
+// @ts-ignore
 let DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
 export default DialogsContainer

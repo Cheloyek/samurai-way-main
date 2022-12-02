@@ -12,6 +12,7 @@ import {FriendType} from "./redux/sidebar-reducer";
 import {DialogPageType} from "./redux/dialogs-reducer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/login/Login";
 
 
 
@@ -43,7 +44,8 @@ export type RootStateType = {
 
 
 function App(props: any) {
-  return (
+  // @ts-ignore
+    return (
       <BrowserRouter>
 
           <div className='app-wrapper'>
@@ -52,8 +54,7 @@ function App(props: any) {
               <div className='app-wrapper-content'>
                   {/*<Route path='/dialogs' component={Dialogs}/>*/}
                   <Route path='/dialogs'
-                         render={() => <DialogsContainer store={props.store}
-                         />}
+                         render={() => <DialogsContainer/>}
                   />
 
                   <Route path='/profile/:userId?'            //Route - реагирует на изменение url, если /profile то выполнит код
@@ -73,7 +74,7 @@ function App(props: any) {
                   <Route path='/music' render={() => <Music/>}/>
                   {/*<Route path='/settings' component={Settings}/>*/}
                   <Route path='/settings' render={() => <Settings/>}/>
-                  <Route path='/settings' render={() => <Settings/>}/>
+                  <Route path='/login' render={() => <Login/>}/>
               </div>
           </div>
       </BrowserRouter>
