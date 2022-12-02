@@ -127,7 +127,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 //     }
 // }
 
-let AuthRedirectComponent = WithAuthRedirect(Users)
+let AuthRedirectComponent = WithAuthRedirect(UsersContainer)
 
 // export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
 export default connect(mapStateToProps,
