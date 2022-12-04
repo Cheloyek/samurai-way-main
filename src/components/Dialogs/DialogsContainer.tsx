@@ -4,6 +4,7 @@ import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialo
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 type DialogsPropsType = {
     store: StoreType
@@ -54,13 +55,18 @@ let mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-let AuthRedirectComponent = WithAuthRedirect(Dialogs)
+// let AuthRedirectComponent = WithAuthRedirect(Dialogs)
 
 
 //connect() - вызывает функцию connect, которая вернула другую функцию, которую вызываем connect()()
 //connect()(Dialogs) - вызываем контейнерную компоненту, которая передает данные в Dialogs
 //connect создает контейнерную компоненту, внутри которой рендерит презентационную и внутрь презентационной передает свойства mapStateToProps, mapDispatchToProps
 // @ts-ignore
-let DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
+// let DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
-export default DialogsContainer
+// export default DialogsContainer
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    WithAuthRedirect
+)(Dialogs)

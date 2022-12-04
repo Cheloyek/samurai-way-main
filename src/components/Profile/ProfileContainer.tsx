@@ -1,5 +1,5 @@
 import React, {Dispatch} from "react";
-import {AnyAction} from "redux";
+import {AnyAction, compose} from "redux";
 import {getUserProfile, ProfilePageType, setUserProfile} from "../../redux/profile-reducer";
 import Profile from "./Profile";
 import {connect} from "react-redux";
@@ -63,12 +63,19 @@ class ProfileContainer extends React.Component<any, any> {
 }
 
 //hoc
-let AuthRedirectComponent: any = WithAuthRedirect(ProfileContainer)
+// let AuthRedirectComponent: any = WithAuthRedirect(ProfileContainer)
 
 
 let mapStateToProps = (state: any): MapStateToPropsType => ({
     profile: state.profilePage.profile,
 })
 
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent) //withRouter добавит в ProfileContainer данные из url
-export default connect(mapStateToProps, {getUserProfile}) (WithUrlDataContainerComponent);
+// let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent) //withRouter добавит в ProfileContainer данные из url
+// export default connect(mapStateToProps, {getUserProfile}) (WithUrlDataContainerComponent);
+
+
+export default compose(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter,
+    WithAuthRedirect
+)(ProfileContainer)

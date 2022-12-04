@@ -53,10 +53,12 @@ function App(props: any) {
               <div className='app-wrapper-content'>
                   {/*<Route path='/dialogs' component={Dialogs}/>*/}
                   <Route path='/dialogs'
+                      // @ts-ignore
                          render={() => <DialogsContainer/>}
                   />
 
                   <Route path='/profile/:userId?'            //Route - реагирует на изменение url, если /profile то выполнит код
+                      // @ts-ignore
                          render={() => <ProfileContainer
                              // profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
                              // dispatch={props.dispatch}
@@ -67,7 +69,10 @@ function App(props: any) {
                              //updateNewPostText={props.updateNewPostText}
                          />}
                   />
-                  <Route path='/users' render={() => <UsersContainer/>}/>
+
+                  <Route path='/users' render={() =>
+                      // @ts-ignore
+                      <UsersContainer/>}/>
                   {/*<Route path='/news' component={News}/>*/}
                   <Route path='/news' render={() => <News/>}/>
                   {/*<Route path='/music' component={Music}/>*/}
