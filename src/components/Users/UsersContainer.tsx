@@ -138,7 +138,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 //     {follow, unfollow, setCurrentPage,
 //         toggleIsFollowingProgress, getUsers})(AuthRedirectComponent)
 
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps,
         {follow, unfollow, setCurrentPage,
             toggleIsFollowingProgress, getUsers}),
