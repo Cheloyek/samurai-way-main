@@ -7,7 +7,7 @@ type MapStateToPropsForRedirectType = {
     isAuth: boolean
 }
 
-let mapStateToPropsForRedirect = (state: StoreType): MapStateToPropsForRedirectType => ({
+let mapStateToPropsForRedirect = (state: any): MapStateToPropsForRedirectType => ({
     isAuth: state.auth.isAuth
 })
 

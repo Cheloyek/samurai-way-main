@@ -21,6 +21,7 @@ export type ActionDispatchPropsType = {
     body: string
     newText: string
     profile: any
+    status: string
 }
 
 

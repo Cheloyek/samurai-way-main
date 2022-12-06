@@ -17,16 +17,33 @@ export const usersAPI = {
             })
     },
     getProfile (userId: string) {
-        return instance.get(`profile/${userId}`)
-            .then(response => {
-                return response.data
-            })
+        console.log('Please use ProfileAPI object')
+        return profileAPI.getProfile(userId)
+            // .then(response => {
+            //     return response.data
+            // })
     },
     follow (userId: number) {
         return instance.post(`follow/${userId}`)
     },
     unfollow (userId: number) {
         return instance.delete(`follow/${userId}`)
+    }
+}
+
+export const profileAPI = {
+    getProfile (userId: string) {
+        debugger
+        return instance.get(`profile/${userId}`)
+            // .then(response => {
+            //     return response.data
+            // })
+    },
+    getStatus (userId: string) {
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus (status: string) {
+        return instance.put(`profile/status`, {status: status})
     }
 }
 

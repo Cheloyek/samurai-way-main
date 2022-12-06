@@ -4,6 +4,7 @@ import Preloader from "../../common/preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props: any) => {
+    debugger
     if (!props.profile) {
         return <Preloader/>
     } else
@@ -20,7 +21,7 @@ const ProfileInfo = (props: any) => {
                 </div>
                 <div>fullName: {props.profile.fullName}</div>
                 <div>description: {props.profile.aboutMe}</div>
-                <ProfileStatus status={'status'}/>
+                <ProfileStatus status={props.status}/>
             </div>
         </div>
     )

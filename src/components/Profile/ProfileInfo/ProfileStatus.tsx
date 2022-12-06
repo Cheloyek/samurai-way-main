@@ -2,11 +2,12 @@ import React from "react";
 import s from './ProfileInfo.module.css'
 import {render} from "react-dom";
 
-class ProfileStatus extends React.Component {
+class ProfileStatus extends React.Component<any> {
     state = {
         editMode: false
     }
     activateEditMode = () => {
+        debugger
         this.setState({
             editMode: true
         })
