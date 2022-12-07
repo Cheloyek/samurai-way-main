@@ -54,7 +54,6 @@ class ProfileContainer extends React.Component<any, any> {
     }
 
     render() {
-        debugger
         // if (!this.props.isAuth) {
         //     return <Redirect to={'/login'}/>
         // } else {

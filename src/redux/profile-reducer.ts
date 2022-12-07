@@ -65,7 +65,6 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionPro
             }
         }
         case SET_STATUS: {
-            debugger
             return {
                 ...state, status: action.status
             }
@@ -95,7 +94,6 @@ export const setStatus = (status: string) => ({type: SET_STATUS, status})
 export const getUserProfile = (userId: string) => (dispatch: any) => {
     usersAPI.getProfile(userId)
         .then(response => {
-            debugger
             dispatch(setUserProfile(response.data))
         })
 }
@@ -103,13 +101,11 @@ export const getUserProfile = (userId: string) => (dispatch: any) => {
 export const getStatus = (userId: string) => (dispatch: any) => {
     profileAPI.getStatus(userId)
         .then(response => {
-            debugger
             dispatch(setStatus(response.data))
         })
 }
 
 export const updateStatus = (status: string) => (dispatch: any) => {
-    debugger
     profileAPI.updateStatus(status)
         .then(response => {
             if (response.data.resultCode === 0) {

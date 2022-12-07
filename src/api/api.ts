@@ -33,7 +33,6 @@ export const usersAPI = {
 
 export const profileAPI = {
     getProfile (userId: string) {
-        debugger
         return instance.get(`profile/${userId}`)
             // .then(response => {
             //     return response.data
