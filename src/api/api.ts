@@ -55,6 +55,15 @@ export const authAPI = {
     },
 }
 
+// export const loginAPI = {
+//     getLogin (email: string, password: string, rememberMe: boolean, captcha: boolean) {
+//         return instance.post(`auth/login`)
+//             .then(response => {
+//                 return response.data
+//             })
+//     },
+// }
+
 // export const getUsers = (currentPage: number = 1, pageSize: number) => {
 // //     return axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`, {
 // //         withCredentials: true,

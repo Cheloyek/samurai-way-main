@@ -85,4 +85,11 @@ export const getAuthUserData = () => (dispatch: any) => {
         })
 }
 
+// export const getLoginUserData = () => {
+//     loginAPI.getLogin()
+//         .then(data => {
+//             if (data.resultCode === 0)
+//         })
+// }
+
 export default authReducer;
