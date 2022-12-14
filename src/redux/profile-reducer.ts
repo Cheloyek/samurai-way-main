@@ -4,7 +4,7 @@ import {profileAPI, usersAPI} from "../api/api";
 
 export type ProfilePageType = {
     posts: Array<PostType>
-    newPostText: string
+    // newPostText: string
     profile?: any
     status?: string
     // updateNewPostText?: (newText: string) => void
@@ -16,10 +16,11 @@ export type ActionProfileReducerPropsType = {
     profile: any
     status: string
     body: string
+    newPostText: any
 }
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+// const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -29,7 +30,7 @@ let initialState = {
         {id: 1, message: 'abc', likesCount: '0'},
         {id: 2, message: 'defg', likesCount: '26'},
     ],
-    newPostText: '', //текст в textarea
+    // newPostText: '', //текст в textarea
     profile: null,
     status: ''
 }
@@ -40,7 +41,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionPro
             const newPost = {
                 id: 5,
                 //message: this._state.profilePage.newPostText,   // добавляет newPost при нажатии add post
-                message: state.newPostText,   // добавляет newPost при нажатии add post
+                message: action.newPostText,   // добавляет newPost при нажатии add post
                 likesCount: '0'
             }
             return {
@@ -52,13 +53,13 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionPro
             // stateCopy.posts.push(newPost)// добавляет в stateCopy новый post
             // stateCopy.newPostText = ''// очищает input по нажатию add post
         }
-        case UPDATE_NEW_POST_TEXT: {            // updateNewPostText - перерисовка при добавлении текста в textarea (без нажатия кнопки)
-            return {
-                ...state,
-                newPostText: action.newText    // добавляет newText который ввели в textarea
-            }
-            // stateCopy.newPostText = action.newText// добавляет newText который ввели в textarea
-        }
+        // case UPDATE_NEW_POST_TEXT: {            // updateNewPostText - перерисовка при добавлении текста в textarea (без нажатия кнопки)
+        //     return {
+        //         ...state,
+        //         newPostText: action.newText    // добавляет newText который ввели в textarea
+        //     }
+        //     // stateCopy.newPostText = action.newText// добавляет newText который ввели в textarea
+        // }
         case SET_USER_PROFILE: {
             return {
                 ...state, profile: action.profile
@@ -87,8 +88,8 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionPro
     // }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const updateNewPostTextActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export const addPostActionCreator = (newPostText: any) => ({type: ADD_POST, newPostText})
+// export const updateNewPostTextActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
 export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile})
 export const setStatus = (status: string) => ({type: SET_STATUS, status})
 export const getUserProfile = (userId: string) => (dispatch: any) => {

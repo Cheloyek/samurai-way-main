@@ -23,6 +23,7 @@ export type ActionDispatchPropsType = {
     profile: any
     status: string
     newMessageBody: any
+    newPostText: any
 }
 
 
@@ -47,7 +48,7 @@ let store: StoreType = {
                 {id: 1, message: 'abc', likesCount: '0'},
                 {id: 2, message: 'defg', likesCount: '26'},
             ],
-            newPostText: '' //текст в textarea
+            // newPostText: '' //текст в textarea
         },
         dialogsPage: {
             messages: [
