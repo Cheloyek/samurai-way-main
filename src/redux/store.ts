@@ -22,6 +22,7 @@ export type ActionDispatchPropsType = {
     newText: string
     profile: any
     status: string
+    newMessageBody: any
 }
 
 
@@ -66,7 +67,7 @@ let store: StoreType = {
                 {id: 5, name: 'User 5'},
                 {id: 6, name: 'User 6'},
             ],
-            newMessageBody: '' //текст в textarea
+            // newMessageBody: '' //текст в textarea
         },
         sidebar: {
             fiends: [

@@ -1,4 +1,4 @@
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+// const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 export type MessageType = {
@@ -15,7 +15,7 @@ export type DialogsType = {
 export type DialogPageType = {
     messages: Array<MessageType>
     dialogs: Array<DialogsType>
-    newMessageBody: string
+    // newMessageBody: string
 }
 
 let initialState = {
@@ -36,7 +36,7 @@ let initialState = {
         {id: 5, name: 'User 5'},
         {id: 6, name: 'User 6'},
     ],
-    newMessageBody: '' //текст в textarea
+    // newMessageBody: '' //текст в textarea
 }
 
 // export type StatePropsType = {
@@ -48,20 +48,21 @@ let initialState = {
 export type ActionDialogsReducerPropsType = {
     type: string
     body: string
+    newMessageBody: any
 }
 
 const dialogsReducer = (state: DialogPageType = initialState, action: ActionDialogsReducerPropsType) => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY: {
-            return {
-                ...state,
-                newMessageBody: action.body}       // добавляет newMessage который ввели в textarea
-        }
+        // case UPDATE_NEW_MESSAGE_BODY: {
+        //     return {
+        //         ...state,
+        //         newMessageBody: action.body}       // добавляет newMessage который ввели в textarea
+        // }
         case SEND_MESSAGE: {
-            let body = state.newMessageBody
+            let body = action.newMessageBody
             return {
                 ...state,
-                newMessageBody: '',              // очищает input по нажатию send message
+                // newMessageBody: '',              // очищает input по нажатию send message
                 messages: [...state.messages, {id: 4, message: body}] // stateCopy.messages.push({id: 4, message: body})
             }
         }
@@ -79,7 +80,7 @@ const dialogsReducer = (state: DialogPageType = initialState, action: ActionDial
     // return state
 }
 
-export const sendMessageCreator = () => ({type: SEND_MESSAGE}) //add6
-export const updateNewMessageBodyCreator = (body: string) => ({type: UPDATE_NEW_MESSAGE_BODY, body: body}) //add6
+export const sendMessageCreator = (newMessageBody: any) => ({type: SEND_MESSAGE, newMessageBody}) //add6
+// export const updateNewMessageBodyCreator = (body: string) => ({type: UPDATE_NEW_MESSAGE_BODY, body: body}) //add6
 
 export default dialogsReducer;

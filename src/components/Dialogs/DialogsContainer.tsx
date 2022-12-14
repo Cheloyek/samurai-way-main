@@ -1,6 +1,6 @@
 import React from "react";
 import {StoreType} from "../../redux/store";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {sendMessageCreator} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
@@ -46,11 +46,11 @@ let mapStateToProps = (state: any) => {
 // callbacks
 let mapDispatchToProps = (dispatch: any) => {
     return {
-        updateNewMessageBody: (body: any) => {
-            dispatch(updateNewMessageBodyCreator(body))
-        },
-        sendMessage: () => {
-            dispatch(sendMessageCreator())
+        // updateNewMessageBody: (body: any) => {
+        //     dispatch(updateNewMessageBodyCreator(body))
+        // },
+        sendMessage: (newMessageBody: any) => {
+            dispatch(sendMessageCreator(newMessageBody))
         },
     }
 }

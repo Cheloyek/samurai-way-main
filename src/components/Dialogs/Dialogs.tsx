@@ -2,9 +2,10 @@ import React from "react";
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import { StoreType} from "../../redux/store";
-import {MessageType, sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {StoreType} from "../../redux/store";
+import {MessageType, sendMessageCreator} from "../../redux/dialogs-reducer";
 import {Redirect} from "react-router-dom";
+import {Field, reduxForm} from "redux-form";
 
 type DialogsPropsType = {
     store: StoreType
@@ -18,67 +19,95 @@ type DialogsPropsType = {
 //2
 const Dialogs = (props: any) => {
     debugger
-    // debugger
-    // let state = props.dialogsPage
     let state = props.dialogsPage
 
     let dialogsElements = state.dialogs.map((d: any) => <DialogItem name={d.name} key={d.id} id={d.id}/>)
-    // [
-    // <DialogItem name={dialogs[0].name} id={dialogs[0].id}/>,
-    // ]
-    // создает массив
     let messagesElements = state.messages.map((m: MessageType) => <Message message={m.message} key={m.id}/>)
-    let newMessageBody = state.newMessageBody
-
     //Ref - ссылка на любой элемент, в данном случае создание ссылки на элемент textarea
     // let newMessageElement = React.createRef<HTMLTextAreaElement>()
     //функция при нажатии на кнопку send message
-    const onSendMessageClick = () => {
-        // если ссылки еще нет, то она ссылается ни на что, current? - если ссылка null,
-        // то зафиксирует null или undefined и не будет пытаться искать значение value
-        // let text = newMessageElement.current?.value
-        // props.addMessage('')
-        props.sendMessage()
-
-    }
-
-    let onNewMessageChange = (e: any) => {
-        // let textMessage = newMessageElement.current?.value      // текст сообщения который вводится в textarea
-        let body = e.target.value
-        // props.updateNewMessageText(textMessage)
-        // @ts-ignore
-        props.updateNewMessageBody(body)
-    }
+    // const onSendMessageClick = () => {
+    //     // если ссылки еще нет, то она ссылается ни на что, current? - если ссылка null,
+    //     // то зафиксирует null или undefined и не будет пытаться искать значение value
+    //     // let text = newMessageElement.current?.value
+    //     // props.addMessage('')
+    //     props.sendMessage()
+    //
+    // }
+    // let onNewMessageChange = (e: any) => {
+    //     // let textMessage = newMessageElement.current?.value      // текст сообщения который вводится в textarea
+    //     let body = e.target.value
+    //     // props.updateNewMessageText(textMessage)
+    //     // @ts-ignore
+    //     props.updateNewMessageBody(body)
+    // }
     // if (props.isAuth === false) return <Redirect to={'/login'} />
     // if (!props.isAuth) {
     //     return <Redirect to={'/login'} />
     // }
     // alert(props.isAuth)
 
-        return (
-            <div className={s.dialogs}>
-                <div className={s.dialogsItems}>
-                    {dialogsElements}
-                </div>
-                <div className={s.messages}>
-                    {/*<Message message={messages[0].message}/>*/}
-                    {/*<Message message={messages[1].message}/>*/}
-                    {/*<Message message={messages[2].message}/>*/}
-                    <div>{messagesElements}</div>
-                    <div>
-                    <textarea onChange={onNewMessageChange}
-                              placeholder='Enter your message'
-                        // ref={newMessageElement}
-                              value={newMessageBody}></textarea>
-                    </div>
-                    <div>
-                        <button onClick={onSendMessageClick}>Send message</button>
-                    </div>
-                </div>
-
-            </div>
-        )
+    let addNewMessage = (values: any) => {
+        props.sendMessage(values.newMessageBody)
     }
+
+    return (
+        <div>
+            <div className={s.dialogsItems}>
+                {dialogsElements}
+            </div>
+            <div className={s.messages}></div>
+            <div>{messagesElements}</div>
+            <AddMessageFormRedux onSubmit={addNewMessage}/>
+            {/*<div>*/}
+            {/*    <button onClick={onSendMessageClick}>Send message</button>*/}
+            {/*</div>*/}
+        </div>
+    )
+    // <div className={s.dialogs}>
+    //     <div className={s.dialogsItems}>
+    //         {dialogsElements}
+    //     </div>
+    //     <div className={s.messages}>
+    //         {/*<Message message={messages[0].message}/>*/}
+    //         {/*<Message message={messages[1].message}/>*/}
+    //         {/*<Message message={messages[2].message}/>*/}
+    //         <div>{messagesElements}</div>
+    //         <div>
+    //                 <textarea onChange={onNewMessageChange}
+    //                           placeholder='Enter your message'
+    //                     // ref={newMessageElement}
+    //                           value={newMessageBody}></textarea>
+    //         </div>
+    //         <div>
+    //             <button onClick={onSendMessageClick}>Send message</button>
+    //         </div>
+    //     </div>
+    //
+    // </div>
+    {/*)*/
+    }
+    {/*}*/
+    }
+}
+
+
+const AddMessageForm = (props: any) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field placeholder={'Enter your message'} name={'newMessageBody'} component={'textarea'}/>
+            </div>
+            <div>
+                <button>Send message</button>
+            </div>
+        </form>
+    )
+}
+
+const AddMessageFormRedux = reduxForm({
+    form: 'dialogAddMessageForm'
+})(AddMessageForm)
 
 export default Dialogs
 
@@ -87,9 +116,14 @@ export default Dialogs
 // import s from './Dialogs.module.css'
 // import DialogItem from "./DialogItem/DialogsItem";
 // import Message from "./Message/Message";
-// import {DialogPageType} from "../../redux/state";
+// import
+//     {
+//         DialogPageType
+//     }
+// from "../../redux/state";
 //
-// type DialogsPropsType = {
+// type DialogsPropsType =
+//     {
 //     state: DialogPageType
 // }
 //
