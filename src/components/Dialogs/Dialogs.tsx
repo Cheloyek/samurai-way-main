@@ -6,6 +6,9 @@ import {StoreType} from "../../redux/store";
 import {MessageType, sendMessageCreator} from "../../redux/dialogs-reducer";
 import {Redirect} from "react-router-dom";
 import {Field, reduxForm} from "redux-form";
+import {Textarea} from "../common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
+import AddMessageForm from "./AddMessageForm/AddMessageForm";
 
 type DialogsPropsType = {
     store: StoreType
@@ -15,6 +18,10 @@ type DialogsPropsType = {
     // dispatch: any
 }
 
+
+function AddMessageFormRedux(props: { onSubmit: (values: any) => void }) {
+    return null;
+}
 
 //2
 const Dialogs = (props: any) => {
@@ -58,7 +65,7 @@ const Dialogs = (props: any) => {
             </div>
             <div className={s.messages}></div>
             <div>{messagesElements}</div>
-            <AddMessageFormRedux onSubmit={addNewMessage}/>
+            <AddMessageForm onSubmit={addNewMessage}/>
             {/*<div>*/}
             {/*    <button onClick={onSendMessageClick}>Send message</button>*/}
             {/*</div>*/}
@@ -91,23 +98,6 @@ const Dialogs = (props: any) => {
     }
 }
 
-
-const AddMessageForm = (props: any) => {
-    return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field placeholder={'Enter your message'} name={'newMessageBody'} component={'textarea'}/>
-            </div>
-            <div>
-                <button>Send message</button>
-            </div>
-        </form>
-    )
-}
-
-const AddMessageFormRedux = reduxForm({
-    form: 'dialogAddMessageForm'
-})(AddMessageForm)
 
 export default Dialogs
 
