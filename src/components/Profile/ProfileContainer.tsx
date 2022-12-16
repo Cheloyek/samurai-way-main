@@ -24,6 +24,8 @@ type MapStateToPropsForRedirectType = {
 type MapStateToPropsType = {
     profile: number
     status: string
+    autorisedUserId: number
+    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -39,7 +41,7 @@ class ProfileContainer extends React.Component<any, any> {
         let userId = this.props.match.params.userId
         //профиль по умолчанию
         if (!userId) {
-            userId = '26584'
+            userId = this.props.autorisedUserId
         }
         // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
         //     .then(response => {
@@ -58,7 +60,11 @@ class ProfileContainer extends React.Component<any, any> {
         //     return <Redirect to={'/login'}/>
         // } else {
             return (
-                <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
+                <Profile {...this.props}
+                         profile={this.props.profile}
+                         status={this.props.status}
+                         updateStatus={this.props.updateStatus}
+                />
             )
         }
     // }
@@ -70,7 +76,10 @@ class ProfileContainer extends React.Component<any, any> {
 
 let mapStateToProps = (state: any): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    autorisedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
+
 })
 
 // let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent) //withRouter добавит в ProfileContainer данные из url
