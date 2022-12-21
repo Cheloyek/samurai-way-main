@@ -24,7 +24,7 @@ type MapStateToPropsForRedirectType = {
 type MapStateToPropsType = {
     profile: number
     status: string
-    autorisedUserId: number
+    authorisedUserId: number
     isAuth: boolean
 }
 
@@ -39,9 +39,10 @@ type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
 class ProfileContainer extends React.Component<any, any> {
     componentDidMount() {
         let userId = this.props.match.params.userId
+        console.log(this.props)
         //профиль по умолчанию
         if (!userId) {
-            userId = this.props.autorisedUserId
+            userId = this.props.authorisedUserId
         }
         // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
         //     .then(response => {
@@ -77,7 +78,7 @@ class ProfileContainer extends React.Component<any, any> {
 let mapStateToProps = (state: any): MapStateToPropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    autorisedUserId: state.auth.userId,
+    authorisedUserId: state.auth.userId,
     isAuth: state.auth.isAuth
 
 })

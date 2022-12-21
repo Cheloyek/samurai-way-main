@@ -14,7 +14,6 @@ type ProfilePropsType = {
 }
 
 const Profile = (props: any) => {
-    // debugger
     //вынесли в app, получили из app через props, передали через props.posts в MyPosts
 // let posts = [
 //     {id: 1, message: 'abc', likesCount: '0'},

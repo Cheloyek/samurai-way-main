@@ -93,6 +93,8 @@ export const addPostActionCreator = (newPostText: any) => ({type: ADD_POST, newP
 export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile})
 export const setStatus = (status: string) => ({type: SET_STATUS, status})
 export const getUserProfile = (userId: string) => (dispatch: any) => {
+    console.log(userId)
+    debugger
     usersAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfile(response.data))
