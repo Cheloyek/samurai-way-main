@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, withRouter} from "react-router-dom";
@@ -94,6 +94,6 @@ class App extends React.Component<any> {
     }
 }
 
-export default compose(
+export default compose<FC>(
     withRouter,
     connect(null, {getAuthUserData}))(App)

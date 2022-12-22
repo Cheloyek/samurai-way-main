@@ -42,6 +42,7 @@ class ProfileContainer extends React.Component<any, any> {
         console.log(this.props)
         //профиль по умолчанию
         if (!userId) {
+            debugger
             userId = this.props.authorisedUserId
         }
         // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)

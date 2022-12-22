@@ -43,7 +43,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={'Email'} name={'email'} component={Input} validate={[required]}/>
+                <Field placeholder={'Login'} name={'email'} component={Input} validate={[required]}/>
                 {/*<input placeholder={'Login'}/>*/}
             </div>
             <div>

@@ -16,12 +16,12 @@ export type LocationType = {
 }
 
 export type InitialStateType = {
-    data:{
-        id: number,
-        login: string,
-        email: string,
+    // data:{
+        userId: number | null,
+        login: string | null,
+        email: string | null,
         isAuth: boolean
-    },
+    // },
     // messages: Array<string>,
     // fieldsErrors: any,
     // resultCode: any,
@@ -35,7 +35,7 @@ export type InitialStateType = {
 
 export type ActionType = {
     type: string
-    data: {
+    payload: {
         id: number,
         login: string,
         email: string
@@ -47,12 +47,15 @@ const UNFOLLOW = 'UNFOLLOW';
 
 //значение по умолчанию
 let initialState: InitialStateType = {
-    data:{
-        id:26584,
-        login:"VladimirR",
-        email:"vladimir817vk@gmail.com",
+    // data:{
+        // id:26584,
+        userId: null,
+        // login:"VladimirR",
+        login: null,
+        // email:"vladimir817vk@gmail.com",
+        email: null,
         isAuth: false
-    },
+    // },
     // messages:[],
     // fieldsErrors:[],
     // resultCode:0,
@@ -64,7 +67,7 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,
+                ...action.payload,
                     }
         default:
             return state
@@ -74,13 +77,14 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
 
 
 export const setAuthUserData = (id: number, login: string, email: string, isAuth: boolean) => ({
-    type: SET_USER_DATA, data: {id, login, email, isAuth}})
+    type: SET_USER_DATA, payload: {id, login, email, isAuth}})
 
 export const getAuthUserData = () => (dispatch: any) => {
+    debugger
     authAPI.getMe()
-        .then(data => {
-            if (data.resultCode === 0) {
-                let {id, login, email} = data.data
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                let {id, login, email} = response.data.data
                 dispatch(setAuthUserData(id, login, email, true))
             }
         })
@@ -101,16 +105,16 @@ export const login = (email: string, password: any, rememberMe: boolean) => (dis
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData())
             } else {
-                let message = response.data.messages.length > 0 ? 'Some error' : 'Some error'
-                dispatch('login', {_error: message})
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+                dispatch(stopSubmit('login', {_error: message}))
             }
         })
 }
 
 export const logOut = () => (dispatch: any) => {
     authAPI.logOut()
-        .then(data => {
-            if (data.resultCode === 0) {
+        .then(response => {
+            if (response.data.resultCode === 0) {
                 dispatch(setAuthUserData(0, '', '', false))
             }
         })
