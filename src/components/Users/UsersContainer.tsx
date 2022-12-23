@@ -7,10 +7,11 @@ import {
 import {AppStateType} from "../../redux/redux-store";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
-import { getCurrentPage, getFollowingInProgress, getIsFetching,
-    getPageSize, getTotalUsersCount, getUsers,} from "../../redux/users-selectors";
+import {
+    getCurrentPage, getFollowingInProgress, getIsFetching,
+    getPageSize, getTotalUsersCount, getUsers,
+} from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component<any, any> {
     componentDidMount() {
