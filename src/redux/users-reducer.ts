@@ -124,10 +124,12 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) =
 })
 
 //thunk
-export const getUsers = (currentPage: number, pageSize: number) => {
+export const requestUsers = (page: number, pageSize: number) => {
     return (dispatch: any) => {
         dispatch(toggleIsFetching(true)) //loading img
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
+        dispatch(setCurrentPage(page))
+
+        usersAPI.getUsers(page, pageSize).then(data => {
             dispatch(toggleIsFetching(false)) //loading img
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
