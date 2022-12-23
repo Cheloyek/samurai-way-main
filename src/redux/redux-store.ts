@@ -22,13 +22,20 @@ export let reducers = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: authReducer
 })
 
 export type AppStateType = ReturnType<typeof reducers>
 
 let store: StoreType = createStore(reducers, applyMiddleware(thunkMiddleware))
 
-// window.store: any = store
+declare global {
+    interface Window {
+        store: any
+    }
+}
+
+window.store = store
 
 export default store;

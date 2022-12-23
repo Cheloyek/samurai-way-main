@@ -14,8 +14,9 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/login/Login";
 import {connect} from "react-redux";
-import {getAuthUserData, logOut} from "./redux/auth-reducer";
 import {compose} from "redux";
+import {initializeApp} from "./redux/app-reducer";
+import Preloader from "./components/common/preloader/Preloader";
 
 
 
@@ -48,12 +49,13 @@ export type RootStateType = {
 
 class App extends React.Component<any> {
     componentDidMount() {
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-        //     withCredentials: true
-        // })
-        this.props.getAuthUserData()
+        this.props.initializeApp()
     }
     render() {
+        if (!this.props.initialized) {
+            return <Preloader/>
+        }
+
         return (
             <BrowserRouter>
 
@@ -67,7 +69,7 @@ class App extends React.Component<any> {
                         />
 
                         <Route
-                            path='/profile/:userId?'            //Route - реагирует на изменение url, если /profile то выполнит код
+                            path='/profile/:userId?'
                             render={() => <ProfileContainer
                                 // profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
                                 // dispatch={props.dispatch}
@@ -78,13 +80,9 @@ class App extends React.Component<any> {
                             />}
                         />
 
-                        <Route path='/users' render={() =>
-                            <UsersContainer/>}/>
-                        {/*<Route path='/news' component={News}/>*/}
+                        <Route path='/users' render={() => <UsersContainer/>}/>
                         <Route path='/news' render={() => <News/>}/>
-                        {/*<Route path='/music' component={Music}/>*/}
                         <Route path='/music' render={() => <Music/>}/>
-                        {/*<Route path='/settings' component={Settings}/>*/}
                         <Route path='/settings' render={() => <Settings/>}/>
                         <Route path='/login' render={() => <Login/>}/>
                     </div>
@@ -94,6 +92,10 @@ class App extends React.Component<any> {
     }
 }
 
+const mapStateToProps = (state: any) => {
+    initialized: state.app.initialized
+}
+
 export default compose<FC>(
     withRouter,
-    connect(null, {getAuthUserData}))(App)
+    connect(mapStateToProps, {initializeApp}))(App)

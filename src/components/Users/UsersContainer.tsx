@@ -1,10 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    followSuccess,
-    setCurrentPage, toggleIsFetching,
-    setUsers, setTotalUsersCount,
-    unfollowSuccess,
+    setCurrentPage,
     UserType, toggleIsFollowingProgress, getUsers, follow, unfollow
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
@@ -14,49 +11,16 @@ import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 
-
-
-//UsersContainerType
 class UsersContainer extends React.Component<any, any> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
-        // this.props.toggleIsFetching(true) //loading img
-        // // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-        // //     withCredentials: true,
-        // // })
-        //     usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //         this.props.toggleIsFetching(false) //loading img
-        //         this.props.setUsers(data.items)
-        //         this.props.setTotalUsersCount(data.totalCount)
-            // })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize)
-        // this.props.setCurrentPage(pageNumber);
-        // this.props.toggleIsFetching(true) //loading img
-        // // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-        // //     withCredentials: true,
-        // // })
-        // usersAPI.getUsers(pageNumber, this.props.pageSize)
-        //     .then(data => {
-        //         this.props.toggleIsFetching(false) //loading img
-        //         this.props.setUsers(data.items)
-        //     })
     }
 
-
-
     render() {
-        // let pagesCount = Math.ceil(this.props.totalUsersCount/this.props.pageSize);
-        // // let pagesCount = 5;
-        // console.log(this.props)
-        // let pages:Array<number> = [];
-        // for (let i = 1; i <= pagesCount; i++) {
-        //     pages.push(i)
-        // }
-
-
         return <div>
             {this.props.isFetching ? <Preloader/> : null} {/*loading img*/}
             <Users
@@ -67,7 +31,6 @@ class UsersContainer extends React.Component<any, any> {
                 users={this.props.users}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
-                // toggleFollowingProgress={this.props.toggleIsFollowingProgress}
                 followingInProgress={this.props.followingInProgress} // disabled button
             />
         </div>
@@ -142,5 +105,4 @@ export default compose<React.ComponentType>(
     connect(mapStateToProps,
         {follow, unfollow, setCurrentPage,
             toggleIsFollowingProgress, getUsers}),
-    WithAuthRedirect
 )(UsersContainer)

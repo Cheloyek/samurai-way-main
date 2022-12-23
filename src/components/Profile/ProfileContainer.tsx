@@ -1,17 +1,13 @@
 import React, {Dispatch} from "react";
 import {AnyAction, compose} from "redux";
-import {getStatus, getUserProfile, ProfilePageType, setUserProfile, updateStatus} from "../../redux/profile-reducer";
+import {getStatus, getUserProfile, ProfilePageType, updateStatus} from "../../redux/profile-reducer";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
-import {RootStateType} from "../../App";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
 type ProfilePropsType = {
     profilePage: ProfilePageType
     dispatch: Dispatch<AnyAction>
-    // addPost:  (postMessage: string) => void
-    // updateNewPostText: (newText: any) => void
 }
 
 type PathParamType = {
@@ -24,7 +20,7 @@ type MapStateToPropsForRedirectType = {
 type MapStateToPropsType = {
     profile: number
     status: string
-    authorisedUserId: number
+    authorizedUserId: number
     isAuth: boolean
 }
 
@@ -39,28 +35,17 @@ type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
 class ProfileContainer extends React.Component<any, any> {
     componentDidMount() {
         let userId = this.props.match.params.userId
-        console.log(this.props)
-        //профиль по умолчанию
         if (!userId) {
-            debugger
-            userId = this.props.authorisedUserId
+            userId = this.props.authorizedUserId
+            if(!userId) {
+                this.props.history.push('/login')
+            }
         }
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-        //     .then(response => {
-        //         this.props.setUserProfile(response.data)
-        //     })
         this.props.getUserProfile(userId)
-        // usersAPI.getProfile(userId)
-        //     .then(data => {
-        //                 this.props.setUserProfile(data)
-        //             })
         this.props.getStatus(userId)
     }
 
     render() {
-        // if (!this.props.isAuth) {
-        //     return <Redirect to={'/login'}/>
-        // } else {
             return (
                 <Profile {...this.props}
                          profile={this.props.profile}
@@ -69,7 +54,6 @@ class ProfileContainer extends React.Component<any, any> {
                 />
             )
         }
-    // }
 }
 
 //hoc
@@ -79,7 +63,7 @@ class ProfileContainer extends React.Component<any, any> {
 let mapStateToProps = (state: any): MapStateToPropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    authorisedUserId: state.auth.userId,
+    authorizedUserId: state.auth.userId,
     isAuth: state.auth.isAuth
 
 })

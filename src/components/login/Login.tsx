@@ -19,7 +19,7 @@ const Login = (props: any) => {
         // console.log(formData)
         props.login(formData.email, formData.password, formData.rememberMe)
     }
-
+debugger
     if(props.isAuth) {
         return <Redirect to={'/profile'}/>
     }
@@ -31,11 +31,6 @@ const Login = (props: any) => {
         </div>
 
     )
-}
-
-
-export function loginSubmit () {
-
 }
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {

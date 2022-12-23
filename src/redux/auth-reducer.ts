@@ -16,12 +16,10 @@ export type LocationType = {
 }
 
 export type InitialStateType = {
-    // data:{
         userId: number | null,
         login: string | null,
         email: string | null,
         isAuth: boolean
-    // },
     // messages: Array<string>,
     // fieldsErrors: any,
     // resultCode: any,
@@ -47,7 +45,6 @@ const UNFOLLOW = 'UNFOLLOW';
 
 //значение по умолчанию
 let initialState: InitialStateType = {
-    // data:{
         // id:26584,
         userId: null,
         // login:"VladimirR",
@@ -55,14 +52,13 @@ let initialState: InitialStateType = {
         // email:"vladimir817vk@gmail.com",
         email: null,
         isAuth: false
-    // },
     // messages:[],
     // fieldsErrors:[],
     // resultCode:0,
     // isFetching: false
 }
 
-const authReducer = (state: InitialStateType = initialState, action: ActionType) => {
+const authReducer = (state: any = initialState, action: ActionType) => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -76,12 +72,11 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
 }
 
 
-export const setAuthUserData = (id: number, login: string, email: string, isAuth: boolean) => ({
-    type: SET_USER_DATA, payload: {id, login, email, isAuth}})
+export const setAuthUserData = (userId: number | null, login: string | null, email: string | null, isAuth: boolean) => ({
+    type: SET_USER_DATA, payload: {userId, login, email, isAuth}})
 
 export const getAuthUserData = () => (dispatch: any) => {
-    debugger
-    authAPI.getMe()
+    return authAPI.getMe()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {id, login, email} = response.data.data
@@ -115,7 +110,7 @@ export const logOut = () => (dispatch: any) => {
     authAPI.logOut()
         .then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(0, '', '', false))
+                dispatch(setAuthUserData(null, null, null, false))
             }
         })
 }
