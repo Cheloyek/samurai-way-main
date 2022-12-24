@@ -52,7 +52,10 @@ class App extends React.Component<any> {
         this.props.initializeApp()
     }
     render() {
-        if (!this.props.initialized) {
+        console.log(this.props)
+        debugger
+        // if (!this.props.initialized) {
+        if (!this.props.initializeApp) {
             return <Preloader/>
         }
 

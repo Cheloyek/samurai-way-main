@@ -20,10 +20,6 @@ export type InitialStateType = {
         login: string | null,
         email: string | null,
         isAuth: boolean
-    // messages: Array<string>,
-    // fieldsErrors: any,
-    // resultCode: any,
-    // isFetching?: boolean
 }
 
 // export type ActionProfileReducerPropsType = {
@@ -34,31 +30,25 @@ export type InitialStateType = {
 export type ActionType = {
     type: string
     payload: {
-        id: number,
-        login: string,
+        userId: number
+        login: string
         email: string
+        isAuth: boolean
     }
 }
 
 const SET_USER_DATA = 'SET_USER_DATA';
-const UNFOLLOW = 'UNFOLLOW';
 
-//значение по умолчанию
 let initialState: InitialStateType = {
         // id:26584,
         userId: null,
         // login:"VladimirR",
         login: null,
-        // email:"vladimir817vk@gmail.com",
         email: null,
         isAuth: false
-    // messages:[],
-    // fieldsErrors:[],
-    // resultCode:0,
-    // isFetching: false
 }
 
-const authReducer = (state: any = initialState, action: ActionType) => {
+const authReducer = (state: InitialStateType = initialState, action: ActionType) => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -68,7 +58,6 @@ const authReducer = (state: any = initialState, action: ActionType) => {
         default:
             return state
         }
-
 }
 
 
@@ -76,7 +65,7 @@ export const setAuthUserData = (userId: number | null, login: string | null, ema
     type: SET_USER_DATA, payload: {userId, login, email, isAuth}})
 
 export const getAuthUserData = () => (dispatch: any) => {
-    return authAPI.getMe()
+    authAPI.getMe()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {id, login, email} = response.data.data
@@ -84,13 +73,6 @@ export const getAuthUserData = () => (dispatch: any) => {
             }
         })
 }
-
-// export const getLoginUserData = () => {
-//     loginAPI.getLogin()
-//         .then(data => {
-//             if (data.resultCode === 0)
-//         })
-// }
 
 export const login = (email: string, password: any, rememberMe: boolean) => (dispatch: any) => {
     //передаем какую форму останавливаем, { эдемент для которого вывести: описание}
