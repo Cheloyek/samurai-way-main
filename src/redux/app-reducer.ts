@@ -20,11 +20,6 @@ export type InitialStateType = {
         initialized: boolean
 }
 
-// export type ActionProfileReducerPropsType = {
-//     type: string
-//     newText: string
-// }
-
 export type ActionType = {
     type: string
     payload: {
@@ -57,8 +52,8 @@ export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS})
 
 export const initializeApp = () => (dispatch: any) => {
     let promise = dispatch(getAuthUserData())
-    Promise.all([promise]).
-    then( () => {
+    Promise.all([promise])
+        .then( () => {
         dispatch(initializedSuccess())
     })
 }
