@@ -1,10 +1,3 @@
-
-
-
-export type StateSidebarType = {
-    fiends: Array<FriendType>
-}
-
 export type FriendType = {
     id: number
     nameFriend: string

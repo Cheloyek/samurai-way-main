@@ -7,15 +7,6 @@ import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import {RootStateType} from "../App";
 
-
-
-
-
-
-
-
-
-
 export type ActionDispatchPropsType = {
     type: string
     body: string
@@ -25,8 +16,6 @@ export type ActionDispatchPropsType = {
     newMessageBody: any
     newPostText: any
 }
-
-
 
 export type StoreType = {
     _state: RootStateType
@@ -48,7 +37,6 @@ let store: StoreType = {
                 {id: 1, message: 'abc', likesCount: '0'},
                 {id: 2, message: 'defg', likesCount: '26'},
             ],
-            // newPostText: '' //текст в textarea
         },
         dialogsPage: {
             messages: [
@@ -68,7 +56,6 @@ let store: StoreType = {
                 {id: 5, name: 'User 5'},
                 {id: 6, name: 'User 6'},
             ],
-            // newMessageBody: '' //текст в textarea
         },
         sidebar: {
             fiends: [
@@ -90,79 +77,12 @@ let store: StoreType = {
         // let rerenderEntireTree - которой присвоит значение observer
     },
 
-    // переместили в dispatch
-    // addPost () {
-    //     const newPost = {
-    //         id: 5,
-    //         message: this._state.profilePage.newPostText,   // добавляет newPost при нажатии add post
-    //         likesCount: '0'
-    //     }
-    //     this._state.profilePage.posts.push(newPost)         // добавляет в state новый post
-    //     this._state.profilePage.newPostText = ''            // очищает input по нажатию add post
-    //     this._callSubscriber(this._state)                     // перерисовывает дерево
-    // },
-    // updateNewPostText (newText) {
-    //     this._state.profilePage.newPostText = newText        // добавляет newText который ввели в textarea
-    //     this._callSubscriber(this._state)                      // перерисовывает дерево
-    // },
-    // updateNewMessageText(newMessage) {
-    //     this._state.dialogsPage.newMessageBody = newMessage  // добавляет newMessage который ввели в textarea
-    //     this._callSubscriber(this._state)                      // перерисовывает дерево
-    // },//////////////////////del1
-    // addMessage() {
-    //     const newMessage: MessageType = {
-    //         id: 4,
-    //         message: this._state.dialogsPage.newMessageBody,
-    //     }
-    //     this._state.dialogsPage.messages.push(newMessage)   // добавляет newMessage в messages
-    //     this._state.dialogsPage.newMessageBody = ''         // очищает input по нажатию send message
-    //     this._callSubscriber(this._state)                     // перерисовывает дерево
-    // },///////////////////////del2
-
-    // dispatch - функция отправки, диспатчить можно только объект (action)
-    dispatch(action: ActionDispatchPropsType) { //action - объект, у которого обязательно есть свойство type
-
-        //заменили на reducer
-        // if (action.type === ADD_POST) {
-        //     const newPost = {
-        //         id: 5,
-        //         message: this._state.profilePage.newPostText,   // добавляет newPost при нажатии add post
-        //         likesCount: '0'
-        //     }
-        //     this._state.profilePage.posts.push(newPost)             // добавляет в state новый post
-        //     this._state.profilePage.newPostText = ''                // очищает input по нажатию add post
-        //     this._callSubscriber(this._state)                       // перерисовывает дерево
-        // } else if (action.type === UPDATE_NEW_POST_TEXT) {          // updateNewPostText - перерисовка при добавлении текста в textarea (без нажатия кнопки)
-        //     this._state.profilePage.newPostText = action.newText    // добавляет newText который ввели в textarea
-        //     this._callSubscriber(this._state)                       // перерисовывает дерево
-        // } else if (action.type === UPDATE_NEW_MESSAGE_BODY) { //////////////////add3
-        //     this._state.dialogsPage.newMessageBody = action.body   //add4 добавляет newMessage который ввели в textarea
-        //     this._callSubscriber(this._state)                      //add5 перерисовывает дерево
-        // } else if (action.type === SEND_MESSAGE) { //////////////////add3
-        //     let body = this._state.dialogsPage.newMessageBody
-        //     this._state.dialogsPage.newMessageBody = ''            // очищает input по нажатию send message
-        //     this._state.dialogsPage.messages.push( {id: 4, message: body} )
-        //     this._callSubscriber(this._state)                      // перерисовывает дерево
-
-        // profileReducer(this._state.profilePage, action)
-        this._state.profilePage = profileReducer(this._state.profilePage, action) // state обновился. Если action не для reducer, то вернет неизмененный this._state.profilePage
+    dispatch(action: ActionDispatchPropsType) {
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-        this._callSubscriber(this._state)                      // перерисовывает дерево
-        // }
+        this._callSubscriber(this._state)
     },
-
-    // reducer - чистая функция, которая принимает нужную часть state, action (чтобы понять что изменять), применяет его и возвращает измененный state
-
 }
-
-// export const addPostActionCreator = () => ({type: ADD_POST})
-//
-// export const updateNewPostTextActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
-
-// export const sendMessageCreator = () => ({type: SEND_MESSAGE}) //add6
-// export const updateNewMessageBodyCreator = (body: string) => ({type: UPDATE_NEW_MESSAGE_BODY, body: body}) //add6
-
-
-
+// window.store = store
 export default store

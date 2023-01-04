@@ -15,7 +15,6 @@ export type RootState = typeof reducers
 export type ReduxStateType = ReturnType<RootState>
 export type StoreType = Store<ReduxStateType>
 
-// reducer - чистая функция, которая принимает нужную часть state, action (чтобы понять что изменять), применяет его и возвращает измененный state
 export let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
@@ -32,7 +31,7 @@ let store: StoreType = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 declare global {
     interface Window {
-        store: any
+        store: StoreType
     }
 }
 
