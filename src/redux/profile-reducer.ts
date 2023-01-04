@@ -17,12 +17,13 @@ export type ActionProfileReducerPropsType = {
     status?: string
     body?: string
     newPostText?: any
+    postId?: number
 }
 
 const ADD_POST = 'ADD-POST';
-// const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const DELETE_POST = 'DELETE_POST'
 
 //значение по умолчанию
 let initialState = {
@@ -64,6 +65,11 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionPro
                 ...state, status: action.status
             }
         }
+        case DELETE_POST: {
+            return {
+                ...state, posts: state.posts.filter(p => p.id !== action.postId)
+            }
+        }
         default:                              // если ничего не подошло под условия
             return state
         }
@@ -73,6 +79,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionPro
 export const addPostActionCreator = (newPostText: any) => ({type: ADD_POST, newPostText})
 export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile})
 export const setStatus = (status: string) => ({type: SET_STATUS, status})
+export const deletePost = (postId: number) => ({type: DELETE_POST, postId})
 export const getUserProfile = (userId: string) => (dispatch: any) => {
     console.log(userId)
     usersAPI.getProfile(userId)
