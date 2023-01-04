@@ -1,8 +1,22 @@
 import React from "react";
 import styles from "./users.module.css";
 import userPhoto from "../../assets/images/user.png";
-import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import Paginator from "../common/Paginator/Paginator";
+
+type UserPhotoType = {
+    small: string | null
+    large: string | null
+}
+
+type UserType = {
+    followed: boolean
+    id: number
+    name: string
+    photos: UserPhotoType
+    status: string | null
+    uniqueUrlName: string | null
+}
 
 export type UsersPropsType = {
     totalUsersCount: number
@@ -18,24 +32,24 @@ export type UsersPropsType = {
 
 let Users = (props: UsersPropsType) => {
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-    let pages: Array<number> = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
+    // let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    // let pages: Array<number> = [];
+    // for (let i = 1; i <= pagesCount; i++) {
+    //     pages.push(i)
+    // }
     return <div>
-        <div>
-            {pages.map((p: number) => {
-                // @ts-ignore
-                return <span className={props.currentPage === p && styles.selectedPage}
-                             onClick={(e) => {
-                                 props.onPageChanged(p)
-                             }}>{p}-</span>
-            })}
-        </div>
+        {/*<div>*/}
+        {/*    {pages.map((p) => {*/}
+        {/*        // @ts-ignore*/}
+        {/*        return <span className={props.currentPage === p && styles.selectedPage}*/}
+        {/*                     onClick={(e) => {*/}
+        {/*                         props.onPageChanged(p)*/}
+        {/*                     }}>{p}-</span>*/}
+        {/*    })}*/}
+        {/*</div>*/}
+        <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged} totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}/>
         {
-            props.users.map((u: any) => <div key={u.id}>
+            props.users.map((u) => <div key={u.id}>
                 <span>
                     <div>
                         <NavLink to={'/profile/' + u.id}> {/*user profile*/}

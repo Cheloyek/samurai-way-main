@@ -1,0 +1,5 @@
+.selectedPage {
+    text-decoration-color: green;
+    background-color: #27a9e0;
+    font-weight: bold;
+}

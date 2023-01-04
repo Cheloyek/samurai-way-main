@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
-import News from "./components/News/News"; //react-router-dom -save (добавит в package.json)
+import {Route, withRouter} from "react-router-dom";
+import News from "./components/News/News";
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -53,20 +53,16 @@ class App extends React.Component<any> {
     }
     render() {
         console.log(this.props)
-        debugger
         // if (!this.props.initialized) {
         if (!this.props.initializeApp) {
             return <Preloader/>
         }
 
         return (
-            <BrowserRouter>
-
                 <div className='app-wrapper'>
                     <HeaderContainer/>
                     <Navbar/>
                     <div className='app-wrapper-content'>
-                        {/*<Route path='/dialogs' component={Dialogs}/>*/}
                         <Route path='/dialogs'
                                render={() => <DialogsContainer/>}
                         />
@@ -74,12 +70,6 @@ class App extends React.Component<any> {
                         <Route
                             path='/profile/:userId?'
                             render={() => <ProfileContainer
-                                // profilePage={props.state.profilePage} // передается profilePage: {posts:[], newPostText: ''} в Profile
-                                // dispatch={props.dispatch}
-                                // store={props.store}
-                                //заменили на dispatch
-                                //addPost={props.addPost}             // передается из store.ts -> render.tsx -> app.tsx -> Profile.tsx
-                                //updateNewPostText={props.updateNewPostText}
                             />}
                         />
 
@@ -90,7 +80,6 @@ class App extends React.Component<any> {
                         <Route path='/login' render={() => <Login/>}/>
                     </div>
                 </div>
-            </BrowserRouter>
         );
     }
 }
