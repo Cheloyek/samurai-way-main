@@ -12,11 +12,11 @@ export type ProfilePageType = {
 
 export type ActionProfileReducerPropsType = {
     type: string
-    newText: string
-    profile: any
-    status: string
-    body: string
-    newPostText: any
+    newText?: string
+    profile?: any
+    status?: string
+    body?: string
+    newPostText?: any
 }
 
 const ADD_POST = 'ADD-POST';
