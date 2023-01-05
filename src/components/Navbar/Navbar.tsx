@@ -19,7 +19,7 @@ const Navbar = () => {
 
             {/*NavLink - используется для смены url без перезагрузки страницы, меняет url в браузере*/}
             {/*activeClassName={s.activeLink} - при нажатии задает класс, чтобы можно было назначить css*/}
-            <NavLink to='/profile/26584' activeClassName={s.activeLink}>Profile</NavLink>  {/*routing переход на страницу profile*/}
+            <NavLink to='/profile' activeClassName={s.activeLink}>Profile</NavLink>  {/*routing переход на страницу profile*/}
         </div>
         <div className={`${s.item} ${s.active}`}>
             <NavLink to='/dialogs' activeClassName={s.activeLink}>Messages</NavLink>
