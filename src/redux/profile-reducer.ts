@@ -36,7 +36,7 @@ let initialState = {
     status: ''
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileReducerPropsType) => {
+const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileReducerPropsType):ProfilePageType => {
     switch (action.type) {
         case ADD_POST: {
             const newPost = {
@@ -48,7 +48,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionPro
             return {
                 ...state,
                 posts: [...state.posts, newPost], // stateCopy.posts.push(newPost)
-                newPostText: ''                   // очищает input по нажатию add post
+              //  newPostText: ''                   // очищает input по нажатию add post
             }
             // stateCopy.posts = [...state.posts]
             // stateCopy.posts.push(newPost)// добавляет в stateCopy новый post
@@ -82,11 +82,14 @@ export const setStatus = (status: string) => ({type: SET_STATUS, status})
 export const deletePost = (postId: number) => ({type: DELETE_POST, postId})
 export const getUserProfile = (userId: string) => async (dispatch: any) => {
     let response = await usersAPI.getProfile(userId)
+    console.log(response.data,'data')
     dispatch(setUserProfile(response.data))
+
 }
 
 export const getStatus = (userId: string) => async (dispatch: any) => {
     let response = await profileAPI.getStatus(userId)
+    console.log('getStatus', response.data)
     dispatch(setStatus(response.data))
 }
 
