@@ -39,12 +39,13 @@ let Paginator = (props: PaginatorPropsType) => {
 
     return <div>
         {portionNumber > 1 && <button onClick={() => {setPortionNumber(portionNumber - 1)}}>Prev</button>}
-        {pages.map((p) => {
+        {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+            .map((p) => {
             // @ts-ignore
-            return <span className={props.currentPage === p && styles.selectedPage}
+            return <button className={props.currentPage === p && styles.selectedPage}
                          onClick={(e) => {
                              props.onPageChanged(p)
-                         }}>{p}-</span>
+                         }}>{p}</button>
         })}
         {portionCount > portionNumber && <button onClick={() => setPortionNumber(portionNumber + 1)}>Next</button>}
     </div>

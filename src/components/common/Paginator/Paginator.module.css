@@ -3,3 +3,18 @@
     background-color: #27a9e0;
     font-weight: bold;
 }
+
+.paginator {
+    margin: 10px;
+}
+
+.pageNumber {
+    padding: 2px;
+    border: 1px solid black;
+}
+
+.pageNumber.selectedPage {
+    text-decoration-color: green;
+    background-color: #27a9e0;
+    font-weight: bold;
+}
