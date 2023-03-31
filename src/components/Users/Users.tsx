@@ -31,7 +31,7 @@ export type UsersPropsType = {
 let Users = (props: UsersPropsType) => {
     return <div>
         <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged}
-                   totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}/>
+                   totaItemsCount={props.totalUsersCount} pageSize={props.pageSize} portionSize={10}/>
         <div>
             {
                 props.users.map((u) => <User user={u}
