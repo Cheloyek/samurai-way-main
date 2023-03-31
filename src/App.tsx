@@ -1,16 +1,16 @@
-import React, {FC} from 'react';
+import React, {FC, Suspense} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+// import DialogsContainer from "./components/Dialogs/DialogsContainer";
+// import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import {ProfilePageType} from "./redux/profile-reducer";
 import {FriendType} from "./redux/sidebar-reducer";
 import {DialogPageType} from "./redux/dialogs-reducer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/login/Login";
 import {connect, Provider} from "react-redux";
@@ -19,6 +19,8 @@ import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/preloader/Preloader";
 import store from "./redux/redux-store";
 
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 
 // type AppPropsType = {
@@ -52,6 +54,7 @@ class App extends React.Component<any> {
     componentDidMount() {
         this.props.initializeApp()
     }
+
     render() {
         console.log(this.props)
         // if (!this.props.initialized) {
@@ -60,10 +63,11 @@ class App extends React.Component<any> {
         }
 
         return (
-                <div className='app-wrapper'>
-                    <HeaderContainer/>
-                    <Navbar/>
-                    <div className='app-wrapper-content'>
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <Navbar/>
+                <div className='app-wrapper-content'>
+                    <Suspense fallback={<div><Preloader/></div>}>
                         <Route path='/dialogs'
                                render={() => <DialogsContainer/>}
                         />
@@ -79,30 +83,32 @@ class App extends React.Component<any> {
                         <Route path='/music' render={() => <Music/>}/>
                         <Route path='/settings' render={() => <Settings/>}/>
                         <Route path='/login' render={() => <Login/>}/>
-                    </div>
+                    </Suspense>
                 </div>
+            </div>
         );
+
     }
 }
 
-const mapStateToProps = (state: any) => {
-    initialized: state.app.initialized
-}
+                const mapStateToProps = (state: any) => {
+                // initialized: state.app.initialized
+            }
 
-// export default compose<FC>(
-//     withRouter,
-//     connect(mapStateToProps, {initializeApp}))(App)
+                // export default compose<FC>(
+                // withRouter,
+                // connect(mapStateToProps, {initializeApp}))(App)
 
-let AppContainer = compose<FC>(
-    withRouter,
-    connect(mapStateToProps, {initializeApp}))(App)
+                let AppContainer = compose<FC>(
+                    withRouter,
+                    connect(mapStateToProps, {initializeApp}))(App)
 
-let MainApp = (props: any) => {
-    return <BrowserRouter>
-        <Provider store={store}>
-            <AppContainer/>
-        </Provider>
-    </BrowserRouter>
-}
+                    let MainApp = (props: any) => {
+                        return <BrowserRouter>
+                        <Provider store={store}>
+                        <AppContainer/>
+                        </Provider>
+                        </BrowserRouter>
+                    }
 
-export default MainApp
+                    export default MainApp

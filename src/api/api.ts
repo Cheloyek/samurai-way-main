@@ -18,7 +18,6 @@ export const usersAPI = {
     },
     getProfile (userId: string) {
         console.log('Please use ProfileAPI object')
-        debugger
         return profileAPI.getProfile(userId)
             // .then(response => {
             //     return response.data

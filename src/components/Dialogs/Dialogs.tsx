@@ -25,7 +25,6 @@ function AddMessageFormRedux(props: { onSubmit: (values: any) => void }) {
 
 //2
 const Dialogs = (props: any) => {
-    debugger
     let state = props.dialogsPage
 
     let dialogsElements = state.dialogs.map((d: any) => <DialogItem name={d.name} key={d.id} id={d.id}/>)
