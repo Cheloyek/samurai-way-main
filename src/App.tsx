@@ -104,7 +104,7 @@ class App extends React.Component<any> {
                     connect(mapStateToProps, {initializeApp}))(App)
 
                     let MainApp = (props: any) => {
-                        return <BrowserRouter>
+                        return <BrowserRouter basename={process.env.PUBLIC_URL}>
                         <Provider store={store}>
                         <AppContainer/>
                         </Provider>
