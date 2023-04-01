@@ -7,13 +7,15 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfilePageType} from "../../redux/profile-reducer";
 
 type ProfilePropsType = {
-    profilePage: ProfilePageType
-    dispatch: Dispatch<AnyAction>
-    // addPost:  (postMessage: string) => void
-    // updateNewPostText: (newText: any) => void
+    isOwner: boolean,
+    profile: any,
+    status: any,
+    updateStatus: any,
+    savePhoto: any
+    // store?: any
 }
 
-const Profile = (props: any) => {
+const Profile = (props: ProfilePropsType) => {
     //вынесли в app, получили из app через props, передали через props.posts в MyPosts
 // let posts = [
 //     {id: 1, message: 'abc', likesCount: '0'},
@@ -21,8 +23,9 @@ const Profile = (props: any) => {
 // ]
     return (
         <div>
-                <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
-                <MyPostsContainer store={props.store}/>
+                <ProfileInfo isOwner={props.isOwner} profile={props.profile} status={props.status} updateStatus={props.updateStatus} savePhoto={props.savePhoto}/>
+                {/*<MyPostsContainer store={props.store}/>*/}
+                <MyPostsContainer/>
         </div>
     )
 }
