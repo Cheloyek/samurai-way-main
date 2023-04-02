@@ -12,6 +12,7 @@ type ProfilePropsType = {
     status: any,
     updateStatus: any,
     savePhoto: any
+    saveProfile: any
     // store?: any
 }
 
@@ -23,7 +24,7 @@ const Profile = (props: ProfilePropsType) => {
 // ]
     return (
         <div>
-                <ProfileInfo isOwner={props.isOwner} profile={props.profile} status={props.status} updateStatus={props.updateStatus} savePhoto={props.savePhoto}/>
+                <ProfileInfo isOwner={props.isOwner} profile={props.profile} status={props.status} updateStatus={props.updateStatus} saveProfile={props.saveProfile} savePhoto={props.savePhoto}/>
                 {/*<MyPostsContainer store={props.store}/>*/}
                 <MyPostsContainer/>
         </div>

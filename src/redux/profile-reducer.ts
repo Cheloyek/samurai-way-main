@@ -88,6 +88,7 @@ export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profil
 export const setStatus = (status: string) => ({type: SET_STATUS, status})
 export const deletePost = (postId: number) => ({type: DELETE_POST, postId})
 export const savePhotoSuccess = (photos: any) => ({type: SAVE_PHOTO_SUCCESS, photos})
+export const saveProfileSuccess = (profile: any) => {}
 export const getUserProfile = (userId: string) => async (dispatch: any) => {
     let response = await usersAPI.getProfile(userId)
     console.log(response.data,'data')
@@ -116,5 +117,12 @@ export const savePhoto = (file: any) => async (dispatch: any) => {
     }
 }
 
+export const saveProfile = (profile: any) => async (dispatch: any) => {
+    let response = await profileAPI.saveProfile(profile)
+
+    if (response.data.resultCode === 0) {
+        // dispatch(saveProfileSuccess(response.data.data.photos))
+    }
+}
 
 export default profileReducer;
