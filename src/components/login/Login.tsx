@@ -12,10 +12,12 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captchaUrl?: string | null
 }
 
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
+// @ts-ignore
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error, captchaUrl}) => {
 
     return (
         <form onSubmit={handleSubmit}>
@@ -30,6 +32,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
             <div>
                 <Field type="checkbox" name={'rememberMe'} component={Input}/> remember me
             </div>
+            {captchaUrl && <img src={captchaUrl}/>}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>
@@ -56,13 +59,14 @@ const Login = (props: any) => {
     return (
         <div>
             <h1>Hello, please enter your Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
         </div>
 
     )
 }
 
 const mapStateToProps = (state: any) => ({
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
 

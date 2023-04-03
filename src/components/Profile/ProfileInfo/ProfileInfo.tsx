@@ -18,9 +18,11 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     }
 
     const onSubmit = (formData: any) => {
-        console.log('formData', formData)
-        saveProfile(formData)
-        setEditMode(false)
+        saveProfile(formData).then(
+            () => {
+                setEditMode(false)
+            }
+        )
     }
 
     return (
@@ -37,7 +39,9 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
                     ? <ProfileDataForm
                         //@ts-ignore
                         profile={profile} initialValues={profile} onSubmit={onSubmit}/>
-                    : <ProfileData profile={profile} isOwner={isOwner} changeMode={() => {setEditMode(true)}}/>
+                    : <ProfileData profile={profile} isOwner={isOwner} changeMode={() => {
+                        setEditMode(true)
+                    }}/>
                 }
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
