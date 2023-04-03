@@ -22,7 +22,7 @@ export type MyPostsPropsType = {
 
 // props из app -> profile передается в MyPosts
 const MyPosts = React.memo((props: any) => {
-    let postsElements = [...props.posts].reverse().map((p: PostType) => <Post message={p.message} likesCount={p.likesCount}/>)
+    let postsElements = [...props.posts].reverse().map((p: PostType) => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     //React.createRef() - создается ссылка на элемент textarea
     let newPostElement: any = React.createRef()

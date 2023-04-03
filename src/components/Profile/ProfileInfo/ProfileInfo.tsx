@@ -6,8 +6,8 @@ import userImg from './../../../assets/images/user.png'
 import ProfileDataForm from "./ProfileDataForm";
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}: any) => {
-    const [editMode, setEditMode] = useState(false)
-    if (profile === null) {
+    let [editMode, setEditMode] = useState(false)
+    if (!profile) {
         return <Preloader/>
     }
 
@@ -18,8 +18,9 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     }
 
     const onSubmit = (formData: any) => {
-        console.log(formData)
+        console.log('formData', formData)
         saveProfile(formData)
+        setEditMode(false)
     }
 
     return (
@@ -35,7 +36,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
                 {editMode
                     ? <ProfileDataForm
                         //@ts-ignore
-                        profile={profile} onSubmit={onSubmit}/>
+                        profile={profile} initialValues={profile} onSubmit={onSubmit}/>
                     : <ProfileData profile={profile} isOwner={isOwner} changeMode={() => {setEditMode(true)}}/>
                 }
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
