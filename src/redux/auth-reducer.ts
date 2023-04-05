@@ -1,7 +1,25 @@
 import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
-
+type SetAuthUserDataPayloadActionType = {
+    userId: number | null,
+    login: string | null,
+    email: string | null,
+    isAuth: boolean
+}
+type GetCaptchaUrlSuccessActionType = {
+    type: typeof GET_CAPTCHA_URL_SUCCESS,
+    payload: {captchaUrl: string | null}
+}
+type SetAuthUserDataActionType = {
+    type: typeof SET_USER_DATA,
+    payload: SetAuthUserDataPayloadActionType
+}
+// type CaptchaUrlType = {
+//     captchaUrl: string | null
+// }
+// export type InitialStateType = SetAuthUserDataPayloadActionType & CaptchaUrlType
+export type InitialStateType = typeof initialState
 export type UserType = {
     id: number
     photoUrl: string
@@ -14,44 +32,23 @@ export type LocationType = {
     city: string
     country: string
 }
-
-export type InitialStateType = {
-    userId: number | null,
-    login: string | null,
-    email: string | null,
-    isAuth: boolean,
-    captchaUrl: string | null
-}
-
-// export type ActionProfileReducerPropsType = {
-//     type: string
-//     newText: string
-// }
-
 export type ActionType = {
     type: string
-    payload: {
-        userId: number
-        login: string
-        email: string
-        isAuth: boolean
-    }
+    payload: SetAuthUserDataPayloadActionType
 }
 
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
 
-let initialState: InitialStateType = {
-    // id:26584,
-    userId: null,
-    // login:"VladimirR",
-    login: null,
-    email: null,
+let initialState = {
+    userId: null as number | null,
+    login: null as string | null,
+    email: null as string | null,
     isAuth: false,
-    captchaUrl: null
+    captchaUrl: null as string | null
 }
 
-const authReducer = (state: InitialStateType = initialState, action: ActionType) => {
+const authReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -68,12 +65,11 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
     }
 }
 
-
-export const setAuthUserData = (userId: number | null, login: string | null, email: string | null, isAuth: boolean) => ({
+export const setAuthUserData = (userId: number | null, login: string | null, email: string | null, isAuth: boolean): SetAuthUserDataActionType => ({
     type: SET_USER_DATA, payload: {userId, login, email, isAuth}
 })
 
-export const getCaptchaUrlSuccess = (captchaUrl: string | null) => ({
+export const getCaptchaUrlSuccess = (captchaUrl: string | null): GetCaptchaUrlSuccessActionType => ({
     type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}
 })
 
@@ -86,8 +82,6 @@ export const getAuthUserData = () => async (dispatch: any) => {
 }
 
 export const login = (email: string, password: any, rememberMe: boolean, captcha: string | null) => async (dispatch: any) => {
-    //передаем какую форму останавливаем, { эдемент для которого вывести: описание}
-    // let action = stopSubmit('login', {email: 'Email is wrong'})
     let response = await authAPI.login(email, password, rememberMe, captcha)
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
@@ -102,7 +96,6 @@ export const login = (email: string, password: any, rememberMe: boolean, captcha
 
 export const getCaptchaUrl = () => async (dispatch: any) => {
     const response = await securityAPI.getCaptchaUrl()
-    debugger
     const captchaUrl = response.data.url
     dispatch(getCaptchaUrlSuccess(captchaUrl))
 }

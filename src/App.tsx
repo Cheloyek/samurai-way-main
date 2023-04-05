@@ -51,8 +51,15 @@ export type RootStateType = {
 
 
 class App extends React.Component<any> {
+    catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
+        alert('Some error')
+    }
     componentDidMount() {
         this.props.initializeApp()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    }
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
 
     render() {

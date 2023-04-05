@@ -17,7 +17,6 @@ export const usersAPI = {
             })
     },
     getProfile (userId: string) {
-        console.log('Please use ProfileAPI object')
         return profileAPI.getProfile(userId)
     },
     follow (userId: number) {
@@ -36,7 +35,7 @@ export const profileAPI = {
         return instance.get(`profile/status/${userId}`)
     },
     updateStatus (status: string) {
-        return instance.put(`profile/status`, {status: status})
+        return instance.put(`profile/status`, {status})
     },
     savePhoto (photo: any) {
         const formData = new FormData()

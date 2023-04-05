@@ -4,12 +4,13 @@ import Post from "./Post/Post";
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
+import {PostType} from "../../../types/types";
 
-export type PostType = {
-    id: number
-    message: string
-    likesCount: string
-}
+// export type PostType = {
+//     id: number
+//     message: string
+//     likesCount: string
+// }
 
 //4
 export type MyPostsPropsType = {

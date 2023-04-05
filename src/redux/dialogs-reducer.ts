@@ -4,23 +4,25 @@ export type MessageType = {
     id: number
     message: string
 }
-
-export type DialogsType = {
+export type DialogType = {
     id: number,
     name: string,
     url?: string
 }
-
 export type DialogPageType = {
     messages: Array<MessageType>
-    dialogs: Array<DialogsType>
+    dialogs: Array<DialogType>
 }
-
 export type ActionDialogsReducerPropsType = {
     type: string
     body: string
     newMessageBody: any
 }
+type SendMessageCreatorActionType = {
+    type: typeof SEND_MESSAGE,
+    newMessageBody: string
+}
+
 
 let initialState = {
     messages: [
@@ -42,7 +44,7 @@ let initialState = {
     ],
 }
 
-const dialogsReducer = (state: DialogPageType = initialState, action: ActionDialogsReducerPropsType) => {
+const dialogsReducer = (state = initialState, action: ActionDialogsReducerPropsType): DialogPageType => {
     switch (action.type) {
         case SEND_MESSAGE: {
             let body = action.newMessageBody
@@ -56,6 +58,6 @@ const dialogsReducer = (state: DialogPageType = initialState, action: ActionDial
     }
 }
 
-export const sendMessageCreator = (newMessageBody: string) => ({type: SEND_MESSAGE, newMessageBody})
+export const sendMessageCreator = (newMessageBody: string): SendMessageCreatorActionType => ({type: SEND_MESSAGE, newMessageBody})
 
 export default dialogsReducer;
