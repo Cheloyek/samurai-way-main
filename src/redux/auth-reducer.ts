@@ -85,24 +85,24 @@ export const getAuthUserData = () => async (dispatch: any) => {
     }
 }
 
-export const login = (email: string, password: any, rememberMe: boolean) => async (dispatch: any) => {
+export const login = (email: string, password: any, rememberMe: boolean, captcha: string | null) => async (dispatch: any) => {
     //передаем какую форму останавливаем, { эдемент для которого вывести: описание}
     // let action = stopSubmit('login', {email: 'Email is wrong'})
-    let response = await authAPI.login(email, password, rememberMe)
+    let response = await authAPI.login(email, password, rememberMe, captcha)
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
     } else {
-        if (response.data.resultCode === 10) {
+        if (response.data.resultCode === 1) {
             dispatch(getCaptchaUrl())
-        } else {
+        }
             let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
             dispatch(stopSubmit('login', {_error: message}))
-        }
     }
 }
 
 export const getCaptchaUrl = () => async (dispatch: any) => {
     const response = await securityAPI.getCaptchaUrl()
+    debugger
     const captchaUrl = response.data.url
     dispatch(getCaptchaUrlSuccess(captchaUrl))
 }
