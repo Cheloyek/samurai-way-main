@@ -52,7 +52,7 @@ export type RootStateType = {
 
 class App extends React.Component<any> {
     catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
-        alert('Some error')
+        console.log('Some error')
     }
     componentDidMount() {
         this.props.initializeApp()

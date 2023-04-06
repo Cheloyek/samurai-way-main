@@ -1,44 +1,49 @@
 import React from "react";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
+import {UserType} from "../../types/types";
 
-type UserPhotoType = {
-    small: string | null
-    large: string | null
-}
 
-type UserType = {
-    followed: boolean
-    id: number
-    name: string
-    photos: UserPhotoType
-    status: string | null
-    uniqueUrlName: string | null
-}
+// export type UserType = {
+//     id: number
+//     name: string
+//     followed: boolean
+//     photos: PhotosType
+//     status: string | null
+//     uniqueUrlName: string | null
+// }
 
-export type UsersPropsType = {
-    totalUsersCount: number
+type PropsType = {
     pageSize: number
     currentPage: number
-    users: Array<UserType>
-    unfollow: (userId: number) => void
+    users: UserType[]
+    totalUsersCount: number
+    followingInProgress: number[]
     follow: (userId: number) => void
+    unfollow: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
-    // toggleFollowingProgress: (isFetching: boolean, userId: number) => void
-    followingInProgress: []
 }
 
-let Users = (props: UsersPropsType) => {
+let Users: React.FC<PropsType> = ({
+                                      totalUsersCount,
+                                      pageSize,
+                                      currentPage,
+                                      users,
+                                      unfollow,
+                                      follow,
+                                      onPageChanged,
+                                      followingInProgress
+                                  }) => {
     return <div>
-        <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged}
-                   totaItemsCount={props.totalUsersCount} pageSize={props.pageSize} portionSize={10}/>
+        <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
+                   totaItemsCount={totalUsersCount} pageSize={pageSize} portionSize={10}/>
         <div>
             {
-                props.users.map((u) => <User user={u}
-                                             followingInProgress={props.followingInProgress || []}
-                                             follow={props.follow}
-                                             unfollow={props.unfollow}
-                                             key={u.id}
+                users.map((u) => <User user={u}
+                                       followingInProgress={followingInProgress || []}
+                                       follow={follow}
+                                       unfollow={unfollow}
+                                       key={u.id}
                     />
                 )
             }
