@@ -12,7 +12,7 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
-    captchaUrl?: string | null
+    captcha?: string | null
 }
 
 
@@ -51,7 +51,8 @@ const LoginReduxForm = reduxForm<FormDataType> ({
 
 const Login = (props: any) => {
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe, formData.captchaUrl)
+        console.log(formData)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     if(props.isAuth) {
         return <Redirect to={'/profile'}/>

@@ -1,8 +1,15 @@
 import React from "react";
-import s from './ProfileInfo.module.css'
-import {render} from "react-dom";
 
-class ProfileStatus extends React.Component<any> {
+type PropsType = {
+    status: string,
+    updateStatus: (status: string) => void
+}
+type StateType = {
+    editMode: boolean,
+    status: string
+}
+
+class ProfileStatus extends React.Component<PropsType, StateType> {
 
     state = {
         editMode: false,
@@ -25,19 +32,15 @@ class ProfileStatus extends React.Component<any> {
         })
     }
 
-    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<{}>, snapshot?: any) {
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         if(prevProps.status !== this.props.status) {
             this.setState({status: this.props.status})
         }
-        console.log('componentDidUpdate')
-        let a = this.state
-        let b = this.props
     }
 
     render()
     {
         return (
-
             <div>
                 {this.state.editMode
                 ? <div><input onChange={this.onStatusChange} type="text" value={this.state.status} autoFocus={true} onBlur={() => this.deactivateEditMode()}/></div>

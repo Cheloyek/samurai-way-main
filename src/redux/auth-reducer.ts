@@ -1,4 +1,4 @@
-import {authAPI, securityAPI} from "../api/api";
+import {authAPI, ResultCodeForCaptchaEnum, ResultCodesEnum, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 type SetAuthUserDataPayloadActionType = {
@@ -74,22 +74,22 @@ export const getCaptchaUrlSuccess = (captchaUrl: string | null): GetCaptchaUrlSu
 })
 
 export const getAuthUserData = () => async (dispatch: any) => {
-    let response = await authAPI.getMe()
-    if (response.data.resultCode === 0) {
-        let {id, login, email} = response.data.data
+    let meData = await authAPI.getMe()
+    if (meData.resultCode === ResultCodesEnum.Success) {
+        let {id, login, email} = meData.data
         dispatch(setAuthUserData(id, login, email, true))
     }
 }
 
-export const login = (email: string, password: any, rememberMe: boolean, captcha: string | null) => async (dispatch: any) => {
-    let response = await authAPI.login(email, password, rememberMe, captcha)
-    if (response.data.resultCode === 0) {
+export const login = (email: string, password: string, rememberMe: boolean, captcha: string | null) => async (dispatch: any) => {
+    let data = await authAPI.login(email, password, rememberMe, captcha)
+    if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(getAuthUserData())
     } else {
-        if (response.data.resultCode === 1) {
+        if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
             dispatch(getCaptchaUrl())
         }
-            let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+            let message = data.messages.length > 0 ? data.messages[0] : 'Some error'
             dispatch(stopSubmit('login', {_error: message}))
     }
 }
@@ -102,7 +102,7 @@ export const getCaptchaUrl = () => async (dispatch: any) => {
 
 export const logOut = () => async (dispatch: any) => {
     let response = await authAPI.logOut()
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(setAuthUserData(null, null, null, false))
     }
 }

@@ -1,4 +1,4 @@
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI, ResultCodesEnum, usersAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {PhotosType, PostType, ProfileType} from "../types/types";
 
@@ -118,7 +118,7 @@ export const getStatus = (userId: string) => async (dispatch: any) => {
 export const updateStatus = (status: string) => async (dispatch: any) => {
     try{
         let response = await profileAPI.updateStatus(status)
-        if (response.data.resultCode === 0) {
+        if (response.data.resultCode === ResultCodesEnum.Success) {
             dispatch(setStatus(status))
         }
     } catch (error: any) {
@@ -130,7 +130,7 @@ export const updateStatus = (status: string) => async (dispatch: any) => {
 export const savePhoto = (file: any) => async (dispatch: any) => {
     let response = await profileAPI.savePhoto(file)
 
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
@@ -138,7 +138,7 @@ export const savePhoto = (file: any) => async (dispatch: any) => {
 export const saveProfile = (profile: ProfileType) => async (dispatch: any, getState: any) => {
     const userId = getState().auth.userId
     let response = await profileAPI.saveProfile(profile)
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(getUserProfile(userId))
     } else {
         dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}))
