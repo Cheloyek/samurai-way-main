@@ -1,8 +1,9 @@
-import {ResultCodesEnum, usersAPI} from "../api/api";
+import {ResultCodesEnum} from "../api/api";
 import {PhotosType, UserType} from "../types/types";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, InferActionsTypes} from "./redux-store";
+import {usersAPI} from "../api/users-api";
 
 // export type UserType = {
 //     id: number

@@ -12,9 +12,7 @@ export type LocationType = {
     city: string
     country: string
 }
-export type InitialStateType = {
-        initialized: boolean
-}
+export type InitialStateType = typeof initialState
 export type ActionType = {
     type: string
     payload: {
@@ -27,8 +25,8 @@ type InitializedSuccessType = {
     type: typeof INITIALIZED_SUCCESS
 }
 
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
-let initialState: InitialStateType = {
+const INITIALIZED_SUCCESS = 'APP/INITIALIZED_SUCCESS';
+let initialState = {
     initialized: false,
 }
 
@@ -45,14 +43,17 @@ const appReducer = (state = initialState, action: ActionType): InitialStateType 
 
 }
 
+export const actions = {
+    initializedSuccess: () => ({type: INITIALIZED_SUCCESS})
+}
 
-export const initializedSuccess = (): InitializedSuccessType => ({type: INITIALIZED_SUCCESS})
+// export const initializedSuccess = (): InitializedSuccessType => ({type: INITIALIZED_SUCCESS})
 
 export const initializeApp = () => (dispatch: any) => {
     let promise = dispatch(getAuthUserData())
     Promise.all([promise])
         .then( () => {
-        dispatch(initializedSuccess())
+        dispatch(actions.initializedSuccess())
     })
 }
 
