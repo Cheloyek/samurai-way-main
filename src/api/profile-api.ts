@@ -7,7 +7,7 @@ type SavePhotoResponseDataType = {
 }
 
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: number) {
         return instance.get<ProfileType>(`profile/${userId}`).then(res => res.data)
     },
     getStatus(userId: string) {
@@ -16,7 +16,7 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put<APIResponseType>(`profile/status`, {status}).then(res => res.data)
     },
-    savePhoto(photo: any) {
+    savePhoto(photo: File) {
         const formData = new FormData()
         formData.append('image', photo)
         return instance.put<APIResponseType<SavePhotoResponseDataType>>('profile/photo', formData, {

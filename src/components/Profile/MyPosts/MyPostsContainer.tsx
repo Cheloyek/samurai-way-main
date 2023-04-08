@@ -1,7 +1,8 @@
 import React from "react";
-import {addPostActionCreator} from "../../../redux/profile-reducer";
-import MyPosts, {PostType} from "./MyPosts";
+import {actions} from "../../../redux/profile-reducer";
+import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
+import {PostType} from "../../../types/types";
 
 //4
 export type MyPostsPropsType = {
@@ -12,31 +13,6 @@ export type MyPostsPropsType = {
     updateNewPostText: string
 }
 
-// props из app -> profile передается в MyPosts
-// заменили на connect
-// const MyPostsContainer = (props: any) => {
-//     // debugger
-//     let state = props.store.getState()
-//     //callback функция при нажатии на кнопку Add post, обращается к newPostElement считывает current.value
-//     const addPost = () => {
-//         props.store.dispatch(addPostActionCreator())
-//     }
-//
-//     // срабатывает когда пытаемся изменить textarea
-//     let onPostChange = (text: string) => {
-//         let action = updateNewPostTextActionCreator(text)
-//         props.store.dispatch(action)
-//     }
-//
-//     return (<MyPosts
-//         posts={state.profilePage.posts}
-//         addPost={addPost}
-//         updateNewPostText={onPostChange}
-//         newPostText={state.profilePage.newPostText}/>)
-// }
-
-//выполняется при каждом изменении в state и сравнивается содержимое, если что-то в state изменилось, кроме указанного в функции
-//то не перерисовывает
 let mapStateToProps = (state: any) => {
     return {
         posts: state.profilePage.posts,
@@ -47,7 +23,7 @@ let mapStateToProps = (state: any) => {
 let mapDispatchToProps = (dispatch: any) => {
     return {
         addPost: (newPostText: any) => {
-            dispatch(addPostActionCreator(newPostText))
+            dispatch(actions.addPostActionCreator(newPostText))
         },
     }
 }

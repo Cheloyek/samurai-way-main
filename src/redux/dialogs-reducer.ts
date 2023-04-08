@@ -1,4 +1,4 @@
-const SEND_MESSAGE = 'SEND-MESSAGE';
+import {InferActionsTypes} from "./redux-store";
 
 export type MessageType = {
     id: number
@@ -9,27 +9,28 @@ export type DialogType = {
     name: string,
     url?: string
 }
-export type DialogPageType = {
-    messages: Array<MessageType>
-    dialogs: Array<DialogType>
-}
-export type ActionDialogsReducerPropsType = {
-    type: string
-    body: string
-    newMessageBody: any
-}
-type SendMessageCreatorActionType = {
-    type: typeof SEND_MESSAGE,
-    newMessageBody: string
-}
-
+// export type DialogPageType = {
+//     messages: Array<MessageType>
+//     dialogs: Array<DialogType>
+// }
+export type InitialStateType = typeof initialState
+// export type ActionDialogsReducerPropsType = {
+//     type: string
+//     body: string
+//     newMessageBody: any
+// }
+// type SendMessageCreatorActionType = {
+//     type: typeof SEND_MESSAGE,
+//     newMessageBody: string
+// }
+type ActionsType = InferActionsTypes<typeof actions>
 
 let initialState = {
     messages: [
         {id: 1, message: 'Hi'},
         {id: 2, message: 'Ho'},
         {id: 3, message: 'Yo'},
-    ],
+    ] as MessageType[],
     dialogs: [
         {
             id: 1,
@@ -41,12 +42,12 @@ let initialState = {
         {id: 4, name: 'User 4'},
         {id: 5, name: 'User 5'},
         {id: 6, name: 'User 6'},
-    ],
+    ] as DialogType[],
 }
 
-const dialogsReducer = (state = initialState, action: ActionDialogsReducerPropsType): DialogPageType => {
+const dialogsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case SEND_MESSAGE: {
+        case 'DIALOGS/SEND-MESSAGE': {
             let body = action.newMessageBody
             return {
                 ...state,
@@ -58,6 +59,10 @@ const dialogsReducer = (state = initialState, action: ActionDialogsReducerPropsT
     }
 }
 
-export const sendMessageCreator = (newMessageBody: string): SendMessageCreatorActionType => ({type: SEND_MESSAGE, newMessageBody})
+export const actions = {
+    sendMessage: (newMessageBody: string) => ({type: 'DIALOGS/SEND-MESSAGE', newMessageBody} as const)
+}
+
+// export const sendMessageCreator = (newMessageBody: string): SendMessageCreatorActionType => ({type: SEND_MESSAGE, newMessageBody})
 
 export default dialogsReducer;

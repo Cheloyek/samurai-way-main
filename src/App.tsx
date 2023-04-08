@@ -1,63 +1,41 @@
 import React, {FC, Suspense} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, HashRouter, Redirect, Route, withRouter} from "react-router-dom";
+import {HashRouter, Redirect, Route, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-// import DialogsContainer from "./components/Dialogs/DialogsContainer";
-// import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import {ProfilePageType} from "./redux/profile-reducer";
-import {FriendType} from "./redux/sidebar-reducer";
-import {DialogPageType} from "./redux/dialogs-reducer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/preloader/Preloader";
-import store from "./redux/redux-store";
+import store, {AppStateType} from "./redux/redux-store";
+import {withSuspense} from "./hoc/WithSuspense";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
-
-// type AppPropsType = {
-//     store: any
-//     dispatch: Dispatch<AnyAction>
-//     state: RootStateType
-// }
-
-// type ProfilePropsType = {
-//     state: RootStateType
-//     // addPost: (postMessage: string) => void
-//     dispatch: () => void
-//     //updateNewPostText: (newText: any) => void
-//     updateNewMessageText: (newMessage: string) => void
-//     addMessage: (newMessageText: string) => void
-//     store: StoreType
-// }
-
-type SidebarType = {
-    fiends: Array<FriendType>
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: () => void
 }
 
-export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogPageType
-    sidebar: SidebarType
-}
+const SuspendedDialogs = withSuspense(DialogsContainer)
+const SuspendedProfile = withSuspense(ProfileContainer)
 
-
-class App extends React.Component<any> {
+class App extends React.Component<MapPropsType & DispatchPropsType> {
     catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
         console.log('Some error')
     }
+
     componentDidMount() {
         this.props.initializeApp()
         window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
+
     componentWillUnmount() {
         window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
@@ -77,15 +55,13 @@ class App extends React.Component<any> {
                     <Suspense fallback={<div><Preloader/></div>}>
                         <Route path='/' render={() => <Redirect to={'/profile'}/>}/>
                         <Route path='/dialogs'
-                               render={() => <DialogsContainer/>}
+                            // render={() => <DialogsContainer/>}
+                               render={() => <SuspendedDialogs/>}
                         />
-
-                        <Route
-                            path='/profile/:userId?'
-                            render={() => <ProfileContainer
-                            />}
+                        <Route path='/profile/:userId?'
+                            // render={() => <ProfileContainer/>}
+                               render={() => <SuspendedProfile/>}
                         />
-
                         <Route path='/users' render={() => <UsersContainer/>}/>
                         <Route path='/news' render={() => <News/>}/>
                         <Route path='/music' render={() => <Music/>}/>
@@ -96,29 +72,27 @@ class App extends React.Component<any> {
                 </div>
             </div>
         );
-
     }
 }
 
-                const mapStateToProps = (state: any) => {
-                // initialized: state.app.initialized
-            }
+const mapStateToProps = (state: AppStateType) => {
+    initialized: state.app.initialized
+}
 
-                // export default compose<FC>(
-                // withRouter,
-                // connect(mapStateToProps, {initializeApp}))(App)
+// export default compose<FC>(
+// withRouter,
+// connect(mapStateToProps, {initializeApp}))(App)
 
-                let AppContainer = compose<FC>(
-                    withRouter,
-                    connect(mapStateToProps, {initializeApp}))(App)
+let AppContainer = compose<FC>(
+    withRouter,
+    connect(mapStateToProps, {initializeApp}))(App)
 
-                    let MainApp = (props: any) => {
-                        // return <BrowserRouter basename={process.env.PUBLIC_URL}>
-                        return <HashRouter>
-                        <Provider store={store}>
-                        <AppContainer/>
-                        </Provider>
-                        </HashRouter>
-                    }
+let MainApp: React.FC = (props) => {
+    return <HashRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </HashRouter>
+}
 
-                    export default MainApp
+export default MainApp

@@ -3,7 +3,7 @@ import {AnyAction, compose} from "redux";
 import {
     getStatus,
     getUserProfile,
-    ProfilePageType,
+    InitialStateType,
     savePhoto,
     saveProfile,
     updateStatus

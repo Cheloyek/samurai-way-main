@@ -4,7 +4,7 @@ import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {AnyAction} from "redux";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ProfilePageType} from "../../redux/profile-reducer";
+import {InitialStateType} from "../../redux/profile-reducer";
 
 type ProfilePropsType = {
     isOwner: boolean,
