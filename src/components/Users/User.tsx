@@ -2,20 +2,21 @@ import React from "react";
 import styles from "./users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
+import { UserType } from "../../types/types";
 
 type UserPhotoType = {
     small: string | null
     large: string | null
 }
 
-type UserType = {
-    followed: boolean
-    id: number
-    name: string
-    photos: UserPhotoType
-    status: string | null
-    uniqueUrlName: string | null
-}
+// type UserType = {
+//     followed: boolean
+//     id: number
+//     name: string
+//     photos: UserPhotoType
+//     status: string | null
+//     uniqueUrlName: string | null
+// }
 
 export type UsersPropsType = {
     totalUsersCount: number
@@ -28,13 +29,19 @@ export type UsersPropsType = {
     // toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: []
 }
+type PropsType = {
+    user: UserType
+    followingInProgress: number[]
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+}
 
 // let User = (user: any, followingInProgress: [], follow: (userId: number) => void,  unfollow: (userId: number) => void) => {
-let User = ({user, followingInProgress, follow, unfollow}:any) => {
+let User: React.FC<PropsType> = ({user, followingInProgress, follow, unfollow}) => {
     return <div>
                 <span>
                     <div>
-                        <NavLink to={'/profile/' + user.id}> {/*user profile*/}
+                        <NavLink to={'/profile/' + user.id}>
                             <img src={user.photos?.small !== null ? user.photos?.small : userPhoto} className={styles.userPhoto}
                                  alt={'userPhoto'}/>
                         </NavLink>

@@ -6,14 +6,7 @@ export type PostPropsType = {
     likesCount: string
 }
 
-//3
 const Post = (props: PostPropsType) => {
-    //вынесли в profile, из profile вынесли в app
-    // let posts = [
-    //     {id: 1, message: 'abc', likesCount: '0'},
-    //     {id: 2, message: 'defg', likesCount: '26'},
-    // ]
-
     return (
         <div className={s.item}>
             <img
