@@ -1,7 +1,6 @@
 import React from "react";
-import s from './Settings.module.css'
 
-const Settings =(props:any) => {
+const Settings =() => {
     return(
         <div>
             Settings

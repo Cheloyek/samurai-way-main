@@ -2,7 +2,7 @@ import React from "react";
 
 type PropsType = {
     status: string,
-    updateStatus: (status: string) => void
+    updateStatus?: (status: string) => void
 }
 type StateType = {
     editMode: boolean,
@@ -24,7 +24,10 @@ class ProfileStatus extends React.Component<PropsType, StateType> {
         this.setState({
             editMode: false
         })
-        this.props.updateStatus(this.state.status)
+        if (this.props.updateStatus)
+        {
+            this.props.updateStatus(this.state.status)
+        }
     }
     onStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({

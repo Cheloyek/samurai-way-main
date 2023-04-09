@@ -4,20 +4,6 @@ import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
 import { UserType } from "../../types/types";
 
-type UserPhotoType = {
-    small: string | null
-    large: string | null
-}
-
-// type UserType = {
-//     followed: boolean
-//     id: number
-//     name: string
-//     photos: UserPhotoType
-//     status: string | null
-//     uniqueUrlName: string | null
-// }
-
 export type UsersPropsType = {
     totalUsersCount: number
     pageSize: number
@@ -26,7 +12,6 @@ export type UsersPropsType = {
     unfollow: (userId: number) => void
     follow: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
-    // toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: []
 }
 type PropsType = {
@@ -36,7 +21,6 @@ type PropsType = {
     unfollow: (userId: number) => void
 }
 
-// let User = (user: any, followingInProgress: [], follow: (userId: number) => void,  unfollow: (userId: number) => void) => {
 let User: React.FC<PropsType> = ({user, followingInProgress, follow, unfollow}) => {
     return <div>
                 <span>

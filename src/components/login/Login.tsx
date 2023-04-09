@@ -18,6 +18,13 @@ export type LoginFormDataType = {
     captcha: string | null
 }
 export type LoginFormValuesTypeKeys = GetStringKeys<LoginFormDataType>
+type MapStatePropsType = {
+    captchaUrl: string | null
+    isAuth: boolean
+}
+type MapDispatchPropsType = {
+    login: (email: string, password: string, rememberMe: boolean, captcha: string | null) => void
+}
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, LoginFormOwnProps> & LoginFormOwnProps> = ({handleSubmit, error, captchaUrl}) => {
 
@@ -43,17 +50,8 @@ const LoginReduxForm = reduxForm<LoginFormDataType, LoginFormOwnProps> ({
     form: 'login'
 })(LoginForm)
 
-type MapStatePropsType = {
-    captchaUrl: string | null
-    isAuth: boolean
-}
-type MapDispatchPropsType = {
-    login: (email: string, password: string, rememberMe: boolean, captcha: string | null) => void
-}
-
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
     const onSubmit = (formData: LoginFormDataType) => {
-        console.log(formData)
         props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     if(props.isAuth) {

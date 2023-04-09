@@ -5,9 +5,6 @@ export const usersAPI = {
         return instance.get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(res => res.data)
     },
-    // getProfile(userId: string) {
-    //     return profileAPI.getProfile(userId)
-    // },
     follow(userId: number) {
         return instance.post<APIResponseType>(`follow/${userId}`).then(res => res.data)
     },

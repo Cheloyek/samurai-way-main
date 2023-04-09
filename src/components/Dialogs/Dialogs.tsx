@@ -31,9 +31,6 @@ const Dialogs: React.FC<OwnPropsType> = (props) => {
             <div className={s.messages}></div>
             <div>{messagesElements}</div>
             <AddMessageForm onSubmit={addNewMessage}/>
-            {/*<div>*/}
-            {/*    <button onClick={onSendMessageClick}>Send message</button>*/}
-            {/*</div>*/}
         </div>
     )
 }

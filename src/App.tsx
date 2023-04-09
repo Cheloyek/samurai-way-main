@@ -41,8 +41,6 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
     }
 
     render() {
-        console.log(this.props)
-        // if (!this.props.initialized) {
         if (!this.props.initializeApp) {
             return <Preloader/>
         }
@@ -75,9 +73,9 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
-}
+})
 
 let AppContainer = compose<FC>(
     withRouter,

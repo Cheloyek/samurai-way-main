@@ -19,6 +19,10 @@ type ProfileDataType = {
     isOwner: boolean,
     changeMode: () => void
 }
+type ContactsPropsType = {
+    contactTitle: string
+    contactValue: string
+}
 
 const ProfileInfo: React.FC<PropsType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
     let [editMode, setEditMode] = useState(false)
@@ -33,7 +37,6 @@ const ProfileInfo: React.FC<PropsType> = ({profile, status, updateStatus, isOwne
     }
 
     const onSubmit = (formData: ProfileType) => {
-        console.log(formData)
         saveProfile(formData).then(
             () => {
                 setEditMode(false)
@@ -91,11 +94,6 @@ const ProfileData: React.FC<ProfileDataType> = ({profile, isOwner, changeMode}) 
             })}</div>
         </div>
     )
-}
-
-type ContactsPropsType = {
-    contactTitle: string
-    contactValue: string
 }
 
 const Contact: React.FC<ContactsPropsType> = ({contactTitle, contactValue}) => {

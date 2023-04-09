@@ -5,83 +5,16 @@ import {ThunkAction} from "redux-thunk";
 import {AppStateType, BaseThunkType, InferActionsTypes} from "./redux-store";
 import {usersAPI} from "../api/users-api";
 
-// export type UserType = {
-//     id: number
-//     photoUrl: string
-//     followed: boolean
-//     fullName: string
-//     status: string
-//     location: LocationType
-// }
 export type LocationType = {
     city: string
     country: string
 }
 
 export type InitialStateType = typeof initialState
-
-// export type InitialStateType = {
-//     users: Array<UserType>
-//     pageSize: number
-//     totalUsersCount: number
-//     currentPage: number
-//     isFetching: boolean
-//     followingInProgress: Array<any>
-// }
-
-// export type ActionType = {
-//     type: string
-//     userId: any
-//     users: Array<UserType>
-//     currentPage: number
-//     count: number
-//     isFetching: boolean
-// }
-
 type ActionsType = InferActionsTypes<typeof actions>
-    // | FollowSuccessActionType
-    // | UnfollowSuccessActionType
-    // | SetUsersActionType
-    // | SetCurrentPageActionType
-    // | SetTotalUsersCountActionType
-    // | ToggleIsFetchingActionType
-    // | ToggleIsFollowingProgressActionType
 
-// type FollowSuccessActionType = {
-//     type: typeof FOLLOW,
-//     userId: number
-// }
-// type UnfollowSuccessActionType = {
-//     type: typeof UNFOLLOW,
-//     userId: number
-// }
-// type SetUsersActionType = {
-//     type: typeof SET_USERS,
-//     users: Array<UserType>
-// }
-// type SetCurrentPageActionType = {
-//     type: typeof SET_CURRENT_PAGE,
-//     currentPage: number
-// }
-// type SetTotalUsersCountActionType = {
-//     type: typeof SET_TOTAL_USERS_COUNT,
-//     count: number
-// }
-// type ToggleIsFetchingActionType = {
-//     type: typeof TOGGLE_IS_FETCHING,
-//     isFetching: boolean
-// }
-// type ToggleIsFollowingProgressActionType = {
-//     type: typeof TOGGLE_IS_FOLLOWING_PROGRESS,
-//     isFetching: boolean,
-//     userId: number
-// }
-
-//значение по умолчанию
 let initialState = {
     users: [
-        // {id: 1, photoUrl: "https://mykaleidoscope.ru/uploads/posts/2022-08/1659724523_66-mykaleidoscope-ru-p-domik-v-gorakh-u-ozera-dizain-krasivo-foto-68.jpg" , followed: true, fullName: 'Dmitry', status: 'Good', location: {city: "Prague", country: "Czech"}},
-        // {id: 2, photoUrl: "https://mykaleidoscope.ru/uploads/posts/2022-08/1659724523_66-mykaleidoscope-ru-p-domik-v-gorakh-u-ozera-dizain-krasivo-foto-68.jpg", followed: false, fullName: 'Dmitry', status: 'Good', location: {city: "Moscow", country: "Russia"}},
     ] as UserType[],
     pageSize: 10,
     totalUsersCount: 0,
@@ -156,7 +89,6 @@ export const actions = {
 
 type ThunkType = BaseThunkType<ActionsType>;
 
-//thunk
 export const requestUsers = (page: number, pageSize: number): ThunkType => {
     return async (dispatch) => {
         dispatch(actions.toggleIsFetching(true))

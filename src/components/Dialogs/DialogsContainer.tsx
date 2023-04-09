@@ -12,14 +12,6 @@ let mapStateToProps = (state: AppStateType) => {
     }
 }
 
-// let mapDispatchToProps = (dispatch: any) => {
-//     return {
-//         sendMessage: (newMessageBody: any) => {
-//             dispatch(actions.sendMessage(newMessageBody))
-//         },
-//     }
-// }
-
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {sendMessage: actions.sendMessage}),
     WithAuthRedirect

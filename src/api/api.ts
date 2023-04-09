@@ -1,15 +1,6 @@
 import axios from "axios";
 import {UserType} from "../types/types";
 
-export const instance = axios.create({
-        withCredentials: true,
-        baseURL: `https://social-network.samuraijs.com/api/1.0/`,
-        headers: {
-            'API-KEY': '34d100b8-894d-4061-9da0-9a27cb217fe9'
-        }
-    }
-)
-
 
 export enum ResultCodesEnum {
     Success = 0,
@@ -31,13 +22,11 @@ export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
     messages: string[]
 }
 
-type MeResponseType = {
-    data: { id: number, email: string, login: string }
-    resultCode: ResultCodesEnum
-    messages: string[]
-}
-type LoginResponseType = {
-    data: { userId: number }
-    resultCode: ResultCodesEnum | ResultCodeForCaptchaEnum
-    messages: string[]
-}
+export const instance = axios.create({
+        withCredentials: true,
+        baseURL: `https://social-network.samuraijs.com/api/1.0/`,
+        headers: {
+            'API-KEY': '34d100b8-894d-4061-9da0-9a27cb217fe9'
+        }
+    }
+)

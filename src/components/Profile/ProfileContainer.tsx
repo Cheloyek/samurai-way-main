@@ -10,20 +10,6 @@ import {ProfileType} from "../../types/types";
 type PathParamType = {
     userId: string
 }
-// type MapStateToPropsForRedirectType = {
-//     isAuth: boolean
-// }
-// type MapStateToPropsType = {
-//     profile: number
-//     status: string
-//     authorizedUserId: number
-//     isAuth: boolean
-// }
-//
-// type MapDispatchToPropsType = {
-//     setUsers: (profile: any) => void
-// }
-
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
     getUserProfile: (userId: number) => void
@@ -32,7 +18,6 @@ type DispatchPropsType = {
     saveProfile: (profile: ProfileType) => void
     savePhoto: (file: File) => void
 }
-
 type PropsType = MapPropsType & DispatchPropsType & RouteComponentProps<PathParamType>;
 
 class ProfileContainer extends React.Component<PropsType> {
@@ -63,9 +48,9 @@ class ProfileContainer extends React.Component<PropsType> {
             <Profile {...this.props}
                 isOwner={!this.props.match.params.userId}
                 profile={this.props.profile}
+                // @ts-ignore
                 status={this.props.status}
                 updateStatus={this.props.updateStatus}
-                // saveProfile={saveProfile}
                 savePhoto={this.props.savePhoto}
             />
         )
