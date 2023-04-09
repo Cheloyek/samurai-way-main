@@ -1,20 +1,6 @@
 import React, {useState} from "react";
 import styles from "./Paginator.module.css";
 
-// type UserPhotoType = {
-//     small: string | null
-//     large: string | null
-// }
-
-// type UserType = {
-//     followed: boolean
-//     id: number
-//     name: string
-//     photos: UserPhotoType
-//     status: string | null
-//     uniqueUrlName: string | null
-// }
-
 type PropsType = {
     totaItemsCount: number
     pageSize: number

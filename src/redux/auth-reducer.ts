@@ -11,10 +11,10 @@ import {Action} from "redux";
 //     email: string | null,
 //     isAuth: boolean
 // }
-type GetCaptchaUrlSuccessActionType = {
-    type: typeof GET_CAPTCHA_URL_SUCCESS,
-    payload: {captchaUrl: string | null}
-}
+// type GetCaptchaUrlSuccessActionType = {
+//     type: typeof GET_CAPTCHA_URL_SUCCESS,
+//     payload: {captchaUrl: string | null}
+// }
 // type SetAuthUserDataActionType = {
 //     type: typeof SET_USER_DATA,
 //     payload: SetAuthUserDataPayloadActionType
@@ -51,7 +51,7 @@ let initialState = {
     login: null as string | null,
     email: null as string | null,
     isAuth: false,
-    captchaUrl: null as string | null
+    captchaUrl: null as string | null,
 }
 
 const authReducer = (state = initialState, action: ActionsType): InitialStateType => {

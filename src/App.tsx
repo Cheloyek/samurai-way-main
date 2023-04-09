@@ -79,10 +79,6 @@ const mapStateToProps = (state: AppStateType) => {
     initialized: state.app.initialized
 }
 
-// export default compose<FC>(
-// withRouter,
-// connect(mapStateToProps, {initializeApp}))(App)
-
 let AppContainer = compose<FC>(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App)
