@@ -65,7 +65,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                         <Route path='/music' render={() => <Music/>}/>
                         <Route path='/settings' render={() => <Settings/>}/>
                         <Route path='/login' render={() => <Login/>}/>
-                        <Route path='*' render={() => <div>404 PAGE NOT FOUND</div>}/>
+                        {/*<Route path='*' render={() => <div>404 PAGE NOT FOUND</div>}/>*/}
                     </Suspense>
                 </div>
             </div>
