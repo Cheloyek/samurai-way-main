@@ -3,26 +3,7 @@ import {FormAction, stopSubmit} from "redux-form";
 import {authAPI} from "../api/auth-api";
 import {securityAPI} from "../api/security-api";
 import {BaseThunkType, InferActionsTypes} from "./redux-store";
-import {Action} from "redux";
 
-// type SetAuthUserDataPayloadActionType = {
-//     userId: number | null,
-//     login: string | null,
-//     email: string | null,
-//     isAuth: boolean
-// }
-// type GetCaptchaUrlSuccessActionType = {
-//     type: typeof GET_CAPTCHA_URL_SUCCESS,
-//     payload: {captchaUrl: string | null}
-// }
-// type SetAuthUserDataActionType = {
-//     type: typeof SET_USER_DATA,
-//     payload: SetAuthUserDataPayloadActionType
-// }
-// type CaptchaUrlType = {
-//     captchaUrl: string | null
-// }
-// export type InitialStateType = SetAuthUserDataPayloadActionType & CaptchaUrlType
 export type InitialStateType = typeof initialState
 export type UserType = {
     id: number
@@ -36,15 +17,8 @@ export type LocationType = {
     city: string
     country: string
 }
-// export type ActionType = {
-//     type: string
-//     payload: SetAuthUserDataPayloadActionType
-// }
 type ActionsType = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsType | FormAction>
-
-// const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
-// const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
 
 let initialState = {
     userId: null as number | null,
@@ -79,14 +53,6 @@ export const actions = {
         type: 'auth/GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}
     } as const)
 }
-
-// export const setAuthUserData = (userId: number | null, login: string | null, email: string | null, isAuth: boolean) => ({
-//     type: SET_USER_DATA, payload: {userId, login, email, isAuth}
-// })
-
-// export const getCaptchaUrlSuccess = (captchaUrl: string | null): GetCaptchaUrlSuccessActionType => ({
-//     type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}
-// })
 
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
     let meData = await authAPI.getMe()

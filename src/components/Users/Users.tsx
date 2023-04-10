@@ -2,16 +2,8 @@ import React from "react";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import {UserType} from "../../types/types";
-
-
-// export type UserType = {
-//     id: number
-//     name: string
-//     followed: boolean
-//     photos: PhotosType
-//     status: string | null
-//     uniqueUrlName: string | null
-// }
+import {UsersSearchForm} from "./UsersSearchForm";
+import {FilterType} from "../../redux/users-reducer";
 
 type PropsType = {
     pageSize: number
@@ -22,6 +14,7 @@ type PropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
+    onFilterChanged: (filter: FilterType) => void
 }
 
 let Users: React.FC<PropsType> = ({
@@ -32,9 +25,11 @@ let Users: React.FC<PropsType> = ({
                                       unfollow,
                                       follow,
                                       onPageChanged,
+                                      onFilterChanged,
                                       followingInProgress
                                   }) => {
     return <div>
+        <UsersSearchForm onFilterChanged={onFilterChanged}/>
         <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
                    totaItemsCount={totalUsersCount} pageSize={pageSize} portionSize={10}/>
         <div>
