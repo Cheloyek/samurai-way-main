@@ -9,18 +9,19 @@ import Preloader from "../common/preloader/Preloader";
 import {compose} from "redux";
 import {
     getCurrentPage, getFollowingInProgress, getIsFetching,
-    getPageSize, getTotalUsersCount, getUsers,
+    getPageSize, getTotalUsersCount, getUsers, getUsersFilter,
 } from "../../redux/users-selectors";
 import {UserType} from "../../types/types";
 
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 type OwnPropsType = {
-    getUsers: (currentPage: number, pageSize: number, term: string) => void,
+    getUsers: (currentPage: number, pageSize: number, filter: FilterType) => void,
 }
 type MapStatePropsType = {
     users: Array<UserType>
     pageSize: number
     totalUsersCount: number
+    filter: FilterType
     currentPage: number
     isFetching: boolean
     followingInProgress: any
@@ -39,17 +40,18 @@ export type UsersContainerType = MapStatePropsType & MapDispatchPropsType
 
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
-        const {currentPage, pageSize} = this.props
-        this.props.getUsers(currentPage, pageSize, '')
+        const {currentPage, pageSize, filter} = this.props
+        this.props.getUsers(currentPage, pageSize, filter)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize, '')
+        const {pageSize, filter} = this.props
+        this.props.getUsers(pageNumber, pageSize, filter)
     }
 
     onFilterChanged = (filter: FilterType) => {
-        const {currentPage, pageSize} = this.props
-        this.props.getUsers(currentPage, pageSize, filter.term)
+        const {pageSize} = this.props
+        this.props.getUsers(1, pageSize, filter)
     }
 
     render() {
@@ -72,12 +74,13 @@ class UsersContainer extends React.Component<PropsType> {
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        users: getUsers(state), //users: state.usersPage.users
-        pageSize: getPageSize(state), //pageSize: state.usersPage.pageSize
-        totalUsersCount: getTotalUsersCount(state), //totalUsersCount: state.usersPage.totalUsersCount
-        currentPage: getCurrentPage(state), //currentPage: state.usersPage.currentPage
-        isFetching: getIsFetching(state), //isFetching: state.usersPage.isFetching
-        followingInProgress: getFollowingInProgress(state) //followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
+        filter: getUsersFilter(state)
     }
 }
 
