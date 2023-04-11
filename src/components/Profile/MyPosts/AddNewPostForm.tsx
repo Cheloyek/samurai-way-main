@@ -4,6 +4,7 @@ import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import s from "./MyPosts.module.css";
 import React from "react";
 import {LoginFormDataType, LoginFormValuesTypeKeys} from "../../login/Login";
+import {Button} from "antd";
 
 type PropsType = {
 
@@ -22,6 +23,7 @@ const AddNewPostForm: React.FC<InjectedFormProps<AddPostFormValuesType, PropsTyp
                 {createField<AddPostFormValuesTypeKeys>('Post message', "newPostText", [required, maxLength10], Textarea)}
             </div>
             <div>
+                {/*<Button className={s.button}>Add post</Button>*/}
                 <button className={s.button}>Add post</button>
             </div>
         </form>
