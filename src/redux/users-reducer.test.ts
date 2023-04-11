@@ -52,7 +52,11 @@ beforeEach(() => {
         totalUsersCount: 0,
         currentPage: 1,
         isFetching: true,
-        followingInProgress: []
+        followingInProgress: [],
+        filter: {
+            term: '1',
+            friend: null
+        }
     }
 })
 

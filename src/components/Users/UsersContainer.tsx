@@ -52,6 +52,10 @@ class UsersContainer extends React.Component<PropsType> {
     onFilterChanged = (filter: FilterType) => {
         const {pageSize} = this.props
         this.props.getUsers(1, pageSize, filter)
+        // this.props.getUsers(1, pageSize, {
+        //     term: '',
+        //     friend: null
+        // })
     }
 
     render() {
