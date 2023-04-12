@@ -6,6 +6,9 @@ import userImg from './../../../assets/images/user.png'
 import {ContactsType, ProfileType} from "../../../types/types";
 import ProfileDataForm from "./ProfileDataForm";
 
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Space } from 'antd';
+
 type PropsType = {
     profile: ProfileType | null
     status: string
@@ -52,7 +55,10 @@ const ProfileInfo: React.FC<PropsType> = ({profile, status, updateStatus, isOwne
                 {/*    alt=""/>*/}
             </div>
             <div>
-                <img src={profile.photos.small || userImg} style={{width: "100px", height: "100px"}}/>
+                    {/*<Space>*/}
+                        <Avatar size={200} src={profile.photos.small || userImg} />
+                    {/*</Space>*/}
+                {/*<img src={profile.photos.small || userImg} style={{width: "100px", height: "100px"}}/>*/}
                 {isOwner && <input type={"file"} onChange={onProfilePhotoSelected}/>}
                 {editMode
                     ? <ProfileDataForm

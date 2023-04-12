@@ -15,13 +15,15 @@ import Preloader from "./components/common/preloader/Preloader";
 import store, {AppStateType} from "./redux/redux-store";
 import {withSuspense} from "./hoc/WithSuspense";
 import {UploadOutlined, UserOutlined, VideoCameraOutlined} from '@ant-design/icons';
-import {Layout, Menu, theme} from 'antd';
+import {Avatar, Col, Layout, Menu, Row, theme} from 'antd';
 import s from "./components/Navbar/Navbar.module.css";
+import userImg from "./assets/images/user.png";
 
 const {Header, Content, Footer, Sider} = Layout;
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const Chat = React.lazy(() => import('./pages/chat/Chat'));
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
@@ -30,6 +32,7 @@ type DispatchPropsType = {
 
 const SuspendedDialogs = withSuspense(DialogsContainer)
 const SuspendedProfile = withSuspense(ProfileContainer)
+const SuspendedChat = withSuspense(Chat)
 
 class App extends React.Component<MapPropsType & DispatchPropsType> {
 
@@ -55,6 +58,17 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
 
         return (
             <Layout>
+                <Header className='header'>
+                    <Row>
+                        <Col span={22}>
+                            <Menu><Link to='/profile'>Home</Link></Menu>
+                        </Col>
+                        {/*<Col span={2}>*/}
+                        {/*    /!*<Avatar size={200} src={userImg} />*!/*/}
+                        {/*    Exit*/}
+                        {/*</Col>*/}
+                    </Row>
+                </Header>
                 <Sider
                     breakpoint="lg"
                     collapsedWidth="0"
@@ -77,6 +91,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                         <Menu.Item key='4'><NavLink to='/news'>News</NavLink></Menu.Item>
                         <Menu.Item key='5'><NavLink to='/music'>Music</NavLink></Menu.Item>
                         <Menu.Item key='6'><NavLink to='/settings'>Settings</NavLink></Menu.Item>
+                        <Menu.Item key='7'><NavLink to='/chat'>Chat</NavLink></Menu.Item>
                     </Menu>
                 </Sider>
                 <Layout>
@@ -99,6 +114,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                                 <Route path='/music' render={() => <Music/>}/>
                                 <Route path='/settings' render={() => <Settings/>}/>
                                 <Route path='/login' render={() => <Login/>}/>
+                                <Route path='/chat' render={() => <SuspendedChat/>}/>
                                 {/*<Route path='*' render={() => <div>404 PAGE NOT FOUND</div>}/>*/}
                             </Suspense>
                         </div>
