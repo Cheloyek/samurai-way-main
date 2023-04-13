@@ -1,29 +1,23 @@
 import React, {useEffect, useState} from "react";
-
-type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
+import {ChatMessageType} from "../../api/chat-api";
 
 export const Chat = () => {
     const [ws, setWs] = useState<WebSocket | null>(null)
 
     useEffect(() => {
-        let webSocket: WebSocket
-        const closeWsHandler = () => {
-            console.log('close channel')
-            setTimeout(createChannel, 2000)
-        }
+        // let webSocket: WebSocket
+        // const closeWsHandler = () => {
+        //     console.log('close channel')
+        //     setTimeout(createChannel, 2000)
+        // }
 
-        function createChannel() {
-            webSocket?.removeEventListener('close', closeWsHandler)
-            webSocket?.close()
-            webSocket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
-            webSocket.addEventListener('close', closeWsHandler)
-            setWs(webSocket)
-        }
+        // function createChannel() {
+        //     webSocket?.removeEventListener('close', closeWsHandler)
+        //     webSocket?.close()
+        //     webSocket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
+        //     webSocket.addEventListener('close', closeWsHandler)
+        //     setWs(webSocket)
+        // }
 
         createChannel()
 
@@ -49,10 +43,10 @@ const Messages: React.FC<{ ws: WebSocket | null }> = ({ws}) => {
     const [messages, setMessages] = useState<ChatMessageType[]>([])
 
     useEffect(() => {
-        let messageHandler = (e: MessageEvent) => {
-            let newMessages = JSON.parse(e.data);
-            setMessages((prevMessages) => [...prevMessages, ...newMessages])
-        };
+        // let messageHandler = (e: MessageEvent) => {
+        //     let newMessages = JSON.parse(e.data);
+        //     setMessages((prevMessages) => [...prevMessages, ...newMessages])
+        // };
         ws?.addEventListener('message', messageHandler)
 
         return () => {
