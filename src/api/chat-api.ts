@@ -7,7 +7,7 @@ export type ChatMessageType = {
 }
 type SubscriberType = (messages: ChatMessageType[]) => void
 
-let webSocket: WebSocket
+let ws: WebSocket | null
 
 const closeWsHandler = () => {
     console.log('close channel')
@@ -15,10 +15,11 @@ const closeWsHandler = () => {
 }
 
 function createChannel() {
-    webSocket?.removeEventListener('close', closeWsHandler)
-    webSocket?.close()
-    webSocket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
-    webSocket.addEventListener('close', closeWsHandler)
+    ws?.removeEventListener('close', closeWsHandler)
+    ws?.close()
+    ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
+    ws.addEventListener('close', closeWsHandler)
+    ws.addEventListener('message', messageHandler)
 }
 
 const messageHandler = (e: MessageEvent) => {
@@ -29,6 +30,9 @@ const messageHandler = (e: MessageEvent) => {
 let subscribers = [] as SubscriberType[]
 
 export const chatAPI = {
+    startChat() {
+        createChannel()
+    },
     subscribe(callback: SubscriberType) {
         subscribers.push(callback)
         return () => {
@@ -37,5 +41,14 @@ export const chatAPI = {
     },
     unsubscribe(callback: SubscriberType) {
         subscribers = subscribers.filter(s => s !== callback)
+    },
+    sendMessage(message: string) {
+        ws?.send(message)
+    },
+    stopChat() {
+        subscribers = []
+        ws?.close()
+        ws?.removeEventListener('close', closeWsHandler)
+        ws?.removeEventListener('message', messageHandler)
     }
 }

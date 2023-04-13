@@ -56,11 +56,17 @@ let newMessageHandlerCreator = (dispatch: Dispatch) => {
 };
 
 export const startMessagesListening = (): ThunkType => async (dispatch) => {
+    chatAPI.startChat()
     chatAPI.subscribe(newMessageHandlerCreator(dispatch))
 }
 
 export const stopMessagesListening = (): ThunkType => async (dispatch) => {
     chatAPI.unsubscribe(newMessageHandlerCreator(dispatch))
+    chatAPI.stopChat()
+}
+
+export const sendMessage = (message: string): ThunkType => async (dispatch) => {
+    chatAPI.sendMessage(message)
 }
 
 export default chatReducer;
