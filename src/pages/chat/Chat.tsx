@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {ChatMessageType} from "../../api/chat-api";
+import {ChatMessageType, ws} from "../../api/chat-api";
 import {useDispatch, useSelector} from "react-redux";
 import {sendMessage, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer";
 import {AppStateType} from "../../redux/redux-store";
+import {chatStatus} from "../../redux/chat-selectors";
 
 export const Chat = () => {
-
+    const status = useSelector(chatStatus)
+    console.log('status', status)
         const dispatch = useDispatch()
 
         useEffect(() => {
@@ -13,17 +15,19 @@ export const Chat = () => {
             return () => {
                 dispatch(stopMessagesListening())
             }
-        }, [])
+        }, [ws])
 
     return <div>
-        <Messages/>
-        <AddChatMessageForm/>
+        {status === 'error' && <div>Error</div>}
+        <>
+            <Messages/>
+            <AddChatMessageForm/>
+        </>
     </div>
 }
 
 const Messages: React.FC = () => {
     const messages = useSelector((state: AppStateType) => state.chat.messages)
-
     return <div style={{height: '500px', overflowY: 'auto'}}>
         {messages.map((m, index) => <Message key={index} message={m}/>)}
     </div>
@@ -42,6 +46,10 @@ const AddChatMessageForm: React.FC = () => {
     const [message, setMessage] = useState('')
     const dispatch = useDispatch()
 
+    const status = useSelector(chatStatus)
+    // const status = useSelector((state: AppStateType) => state.chat.status)
+
+
     const sendMessageHandler = () => {
         if (!message) {
             return
@@ -52,7 +60,7 @@ const AddChatMessageForm: React.FC = () => {
     return <div>
         <div><textarea onChange={(e) => (setMessage(e.currentTarget.value))} value={message}></textarea></div>
         <div>
-            <button disabled={false} onClick={sendMessageHandler}>Send</button>
+            <button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</button>
         </div>
 
     </div>
