@@ -18,6 +18,7 @@ import {UploadOutlined, UserOutlined, VideoCameraOutlined} from '@ant-design/ico
 import {Avatar, Col, Layout, Menu, Row, theme} from 'antd';
 import s from "./components/Navbar/Navbar.module.css";
 import userImg from "./assets/images/user.png";
+import header from "./components/Header/Header";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -57,18 +58,18 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
         }
 
         return (
-            <Layout>
-                <Header className='header'>
-                    <Row>
-                        <Col span={22}>
-                            <Menu><Link to='/profile'>Home</Link></Menu>
-                        </Col>
-                        {/*<Col span={2}>*/}
-                        {/*    /!*<Avatar size={200} src={userImg} />*!/*/}
-                        {/*    Exit*/}
-                        {/*</Col>*/}
-                    </Row>
-                </Header>
+            <Layout style={{minHeight: "100vh"}}>
+                {/*<Header className='header'>*/}
+                {/*    <Row>*/}
+                {/*        <Col span={22}>*/}
+                {/*            <Menu><Link to='/profile'>Home</Link></Menu>*/}
+                {/*        </Col>*/}
+                {/*        /!*<Col span={2}>*!/*/}
+                {/*        /!*    /!*<Avatar size={200} src={userImg} />*!/*!/*/}
+                {/*        /!*    Exit*!/*/}
+                {/*        /!*</Col>*!/*/}
+                {/*    </Row>*/}
+                {/*</Header>*/}
                 <Sider
                     breakpoint="lg"
                     collapsedWidth="0"
@@ -94,7 +95,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                         <Menu.Item key='7'><NavLink to='/chat'>Chat</NavLink></Menu.Item>
                     </Menu>
                 </Sider>
-                <Layout>
+                <Layout style={{height: '100%'}}>
                     <Header style={{padding: 0, background: 'colorBgContainer'}}/>
                     <Content style={{margin: '24px 16px 0'}}>
                         {/*<div style={{padding: 24, minHeight: 360, background: 'colorBgContainer'}}>content</div>*/}
@@ -119,10 +120,8 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                             </Suspense>
                         </div>
                     </Content>
-                    <Footer style={{textAlign: 'center'}}>Ant Design ©2023 Created by Ant UED</Footer>
                 </Layout>
             </Layout>
-
 
             // <div className='app-wrapper'>
             //     <HeaderContainer/>

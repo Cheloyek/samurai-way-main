@@ -1,9 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
-import {ChatMessageType, ws} from "../../api/chat-api";
+import {ChatMessageAPIType, ws} from "../../api/chat-api";
 import {useDispatch, useSelector} from "react-redux";
 import {sendMessage, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {chatStatus} from "../../redux/chat-selectors";
+import {Button, Input, Space} from "antd";
+import TextArea from "antd/es/input/TextArea";
 
 export const Chat = () => {
     const status = useSelector(chatStatus)
@@ -16,7 +18,7 @@ export const Chat = () => {
         }
     }, [ws])
 
-    return <div>
+    return <div style={{width: '100%', height: '100%'}}>
         {status === 'error' && <div>Error</div>}
         <>
             <Messages/>
@@ -32,7 +34,10 @@ const Messages: React.FC = () => {
 
     useEffect(() => {
         if (isAutoScroll) {
-            messagesAnchorRef.current?.scrollIntoView({block: 'end', behavior: 'smooth'})
+            setTimeout(() => {
+                messagesAnchorRef.current?.scrollIntoView({block: 'end', behavior: 'smooth'})
+            }, 500)
+
         }
     }, [messages])
 
@@ -45,20 +50,20 @@ const Messages: React.FC = () => {
         }
     }
 
-    return <div style={{height: '500px', overflowY: 'auto'}} onScroll={scrollHandler}>
-        {messages.map((m, index) => <Message key={index} message={m}/>)}
+    return <div style={{maxHeight: '80vh', overflowY: 'auto'}} onScroll={scrollHandler}>
+        {messages.map((m, index) => <Message key={m.id} message={m}/>)}
         <div ref={messagesAnchorRef}></div>
     </div>
 }
 
-const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
+const Message: React.FC<{ message: ChatMessageAPIType }> = React.memo (({message}) => {
     return <div>
         <img src={message.photo}/><b>{message.userName}</b>
         <br/>
         {message.message}
         <hr/>
     </div>
-}
+})
 
 const AddChatMessageForm: React.FC = () => {
     const [message, setMessage] = useState('')
@@ -76,9 +81,16 @@ const AddChatMessageForm: React.FC = () => {
         setMessage('')
     }
     return <div>
-        <div><textarea onChange={(e) => (setMessage(e.currentTarget.value))} value={message}></textarea></div>
-        <div>
-            <button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</button>
+        {/*<div><textarea onChange={(e) => (setMessage(e.currentTarget.value))} value={message}></textarea></div>*/}
+        {/*<div><Input onChange={(e) => (setMessage(e.currentTarget.value))} value={message}></Input></div>*/}
+        <div style={{marginLeft: 'auto', marginRight: 'auto'}}>
+            <Space.Compact style={{ paddingTop: '25px', paddingLeft: '10%', minWidth: '100%'}}>
+                <Button type="primary" disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</Button>
+                <Input placeholder="Borderless" bordered={false} maxLength={100} showCount onChange={(e) => (setMessage(e.currentTarget.value))} value={message} style={{maxWidth: '70%'}}/>
+                {/*<TextArea onChange={(e) => (setMessage(e.currentTarget.value))} value={message} maxLength={100} style={{ width: '70%', height: 32, marginBottom: 24 }}/>*/}
+            </Space.Compact>
+            {/*<button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</button>*/}
+            {/*<Button style={{backgroundColor: '#1676fe'}} type='primary' size='middle' disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</Button>*/}
         </div>
 
     </div>
