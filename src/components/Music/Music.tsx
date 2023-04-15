@@ -1,10 +1,14 @@
 import React from "react";
-import s from './Music.module.css'
 
 const Music =(props:any) => {
     return(
         <div>
-            Music
+            Click and relax
+            <body>
+            <audio controls>
+                <source src='http://ais-sa5.cdnstream1.com/b48071_128mp3'/>
+            </audio>
+            </body>
         </div>
     )
 }

@@ -5,9 +5,13 @@ import {sendMessage, startMessagesListening, stopMessagesListening} from "../../
 import {AppStateType} from "../../redux/redux-store";
 import {chatStatus} from "../../redux/chat-selectors";
 import {Button, Input, Space} from "antd";
-import TextArea from "antd/es/input/TextArea";
+import s from './Chat.module.css'
+import {v1} from "uuid";
+import {authId} from "../../redux/auth-selectors";
+import background from './background.png'
 
 export const Chat = () => {
+
     const status = useSelector(chatStatus)
     const dispatch = useDispatch()
 
@@ -18,7 +22,7 @@ export const Chat = () => {
         }
     }, [ws])
 
-    return <div style={{width: '100%', height: '100%'}}>
+    return <div style={{width: '100%', height: '100%', backgroundColor: '#fffdfd'}}>
         {status === 'error' && <div>Error</div>}
         <>
             <Messages/>
@@ -30,7 +34,7 @@ export const Chat = () => {
 const Messages: React.FC = () => {
     const messages = useSelector((state: AppStateType) => state.chat.messages)
     const messagesAnchorRef = useRef<HTMLDivElement>(null)
-    const [isAutoScroll, setIsAutoScroll] = useState(true)
+    const [isAutoScroll, setIsAutoScroll] = useState(false)
 
     useEffect(() => {
         if (isAutoScroll) {
@@ -50,20 +54,44 @@ const Messages: React.FC = () => {
         }
     }
 
-    return <div style={{maxHeight: '80vh', overflowY: 'auto'}} onScroll={scrollHandler}>
+    return <div style={{maxHeight: '80vh', overflowY: 'auto', backgroundImage: `url(${background})`, marginLeft: 'auto', marginRight: 'auto', maxWidth: '1200px'}} onScroll={scrollHandler}>
         {messages.map((m, index) => <Message key={m.id} message={m}/>)}
         <div ref={messagesAnchorRef}></div>
     </div>
 }
 
-const Message: React.FC<{ message: ChatMessageAPIType }> = React.memo (({message}) => {
-    return <div>
-        <img src={message.photo}/><b>{message.userName}</b>
-        <br/>
-        {message.message}
-        <hr/>
-    </div>
-})
+const Message: React.FC<{ message: ChatMessageAPIType }> = ({message}) => {
+    const authUserId = useSelector(authId)
+
+    return (
+        message.userId === authUserId
+            ? <div id={v1() + message.userId} className={s.message}>
+                <div className={s.imageAndText}>
+                    <img className={s.img} src={message.photo}/>
+                    <div className={s.text}>
+                        <div>
+                            <div className={s.name}>{message.userName}</div>
+                            <pre className={s.messageText}>{message.message}</pre>
+                        </div>
+                        <div className={s.time}>09:00</div>
+                    </div>
+                </div>
+            </div>
+            : <div className={s.friendMessage}>
+                <div className={s.friendImageAndText}>
+                    <img src={message.photo}/>
+                    <div className={s.friendText}>
+                        <div>
+                            <div className={s.friendName}>{message.userName}</div>
+                            <pre className={s.friendMessageText}>{message.message}</pre>
+                        </div>
+                        <div className={s.time}>09:01</div>
+                    </div>
+
+                </div>
+            </div>
+    )
+}
 
 const AddChatMessageForm: React.FC = () => {
     const [message, setMessage] = useState('')
@@ -81,16 +109,12 @@ const AddChatMessageForm: React.FC = () => {
         setMessage('')
     }
     return <div>
-        {/*<div><textarea onChange={(e) => (setMessage(e.currentTarget.value))} value={message}></textarea></div>*/}
-        {/*<div><Input onChange={(e) => (setMessage(e.currentTarget.value))} value={message}></Input></div>*/}
         <div style={{marginLeft: 'auto', marginRight: 'auto'}}>
-            <Space.Compact style={{ paddingTop: '25px', paddingLeft: '10%', minWidth: '100%'}}>
+            <Space.Compact style={{paddingTop: '25px', paddingLeft: '10%', minWidth: '100%'}}>
                 <Button type="primary" disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</Button>
-                <Input placeholder="Borderless" bordered={false} maxLength={100} showCount onChange={(e) => (setMessage(e.currentTarget.value))} value={message} style={{maxWidth: '70%'}}/>
-                {/*<TextArea onChange={(e) => (setMessage(e.currentTarget.value))} value={message} maxLength={100} style={{ width: '70%', height: 32, marginBottom: 24 }}/>*/}
+                <Input placeholder="Write a message" bordered={false} maxLength={100} showCount
+                       onChange={(e) => (setMessage(e.currentTarget.value))} value={message} style={{maxWidth: '70%'}}/>
             </Space.Compact>
-            {/*<button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</button>*/}
-            {/*<Button style={{backgroundColor: '#1676fe'}} type='primary' size='middle' disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</Button>*/}
         </div>
 
     </div>
