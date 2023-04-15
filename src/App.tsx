@@ -1,10 +1,12 @@
 import React, {FC, Suspense} from 'react';
 import './App.css';
-import {HashRouter, Link, NavLink, Redirect, Route, withRouter} from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+import {BrowserRouter, HashRouter, Link, NavLink, Redirect, Route, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import UsersContainer from "./components/Users/UsersContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
@@ -12,7 +14,11 @@ import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/preloader/Preloader";
 import store, {AppStateType} from "./redux/redux-store";
 import {withSuspense} from "./hoc/WithSuspense";
-import {Layout, Menu} from 'antd';
+import {UploadOutlined, UserOutlined, VideoCameraOutlined} from '@ant-design/icons';
+import {Avatar, Col, Layout, Menu, Row, theme} from 'antd';
+import s from "./components/Navbar/Navbar.module.css";
+import userImg from "./assets/images/user.png";
+import header from "./components/Header/Header";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -79,7 +85,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                     </Menu>
                 </Sider>
                 <Layout style={{height: '100%'}}>
-                    <Header style={{padding: 0, background: 'colorBgContainer'}}/>
+                    <Header style={{padding: 0, background: 'colorBgContainer'}}><HeaderContainer/></Header>
                     <Content style={{margin: '24px 16px 0'}}>
                         <div>
                             <Suspense fallback={<div><Preloader/></div>}>
